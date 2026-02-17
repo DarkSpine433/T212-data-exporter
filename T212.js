@@ -13,38 +13,56 @@
 // 9. Wczytaj go na naszej platformie
 // 10. Powodzenia!
 
+//source code https://github.com/DarkSpine433/T212-CFD-DATA/
 async function getData() {
+  // 1. Pobieranie dat
   let fromDateStr = prompt(
     "Wpisz datę OD której ma wziąć dane (format RRRR-MM-DD):",
     `${new Date().getFullYear() - 1}-01-01`,
   );
-
   if (!fromDateStr) return;
+
   let toDateStr = prompt(
     "Wpisz datę DO której ma wziąć dane (format RRRR-MM-DD):",
     `${fromDateStr.split("-")[0]}-12-31`,
   );
-
   if (!toDateStr) return;
+
   let minDate = new Date(fromDateStr);
   let maxDate = new Date(toDateStr);
   let requestBase = `https://live.trading212.com/rest/reports/`;
   let requestFilter = `&perPage=20&from=${fromDateStr}&to=${toDateStr}`;
 
+  // 2. Mechanizm autoryzacji (Fix na błąd 401)
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  };
+  let session =
+    getCookie("TRADING212_SESSION_LIVE") || getCookie("CUSTOMER_SESSION");
+
   let auth = {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-Trading212-Session": session,
+    },
     credentials: "include",
   };
 
-  console.log(`Rozpoczynam pobieranie: ${fromDateStr} - ${toDateStr}`);
+  console.log(
+    `%c Rozpoczynam pobieranie: ${fromDateStr} - ${toDateStr}`,
+    "background: #222; color: #bada55",
+  );
 
+  // --- CZĘŚĆ 1: POZYCJE ---
   let positionDetails = [];
-
   try {
     let res = await (
       await fetch(requestBase + "positions?page=1" + requestFilter, auth)
     ).json();
-
     let totalSize = res.totalSize || 0;
     let pageCount = Math.ceil(totalSize / 20);
 
@@ -55,13 +73,19 @@ async function getData() {
 
       if (pageRes.data) {
         for (let pos of pageRes.data) {
-          await new Promise((r) => setTimeout(r, 100));
+          await new Promise((r) => setTimeout(r, 50));
 
+          // Pobieramy szczegóły (historię zdarzeń dla pozycji)
           let details = await (
             await fetch(requestBase + pos.orderNumber.link, auth)
           ).json();
 
-          if (details.length >= 2) {
+          if (details && details.length > 0) {
+            details.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+            let openEvent = details[0];
+            let closeEvent = details[details.length - 1];
+
             positionDetails.push({
               type: "POSITION",
               time: pos.dateClosed,
@@ -69,24 +93,24 @@ async function getData() {
               code: pos.code,
               orderName: pos.orderNumber.name,
               currency: pos.currency,
-              quantity: details[0].quantity,
-              direction: details[0].direction,
-              openPrice: details[0].price,
-              closePrice: details[1].price,
+              quantity: openEvent.quantity,
+              direction: openEvent.direction,
+              openPrice: openEvent.price,
+              closePrice: closeEvent.price,
               result: pos.result,
             });
           }
         }
       }
-
       console.log(`Pobrano pozycje: ${i}/${pageCount}`);
     }
   } catch (e) {
-    alert("Błąd przy pozycjach:", e);
+    console.error("Błąd przy pozycjach:", e);
+    alert("Wystąpił błąd przy pobieraniu pozycji. Sprawdź konsolę.");
   }
 
+  // --- CZĘŚĆ 2: OPŁATY (OVERNIGHT FEES) ---
   let feeDetails = [];
-
   try {
     let feeUrl = `https://live.trading212.com/rest/reports/overnight-holding-fee`;
     let res = await (
@@ -104,7 +128,6 @@ async function getData() {
         let mapped = pageRes.data
           .filter((f) => {
             let d = new Date(f.time);
-
             return d >= minDate && d <= maxDate;
           })
           .map((f) => ({
@@ -119,13 +142,13 @@ async function getData() {
           }));
         feeDetails = feeDetails.concat(mapped);
       }
-
       console.log(`Opłaty: strona ${i}/${pageCount}`);
     }
   } catch (e) {
-    alert("Błąd przy opłatach:", e);
+    console.error("Błąd przy opłatach:", e);
   }
 
+  // --- CZĘŚĆ 3: EKSPORT ---
   let combinedData = [...positionDetails, ...feeDetails];
   combinedData.sort((a, b) => new Date(a.time) - new Date(b.time));
 
@@ -136,6 +159,8 @@ async function getData() {
   a.href = URL.createObjectURL(blob);
   a.download = `T212_CFD_${fromDateStr}_${toDateStr}.json`;
   a.click();
-  alert(`Gotowe! Pobrano ${combinedData.length} rekordów.`);
+
+  alert(`Gotowe! Pobrano ${combinedData.length} rekordów (Pozycje + Opłaty).`);
 }
+
 getData();
