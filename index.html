@@ -193,8 +193,7 @@
         border: 1px solid var(--border);
         border-radius: 20px;
         padding: 30px;
-        display: flex;
-        align-items: center;
+
         gap: 20px;
         animation: fadeIn 1s ease-out;
       }
@@ -204,9 +203,10 @@
         height: 80px;
         border-radius: 50%;
         background: linear-gradient(45deg, #58a6ff, #bc8cff);
-        display: flex;
         align-items: center;
         justify-content: center;
+        display: flex;
+        flex-direction: column;
         font-size: 2rem;
         color: white;
         font-weight: bold;
@@ -244,8 +244,8 @@
         font-size: 0.8rem;
       }
       .avatar-img {
-        width: 100%;
-        height: 100%;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         object-fit: cover;
       }
@@ -364,13 +364,21 @@
       </section>
 
       <section class="attribution-card">
-        <div class="avatar">
+        <div class="avatar" style="display: block">
           <img class="avatar-img" src="https://github.com/DarkSpine433.png" />
         </div>
         <div class="info">
           <h4>Developed by Dawid Konopiaty</h4>
-          <p style="margin: 5px 0; font-size: 0.9rem; color: var(--text-muted)">
-            Specjalista ds. automatyzacji danych finansowych.
+          <p
+            style="
+              margin: 5px 0;
+              margin-bottom: 10px;
+              font-size: 0.9rem;
+              color: var(--text-muted);
+            "
+          >
+            Pasjonat programowania i inwestowania. Ten projekt powstał z myślą o
+            ułatwieniu życia inwestorom korzystającym z Trading212 CFD.
           </p>
           <div class="social-links">
             <a
