@@ -867,7 +867,7 @@ async function getData(getCurrencies = false) {
                     currency: position.currency,
                     interestInCurrency: -Math.abs(fxFee).toFixed(4),
                     accountCurrency: accountCurrency,
-                    interestInPLN: -Math.abs(fxFeePLN).toFixed(4),
+                    interestInAccountCurrency: -Math.abs(fxFeePLN).toFixed(4),
                   });
                 }
 
@@ -885,7 +885,6 @@ async function getData(getCurrencies = false) {
                   openPrice: entryPrice,
                   closePrice: exitPrice,
                   pnlNetPLN: netPnLPLN.toFixed(4),
-                  fxFeePLN: fxFeePLN.toFixed(4),
                 });
 
                 updateProgress(
