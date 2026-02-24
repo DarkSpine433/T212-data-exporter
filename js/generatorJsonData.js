@@ -38,7 +38,7 @@ const getInstruction = () => {
 `;
   return instruction;
 };
-// TO DO: Fix collapsing system of the t212 exporter window
+/* TO DO: Fix collapsing system of the t212 exporter window */
 async function getData(getCurrencies = false) {
   const nbpCache = {};
 
@@ -366,7 +366,7 @@ async function getData(getCurrencies = false) {
         ui.style.transition = "none";
       };
 
-      // Make minimize handle draggable when minimized
+      /* Make minimize handle draggable when minimized */
       const restoreHandle = document.getElementById("t212-restore-handle");
       let minimizeDrag = { active: false, startY: 0, startTop: 0 };
       restoreHandle.onpointerdown = (ev) => {
@@ -471,7 +471,7 @@ async function getData(getCurrencies = false) {
         };
         ui.classList.add("t212-minimized", `on-${side}`);
         ui.classList.remove("t212-minimized", "dragging");
-        // place at edge with small margin
+        /* place at edge with small margin */
         if (side === "right") {
           ui.style.left = "auto";
           ui.style.right = "8px";
@@ -496,7 +496,7 @@ async function getData(getCurrencies = false) {
           "on-right",
           "dragging",
         );
-        // restore to last rect if available
+        /* restore to last rect if available */
         if (uiLastRect) {
           ui.style.left =
             Math.max(
@@ -524,7 +524,7 @@ async function getData(getCurrencies = false) {
         fixUIPosition();
       };
 
-      // minimize button behavior
+      /* minimize button behavior */
       document.getElementById("t212-btn-min").onclick = () => {
         const r = ui.getBoundingClientRect();
         const side =
@@ -532,7 +532,7 @@ async function getData(getCurrencies = false) {
         minimizeUI(side);
       };
 
-      // restore handle: support click to restore and drag when minimized
+      /* restore handle: support click to restore and drag when minimized */
       const restoreHandleEl = document.getElementById("t212-restore-handle");
       let restorePointer = { dragging: false, startY: 0, startTop: 0 };
       restoreHandleEl.onclick = (e) => {
@@ -616,7 +616,7 @@ async function getData(getCurrencies = false) {
         scrollBtn.classList.remove("visible");
       };
 
-      // Combined toggle button: show/hide logs and blur live summary
+      /* Combined toggle button: show/hide logs and blur live summary */
       if (toggleBtn) {
         toggleBtn.onclick = () => {
           isLogsVisible = !isLogsVisible;
@@ -636,14 +636,14 @@ async function getData(getCurrencies = false) {
         };
       }
 
-      // Header blur button (separate): toggles only the live summary blur
+      /* Header blur button (separate): toggles only the live summary blur */
       const headerBlurBtn = document.getElementById("t212-btn-blur");
       if (headerBlurBtn) {
         headerBlurBtn.onclick = () => {
           const live = document.querySelector(".t212-live-summary");
           if (!live) return;
           const isNowBlurred = !live.classList.toggle("t212-blur");
-          // when toggled, update text and icon: if blurred -> show eyeOff + 'Pokaż wyniki'
+          /*   when toggled, update text and icon: if blurred -> show eyeOff + 'Pokaż wyniki' */
           if (live.classList.contains("t212-blur")) {
             headerBlurBtn.innerHTML = eyeOffIcon + " Pokaż wyniki";
           } else {
@@ -652,12 +652,12 @@ async function getData(getCurrencies = false) {
         };
       }
 
-      // Restore UI state from session if available
+      /* Restore UI state from session if available */
       try {
         const st = loadUIState();
         if (st && st.minimized) {
           const side = st.side || "right";
-          // apply minimize after small timeout so layout stabilizes
+          /* apply minimize after small timeout so layout stabilizes */
           setTimeout(() => {
             minimizeUI(side);
             if (st.top) ui.style.top = st.top;
@@ -666,7 +666,7 @@ async function getData(getCurrencies = false) {
       } catch (e) {}
     }
 
-    // Refresh UI content
+    /* Refresh UI content */
     if (summary) {
       const pnl = (summary["Zysk PLN"] || 0) + (summary["Strata PLN"] || 0);
       const tt =
@@ -744,7 +744,7 @@ async function getData(getCurrencies = false) {
     `Rozpoczęto pobieranie z Trading212...`,
   );
 
-  // mark downloading and warn on unload
+  /* mark downloading and warn on unload */
   isDownloading = true;
   beforeUnloadHandler = (e) => {
     if (isDownloading) {
@@ -923,7 +923,7 @@ async function getData(getCurrencies = false) {
   /*--- ODSETKI OD GOTÓWKI  ---*/
   try {
     let cursor = maxDate.getTime();
-    cursor += 24 * 60 * 60 * 1000; // +1 dzień zapasu
+    cursor += 24 * 60 * 60 * 1000; /* +1 dzień zapasu */
 
     let hasNext = true;
     const interestUrl = (requestBase + "interest/v2").replace(
@@ -1141,12 +1141,12 @@ SUMA NETTO: ${summary["Łącznie netto PLN"].toFixed(2)} PLN
     `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN`,
     false,
   );
-  // Manual close only - as requested by user
+  /* Manual close only - as requested by user */
 
   alert(
     `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj profesjonalnego narzędzia do obliczania podatków.`,
   );
-  // Replace spinner with green check if no errors occurred
+  /* Replace spinner with green check if no errors occurred */
   try {
     if (!encounteredError) {
       const sp = document.getElementById("t212-spinner");

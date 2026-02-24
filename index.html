@@ -527,12 +527,12 @@
       const rawCode = getData.toString();
 
       const bookmarkletCode = `javascript:(function(){(${rawCode})();})();`;
-      const encodedCode = encodeURI(bookmarkletCode);
+      const encodedCode = bookmarkletCode;
 
       document.getElementById("t212-bookmarklet").href = encodedCode;
 
       document.getElementById("raw-code-input").textContent =
-        `/*${getInstruction()}*/\n\n${bookmarkletCode}`;
+        `/*${getInstruction()}*/\n\n${rawCode}\n getData()`;
       document.getElementById("bookmarklet-code-input").textContent =
         `${encodedCode}`;
 
