@@ -1,6 +1,20 @@
 <!doctype html>
 <html lang="pl">
   <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4G118Q2EH2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-4G118Q2EH2");
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -484,10 +498,7 @@
                 cursor: pointer;
               "
               onclick="
-                window.open(
-                  'https:\/\/github.com/DarkSpine433/T212-CFD-DATA',
-                  '_blank',
-                )
+                window.open('https:/\/github.com/DarkSpine433', '_blank')
               "
             >
               Zobacz kod na GitHub
@@ -516,7 +527,7 @@
       import { getData, getInstruction } from "./js/generatorJsonData.js";
       document
         .querySelectorAll(".date")
-        .forEach((el) => (el.textContent = "21.02.2026"));
+        .forEach((el) => (el.textContent = "24.02.2026"));
 
       const currencies = await getData(true);
       document.querySelectorAll(".availableCurriences").forEach((el) => {
@@ -527,9 +538,11 @@
       const rawCode = getData.toString();
 
       const bookmarkletCode = `javascript:(function(){(${rawCode})();})();`;
-      const encodedCode = bookmarkletCode;
+      const encodedCode =
+        "javascript:" +
+        encodeURIComponent(bookmarkletCode.slice("javascript:".length));
 
-      document.getElementById("t212-bookmarklet").href = encodedCode;
+      document.getElementById("t212-bookmarklet").href = `${encodedCode}`;
 
       document.getElementById("raw-code-input").textContent =
         `/*${getInstruction()}*/\n\n${rawCode}\n getData()`;

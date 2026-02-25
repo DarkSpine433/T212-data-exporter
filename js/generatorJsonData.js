@@ -927,7 +927,7 @@ async function getData(getCurrencies = false) {
 
     let hasNext = true;
     const interestUrl = (requestBase + "interest/v2").replace(
-      /([^:]\/)\/+/g,
+      /([^:]\/)\/ +/g,
       "$1",
     );
 
