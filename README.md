@@ -24,25 +24,6 @@ Darmowe narzędzie open-source umożliwiające eksport szczegółowych danych tr
 
 ---
 
-## 🛠️ Jak korzystać z narzędzia?
-
-⚠️ **UWAGA:** W najnowszej wersji opcja "Bookmarklet" oraz działanie na urządzeniach mobilnych mogą być niestabilne. **Obecnie zalecaną i najpewniejszą metodą jest użycie konsoli DevTools na komputerze.**
-
-### 💻 Metoda: Konsola DevTools (Zalecana)
-
-1. Przejdź na [stronę projektu](https://darkspine433.github.io/T212-CFD-DATA/) i skopiuj **"Kod skryptu"** z sekcji nr 2.
-2. Zaloguj się do platformy **Trading212** w przeglądarce (Chrome, Edge, Firefox) i przejdź na konto **CFD**.
-3. Otwórz Narzędzia Deweloperskie wciskając klawisz `F12` i przejdź do zakładki **Console** (Konsola).
-4. Wklej skopiowany kod i wciśnij `Enter`.
-   _(Jeśli przeglądarka zablokuje wklejanie, wpisz najpierw `allow pasting` i naciśnij Enter)._
-5. Wyskoczą okienka (prompty) – podaj w nich:
-   - Walutę konta (np. `PLN`, `EUR`, `USD`).
-   - Datę początkową (np. `2024-01-01`).
-   - Datę końcową (np. `2024-12-31`).
-6. Obserwuj postęp w prawym górnym rogu ekranu. Po zakończeniu, plik `.json` pobierze się automatycznie.
-
----
-
 ## 🐛 Zgłaszanie Błędów i Rozwiązywanie Problemów
 
 Ze względu na to, że API Trading212 potrafi zwracać ogromne ilości danych, skrypt może czasami natrafić na błąd (np. zatrzymać się na konkretnej stronie). W najnowszej wersji wprowadzono system logowania, który pozwala łatwo namierzyć problem.
@@ -81,9 +62,3 @@ Projekt jest rozwijany dla społeczności inwestorów. Jeśli masz pomysł na ul
 ## ⚖️ Disclaimer (Oświadczenie o wyłączeniu odpowiedzialności)
 
 Narzędzie jest udostępniane "tak jak jest" (as-is), na licencji Open Source, całkowicie za darmo. Autor (Dawid Konopiaty) nie ponosi odpowiedzialności za ewentualne błędy w obliczeniach matematycznych, ubytki danych oraz ewentualne konsekwencje prawno-podatkowe wynikające z użycia wygenerowanego pliku JSON w deklaracjach podatkowych.
-
-Generowany plik **zawsze powinieneś traktować jako estymację i pomoc**.
-
----
-
-**Twórca i Główny Deweloper:** Dawid Konopiaty ([@DarkSpine433](https://github.com/DarkSpine433))

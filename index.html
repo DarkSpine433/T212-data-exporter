@@ -143,7 +143,15 @@
       </header>
 
       <div class="container" style="margin: 0 auto">
+        <nav id="menu">
+          <a href="#markdown-content">O Narzędziu</a>
+          <a href="#instructions-header">Instrukcje</a>
+        </nav>
         <main class="tool-card">
+          <div id="markdown-content">Loading github markdown...</div>
+          <hr style="margin-top: 40px" />
+          <hr style="margin-top: 40px" />
+          <h2 id="instructions-header">Instrukcje</h2>
           <div
             class="warning-box"
             style="padding: 10px; margin-top: 10px; border-radius: 10px"
@@ -522,7 +530,21 @@
       </script>
       Dawid Konopiaty
     </footer>
-
+    <script type="module">
+      import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+      async function getMarkdownData() {
+        try {
+          const response = await fetch("README.md");
+          const text = await response.text();
+          return text;
+        } catch (error) {
+          console.error("Could not read file", error);
+        }
+      }
+      const markdownText = await getMarkdownData();
+      document.getElementById("markdown-content").innerHTML =
+        marked.parse(markdownText);
+    </script>
     <script type="module">
       import { getData, getInstruction } from "./js/generatorJsonData.js";
       document

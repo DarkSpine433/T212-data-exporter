@@ -14,6 +14,8 @@
 * {
   box-sizing: border-box;
   transition: all 0.3s ease;
+  scroll-behavior: smooth;
+  scroll-padding-top: 50px;
 }
 
 body {
@@ -135,17 +137,17 @@ h1 {
   width: 95%;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
 }
 
 .tool-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 0 0 20px 20px;
   padding: 40px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.8s ease-out;
+  margin-bottom: 20px;
 }
 
 .step-box {
@@ -321,4 +323,79 @@ kbd {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
+}
+#markdown-content {
+  color: #fff;
+  margin-top: 0;
+  text-align: left;
+}
+#markdown-content a {
+  color: var(--accent);
+  text-decoration: none;
+}
+#instructions-header {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 3.5rem;
+  color: #fff;
+  text-decoration: underline;
+}
+#menu {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 15px 20px;
+  transition: all 0.3s ease;
+}
+
+#menu a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#menu a:hover {
+  color: var(--accent);
+}
+
+#menu a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+#menu a:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  #menu {
+    gap: 20px;
+    padding: 12px 10px;
+  }
+  #menu a {
+    font-size: 0.8rem;
+  }
 }
