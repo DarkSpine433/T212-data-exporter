@@ -962,7 +962,7 @@ async function getData(getCurrencies = false) {
 
     let hasNext = true;
     const interestUrl = (requestBase + "interest/v2").replace(
-      /([^:]\/)\/ +/g,
+      /([^:]\/)\/+/g,
       "$1",
     );
 
@@ -974,9 +974,7 @@ async function getData(getCurrencies = false) {
         `Pobieram odsetki (wcześniejsze od ${new Date(cursor).toISOString().split("T")[0]})`,
       );
 
-      const response = await (
-        await fetchWithRetry(requestBase + `${fetchUrl}`, auth)
-      ).json();
+      const response = await fetchWithRetry(fetchUrl, auth);
 
       if (!response.ok) {
         updateProgress(
@@ -1070,7 +1068,7 @@ async function getData(getCurrencies = false) {
   try {
     const feeUrl = `https://live.trading212.com/rest/reports/overnight-holding-fee`;
     const res = await (
-      await fetch(feeUrl + "?page=1" + requestFilter, auth)
+      await fetchWithRetry(feeUrl + "?page=1" + requestFilter, auth)
     ).json();
 
     const totalSize = res.totalSize || 0;
@@ -1079,9 +1077,7 @@ async function getData(getCurrencies = false) {
     for (let i = 1; i <= pageCount; i++) {
       const fetchUrl = `${feeUrl}?page=${i}` + requestFilter;
 
-      const pageRes = await (
-        await fetchWithRetry(requestBase + `${fetchUrl}`, auth)
-      ).json();
+      const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
 
       if (pageRes.data) {
         for (let overnightFee of pageRes.data) {
@@ -1120,7 +1116,7 @@ async function getData(getCurrencies = false) {
       );
     }
   } catch (e) {
-    const errorMsg = `Błąd przy opłatach overnight: ${e.toString()}`;
+    const errorMsg = `Błąd przy opłatach overnight. Zapisz logi i załącz je do zgłoszenia Problemu`;
     console.error(errorMsg);
     updateProgress(null, -1, errorMsg, errorMsg, false);
     stopDownloadingCleanup();
