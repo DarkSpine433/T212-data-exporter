@@ -1,76 +1,89 @@
 # 🚀 Trading212 CFD Data Exporter
 
-[![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
-[![GitHub license](https://img.shields.io/github/license/DarkSpine433/T212-CFD-DATA?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
+[![License](https://img.shields.io/github/license/DarkSpine433/T212-CFD-DATA?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/blob/main/LICENSE)
 
-Darmowe narzędzie open-source umożliwiające eksport szczegółowych danych transakcyjnych z konta **Trading212 CFD** do formatu JSON. Narzędzie zostało stworzone z myślą o inwestorach potrzebujących precyzyjnych danych do rozliczeń podatkowych (np. w Polsce do formularza **PIT-38**).
+Darmowe narzędzie open-source umożliwiające eksport szczegółowych danych transakcyjnych z konta **Trading212 CFD** do formatu JSON. Projekt rozwiązuje problem braku natywnego eksportu danych CFD na platformie, dostarczając plik gotowy do rozliczeń podatkowych (np. dla polskiego formularza **PIT-38** i popularnych kalkulatorów giełdowych).
 
-👉 **Strona narzędzia:** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
+👉 **Oficjalna strona i generator skryptu:** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
 
 ---
 
 ## ✨ Kluczowe Funkcje
 
-- **Eksport Pozycji:** Pobiera dane o zamkniętych i częściowo zamkniętych pozycjach CFD.
-- **Kalkulacja FX Fee:** Automatycznie wylicza koszty przewalutowania (0.5%) dla transakcji w walutach obcych.
-- **Odsetki od Gotówki:** Eksportuje dane o odsetkach naliczonych od niezainwestowanych środków (Interest on Cash v2).
-- **Opłaty Overnight:** Pobiera historię opłat za przetrzymywanie pozycji przez noc (Holding Fees).
-- **Zgodność z PIT-38:** Wygenerowany plik JSON jest zoptymalizowany pod kątem popularnych narzędzi podatkowych, takich jak [kalkulatorgieldowy.pl](https://kalkulatorgieldowy.pl).
-- **Bezpieczeństwo:** Skrypt działa w 100% lokalnie w przeglądarce. Twoje dane sesyjne i transakcyjne nie opuszczają Twojego komputera.
+- **Zgodność z Polskim Prawem Podatkowym:** Skrypt automatycznie pobiera kursy średnie z API NBP z dnia poprzedzającego uzyskanie przychodu/poniesienie kosztu.
+- **Kompleksowy eksport:** Pobiera dane o:
+  - Zamkniętych pozycjach (oblicza PnL i uwzględnia częściowe zamknięcia).
+  - Opłatach za przewalutowanie (`FEE_FX`).
+  - Odsetkach od niezainwestowanej gotówki (`CASH_INTEREST`).
+  - Opłatach za przetrzymywanie pozycji przez noc (`FEE_OVERNIGHT`).
+- **Interaktywne UI (Nowość!):** Skrypt po uruchomieniu wyświetla na stronie T212 nowoczesny, ruchomy panel z paskiem postępu, estymowanym wynikiem netto na żywo oraz konsolą logów.
+- **Anti-Ban System:** Wbudowany mechanizm _Retry_ z opóźnieniem (Exponential Backoff), który chroni przed nałożeniem blokady "Too Many Requests" (błąd 429) przez serwery Trading212.
+- **100% Prywatności:** Skrypt działa w całości lokalnie w Twojej przeglądarce. Dane nie są wysyłane na żadne zewnętrzne serwery.
 
 ---
 
-## 🛠️ Jak to działa?
+## 🛠️ Jak korzystać z narzędzia?
 
-Trading212 nie oferuje bezpośredniego eksportu do JSON dla kont CFD w swoim interfejsie. To narzędzie wykorzystuje Twoją aktywną sesję w przeglądarce, aby bezpiecznie pobrać te dane bezpośrednio z oficjalnego API Trading212.
+⚠️ **UWAGA:** W najnowszej wersji opcja "Bookmarklet" oraz działanie na urządzeniach mobilnych mogą być niestabilne. **Obecnie zalecaną i najpewniejszą metodą jest użycie konsoli DevTools na komputerze.**
 
-### Metoda 1: Bookmarklet (Rekomendowana)
+### 💻 Metoda: Konsola DevTools (Zalecana)
 
-1. Dodaj przycisk ze [strony głównej](https://darkspine433.github.io/T212-CFD-DATA/) do paska zakładek.
-2. Zaloguj się na Trading212 i przejdź na konto CFD.
-3. Kliknij zapisaną zakładkę i postępuj zgodnie z komunikatami.
+1. Przejdź na [stronę projektu](https://darkspine433.github.io/T212-CFD-DATA/) i skopiuj **"Kod skryptu"** z sekcji nr 2.
+2. Zaloguj się do platformy **Trading212** w przeglądarce (Chrome, Edge, Firefox) i przejdź na konto **CFD**.
+3. Otwórz Narzędzia Deweloperskie wciskając klawisz `F12` i przejdź do zakładki **Console** (Konsola).
+4. Wklej skopiowany kod i wciśnij `Enter`.
+   _(Jeśli przeglądarka zablokuje wklejanie, wpisz najpierw `allow pasting` i naciśnij Enter)._
+5. Wyskoczą okienka (prompty) – podaj w nich:
+   - Walutę konta (np. `PLN`, `EUR`, `USD`).
+   - Datę początkową (np. `2024-01-01`).
+   - Datę końcową (np. `2024-12-31`).
+6. Obserwuj postęp w prawym górnym rogu ekranu. Po zakończeniu, plik `.json` pobierze się automatycznie.
 
-### Metoda 2: Konsola DevTools (Dla zaawansowanych / Mobile)
+---
 
-1. Skopiuj kod ze strony.
-2. Na stronie Trading212 otwórz konsolę (`F12` -> Console).
-3. Wklej kod i naciśnij `Enter`.
+## 🐛 Zgłaszanie Błędów i Rozwiązywanie Problemów
+
+Ze względu na to, że API Trading212 potrafi zwracać ogromne ilości danych, skrypt może czasami natrafić na błąd (np. zatrzymać się na konkretnej stronie). W najnowszej wersji wprowadzono system logowania, który pozwala łatwo namierzyć problem.
+
+### Jak poprawnie zgłosić błąd?
+
+1. **Zapisz Logi:** Jeśli skrypt się zawiesi lub na panelu wyświetli się czerwony komunikat o błędzie (np. `true` lub `TypeError`), kliknij przycisk **"Zapisz Logi"** w panelu narzędzia na stronie T212. Zostanie pobrany plik `T212_Logs.txt`.
+2. **Przejdź do zakładki:** [Issues](https://github.com/DarkSpine433/T212-CFD-DATA/issues) w tym repozytorium.
+3. **Stwórz zgłoszenie:** Kliknij `New issue`.
+4. **Opisz problem:** _ Podaj, co dokładnie się stało (np. _"Skrypt zatrzymuje się na pobieraniu opłat overnight, na stronie 119 z 165"\*).
+   - Dołącz pobrany plik `T212_Logs.txt` (możesz go przeciągnąć i upuścić w polu tekstowym zgłoszenia) lub wklej kilka ostatnich linijek z logów.
+   - Dołącz zrzut ekranu panelu bocznego, jeśli widzisz tam komunikat.
+
+Dzięki plikom z logami, naprawa błędów będzie znacznie szybsza!
 
 ---
 
 ## 🏗️ Struktura Projektu
 
-- `index.html`: Główna strona wizytówka z instrukcjami i generatorem kodu.
-- `style.css`: System projektowy (Premium Dark Design) zapewniający responsywność i estetykę.
-- `js/generatorJsonData.js`: Rdzeń aplikacji – logika komunikacji z API i przetwarzania danych.
-- `js/oldCode.js`: Archiwalna wersja skryptu.
-
----
-
-## 🛡️ Bezpieczeństwo i Prywatność
-
-- **Kod Open Source:** Każdy może sprawdzić, co dokładnie robi skrypt przed jego uruchomieniem.
-- **Brak Serwera:** Narzędzie nie posiada backendu. Komunikacja odbywa się wyłącznie na linii Twoja Przeglądarka ↔ Trading212 API.
-- **Brak Przechowywania Danych:** Wygenerowane dane są zapisywane jako plik tymczasowy w pamięci RAM przeglądarki i natychmiast oferowane do pobrania na dysk.
+- `index.html` - Strona wizytówka i generator czystego kodu.
+- `style.css` - System projektowy strony (Premium Dark Design).
+- `js/generatorJsonData.js` - Główny silnik aplikacji. Komunikuje się z API T212, odpytuje serwery NBP i renderuje pływający interfejs użytkownika.
 
 ---
 
 ## 👨‍💻 Kontrybucja
 
-Projekt jest rozwijany przez społeczność dla społeczności. Jeśli chcesz pomóc:
+Projekt jest rozwijany dla społeczności inwestorów. Jeśli masz pomysł na ulepszenie narzędzia lub naprawiłeś istniejący błąd:
 
-1. Zrób Fork repozytorium.
-2. Wprowadź zmiany lub poprawki.
-3. Otwórz Pull Request.
-
-Wszystkie zgłoszenia błędów i propozycje funkcji (Issues) są mile widziane!
+1. Zrób Fork tego repozytorium.
+2. Wprowadź swoje zmiany w branchu.
+3. Otwórz Pull Request opisując co ulepszyłeś.
 
 ---
 
-## ⚖️ Disclaimer
+## ⚖️ Disclaimer (Oświadczenie o wyłączeniu odpowiedzialności)
 
-Narzędzie jest udostępniane "tak jak jest" (as-is), bez żadnych gwarancji. Jako autor nie ponoszę odpowiedzialności za ewentualne błędy w obliczeniach lub konsekwencje podatkowe wynikające z użycia tych danych. Zawsze weryfikuj dane z oficjalnymi raportami PDF z Trading212.
+Narzędzie jest udostępniane "tak jak jest" (as-is), na licencji Open Source, całkowicie za darmo. Autor (Dawid Konopiaty) nie ponosi odpowiedzialności za ewentualne błędy w obliczeniach matematycznych, ubytki danych oraz ewentualne konsekwencje prawno-podatkowe wynikające z użycia wygenerowanego pliku JSON w deklaracjach podatkowych.
+
+Generowany plik **zawsze powinieneś traktować jako estymację i pomoc**.
 
 ---
 
-**Autor:** Dawid Konopiaty ([@DarkSpine433](https://github.com/DarkSpine433))
+**Twórca i Główny Deweloper:** Dawid Konopiaty ([@DarkSpine433](https://github.com/DarkSpine433))

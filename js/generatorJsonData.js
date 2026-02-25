@@ -1051,6 +1051,8 @@ async function getData(getCurrencies = false) {
         if (!res.hasNext || cursor < minDate.getTime()) {
           hasNext = false;
         }
+
+        await new Promise((r) => setTimeout(r, 100));
       } else {
         hasNext = false;
       }
