@@ -143,36 +143,125 @@ async function getData(
     return currencyList;
   }
 
-  /*---  Pobieranie dat ---*/
-  const accountCurrencyPrompt = currencyPredifined
-    ? currencyPredifined
-    : prompt("Wpisz walute twojego konta (np. PLN, EUR, USD):", "PLN");
-  if (accountCurrencyPrompt === null) return;
-  const accountCurrency = accountCurrencyPrompt.toUpperCase();
+  /*---  Pobieranie Konfiguracji (Asynchroniczne okno dialogowe) ---*/
+  const getConfigurationFields = () => {
+    return new Promise((resolve, reject) => {
+      // Jeśli wartości są podane jako argumenty do getData, nie pokazujemy formularza
+      if (currencyPredifined && startDatePredifined && endDatePredifined) {
+        resolve({
+          currency: currencyPredifined.toUpperCase(),
+          startDate: startDatePredifined,
+          endDate: endDatePredifined,
+        });
+        return;
+      }
 
-  if (!currencyList.includes(accountCurrency)) {
+      // Utworzenie nakładki
+      const overlay = document.createElement("div");
+      overlay.id = "t212-exporter-config-overlay";
+      overlay.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px);
+        display: flex; align-items: center; justify-content: center; z-index: 2147483647;
+        font-family: -apple-system, system-ui, sans-serif;
+      `;
+
+      const currentYear = new Date().getFullYear();
+      const defaultStart = `${currentYear - 1}-01-01`;
+      const defaultEnd = `${currentYear - 1}-12-31`;
+
+      const dialog = document.createElement("div");
+      dialog.style.cssText = `
+        background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1); 
+        border-radius: 24px; padding: 30px; width: 400px; max-width: 90vw;
+        color: #f8fafc; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      `;
+
+      dialog.innerHTML = `
+        <h2 style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #fff;">Konfiguracja Eksportu</h2>
+        <p style="margin: 0 0 20px 0; font-size: 13px; color: #94a3b8;">Podaj walutę konta Trading212 CFD oraz zakres dat.</p>
+        
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Waluta</label>
+          <select id="t212-cfg-currency" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none;">
+            ${currencyList.map((c) => `<option value="${c}" ${c === "PLN" ? "selected" : ""}>${c}</option>`).join("")}
+          </select>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Data Początkowa (OD)</label>
+          <input type="date" id="t212-cfg-start" value="${defaultStart}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
+        </div>
+        
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Data Końcowa (DO)</label>
+          <input type="date" id="t212-cfg-end" value="${defaultEnd}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
+        </div>
+        
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button id="t212-cfg-cancel" style="padding: 10px 16px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s;">Anuluj</button>
+          <button id="t212-cfg-submit" style="padding: 10px 20px; background: #3b82f6; border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); transition: background 0.2s;">Rozpocznij Pobieranie</button>
+        </div>
+      `;
+
+      overlay.appendChild(dialog);
+      document.body.appendChild(overlay);
+
+      // Dodanie małych efektów hover
+      const cancelBtn = document.getElementById("t212-cfg-cancel");
+      const submitBtn = document.getElementById("t212-cfg-submit");
+
+      cancelBtn.onmouseenter = () =>
+        (cancelBtn.style.background = "rgba(255,255,255,0.05)");
+      cancelBtn.onmouseleave = () =>
+        (cancelBtn.style.background = "transparent");
+
+      submitBtn.onmouseenter = () => (submitBtn.style.background = "#2563eb");
+      submitBtn.onmouseleave = () => (submitBtn.style.background = "#3b82f6");
+
+      cancelBtn.onclick = () => {
+        overlay.remove();
+        resolve(null);
+      };
+
+      submitBtn.onclick = () => {
+        const selectedCurrency =
+          document.getElementById("t212-cfg-currency").value;
+        const selectedStart = document.getElementById("t212-cfg-start").value;
+        const selectedEnd = document.getElementById("t212-cfg-end").value;
+
+        if (!selectedStart || !selectedEnd) {
+          alert("Wypełnij obie daty!");
+          return;
+        }
+
+        if (new Date(selectedStart) > new Date(selectedEnd)) {
+          alert("Data początkowa nie może być późniejsza niż data końcowa.");
+          return;
+        }
+
+        overlay.remove();
+        resolve({
+          currency: selectedCurrency.toUpperCase(),
+          startDate: selectedStart,
+          endDate: selectedEnd,
+        });
+      };
+    });
+  };
+
+  const config = await getConfigurationFields();
+  if (!config) return; // User cancelled
+
+  if (!currencyList.includes(config.currency)) {
     alert(
-      `Nie obsługiwana waluta ${accountCurrency}. Obsługiwane waluty to ${currencyList.join(", ")}`,
+      `Nie obsługiwana waluta ${config.currency}. Obsługiwane waluty to ${currencyList.join(", ")}`,
     );
     return;
   }
 
-  const fromDateStr = currencyPredifined
-    ? currencyPredifined
-    : prompt(
-        "Wpisz datę OD której ma wziąć dane (format RRRR-MM-DD):",
-        `${new Date().getFullYear() - 1}-01-01`,
-      );
-  if (!fromDateStr) return;
-
-  const toDateStrInput = currencyPredifined
-    ? currencyPredifined
-    : prompt(
-        "Wpisz datę DO której ma wziąć dane (format RRRR-MM-DD):",
-        `${fromDateStr.split("-")[0]}-12-31`,
-      );
-  if (!toDateStrInput) return;
-  const toDateStr = toDateStrInput;
+  const accountCurrency = config.currency;
+  const fromDateStr = config.startDate;
+  const toDateStr = config.endDate;
 
   const minDate = new Date(fromDateStr);
   const maxDate = new Date(toDateStr);
