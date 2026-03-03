@@ -399,10 +399,10 @@ async function getData(
       const saveIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>`;
       const successIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#16a34a"/><path d="M6.5 12.5l3 3 7-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
       const downIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>`;
-      const maximizeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2-icon lucide-maximize-2"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>`;
+      const maximizeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2-icon lucide-maximize-2"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>`;
 
       ui.innerHTML = `
-        <div style="padding:12px 10px;" class="t212-minimize-handle" id="t212-restore-handle"><span style="margin-bottom:10px;">T212 Exporter</span> ${maximizeIcon}</div>
+        <div  class="t212-minimize-handle" id="t212-restore-handle"><span style="margin-bottom:5px; margin-top:20px;">T212 Exporter</span><span style="margin-bottom:10px; margin-top:5px;">${maximizeIcon}</span></div>
         <div class="t212-header">
          
     
@@ -570,7 +570,7 @@ async function getData(
         ui.style.transition = "none";
         ui.style.width = r.width + "px";
         ui.style.height = r.height + "px";
-        ui.offsetHeight; // force reflow
+        ui.offsetHeight;
 
         isMinimized = true;
         ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
@@ -592,7 +592,6 @@ async function getData(
         const r = ui.getBoundingClientRect();
         const side = ui.classList.contains("on-right") ? "right" : "left";
 
-        // Disable transitions for calculation
         ui.style.transition = "none";
         ui.classList.remove(
           "t212-minimized",
@@ -601,21 +600,18 @@ async function getData(
           "dragging",
         );
 
-        // Measure the natural size
         ui.style.width = "380px";
         ui.style.height = "auto";
         const targetHeight = ui.getBoundingClientRect().height;
 
-        // Revert to minimized form to start animation
         ui.style.width = "36px";
         ui.style.height = "120px";
         ui.style.left = r.left + "px";
         ui.style.top = r.top + "px";
         ui.classList.add("t212-minimized", `on-${side}`);
 
-        ui.offsetHeight; // force reflow
+        ui.offsetHeight;
 
-        // Remove min classes to animate out
         isMinimized = false;
         ui.classList.remove("t212-minimized", `on-${side}`);
         ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
