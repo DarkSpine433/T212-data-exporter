@@ -399,3 +399,7 @@ kbd {
     font-size: 0.8rem;
   }
 }
+a {
+  color: var(--accent);
+  text-decoration: none;
+}

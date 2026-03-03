@@ -220,46 +220,26 @@
               "
             >
               <li>
-                Otwórz <b>Chrome</b> lub <b>Firefox</b> i zaloguj się do swojego
-                konta <b>Trading212</b>.
+                Otwórz stronę <b>Trading212</b> (<a
+                  href="https://app.trading212.com"
+                  >app.trading212.com</a
+                >).
               </li>
               <li>
-                Upewnij się, że jesteś na koncie <b>CFD</b>. Następnie kliknij
-                zakładkę <b>🚀 T212 Export Tool</b> zapisaną wcześniej na Twoim
-                pasku zakładek.
+                Kliknij zakładkę <b>🚀 T212 Export Tool</b> zapisaną wcześniej
+                na Twoim pasku zakładek.
               </li>
               <li>
-                W pierwszym oknie wpisz <b>walutę swojego konta</b> Obsługiwane
-                Waluty:<span class="availableCurriences">
-                  <kbd>PLN</kbd>, <kbd>EUR</kbd>, <kbd>USD</kbd>
-                </span>
+                W oknie które się pojawi wybierz z listy
+                <b>walutę swojego konta</b>
+                i wybierz daty <b>OD</b> oraz <b>DO</b>. Transakcji które mają
+                zostać pobrane
               </li>
               <li>
-                W kolejnym oknie wpisz datę <b>POCZĄTKOWĄ</b> (format:
-                <kbd>RRRR-MM-DD</kbd>).
+                Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
+                <b>.json</b>.
               </li>
-              <li>
-                Następnie wpisz datę <b>KOŃCOWĄ</b> (format:
-                <kbd>RRRR-MM-DD</kbd>).
-              </li>
-              <li>
-                Zatwierdź i poczekaj na wygenerowanie danych (może to potrwać od
-                10 do 60 sekund). Po zakończeniu kliknij <b>OK</b> w komunikacie
-                podsumowującym.
-              </li>
-              <li>
-                Plik <b>T212_CFD_[zakres_dat].json</b> zostanie automatycznie
-                pobrany na Twój komputer.
-                <br />
-                <small style="color: var(--text-muted)">
-                  ⚠️ Nazwa pliku będzie dynamicznie dopasowana do wybranego
-                  przez Ciebie okresu.
-                </small>
-              </li>
-              <li>
-                Wczytaj pobrany plik na platformę wspierającą raporty JSON z
-                tego skryptu.
-              </li>
+              <li>Wczytaj plik na platformie wspierającej format T212 JSON.</li>
             </ol>
           </div>
           <hr style="margin: 40px 0 20px 0" />
@@ -306,10 +286,15 @@
               "
             >
               <li>
-                Otwórz <b>Chrome</b> lub <b>Firefox</b> i zaloguj się do
-                <b>Trading212</b>.
+                Skopiuj kod przyciskiem <b>"Kopiuj kod skryptu"</b> (sekcja
+                powyżej).
               </li>
-              <li>Przejdź na konto <b>CFD</b>.</li>
+              <li>
+                Otwórz stronę <b>Trading212</b> (<a
+                  href="https://app.trading212.com"
+                  >app.trading212.com</a
+                >).
+              </li>
               <li>
                 Otwórz narzędzia deweloperskie: naciśnij klawisz <kbd>F12</kbd>.
               </li>
@@ -323,32 +308,14 @@
                 >
               </li>
               <li>
-                W pierwszym oknie wpisz <b>walutę swojego konta</b> Obsługiwane
-                Waluty:<span class="availableCurriences">
-                  <kbd>PLN</kbd>, <kbd>EUR</kbd>, <kbd>USD</kbd>
-                </span>
+                W oknie które się pojawi wybierz z listy
+                <b>walutę swojego konta</b>
+                i wybierz daty <b>OD</b> oraz <b>DO</b>. Transakcji które mają
+                zostać pobrane
               </li>
               <li>
-                W kolejnym oknie wpisz datę <b>OD</b> (format:
-                <kbd>RRRR-MM-DD</kbd>).
-              </li>
-              <li>
-                W następnym oknie wpisz datę <b>DO</b> (format:
-                <kbd>RRRR-MM-DD</kbd>).
-              </li>
-              <li>
-                Zatwierdź i poczekaj na wygenerowanie danych (może to zająć ok.
-                30-60 sekund). Po zakończeniu kliknij <b>OK</b> w oknie
-                podsumowania.
-              </li>
-              <li>
-                Plik <b>T212_CFD_[zakres_dat].json</b> zostanie pobrany
-                automatycznie.
-                <br />
-                <small style="color: var(--text-muted)"
-                  >⚠️ Nazwa pliku będzie odpowiadać wybranemu przez Ciebie
-                  zakresowi dat.</small
-                >
+                Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
+                <b>.json</b>.
               </li>
               <li>Wczytaj plik na platformie wspierającej format T212 JSON.</li>
             </ol>
@@ -368,9 +335,9 @@
               class="warning-box"
               style="padding: 10px; margin-top: 10px; border-radius: 10px"
             >
-              ⚠️ <b>WAŻNE:</b> Działa pobieranie danych z T212 na urządzeniach
-              mobilnych póki co tylko działa na przeglądarce Firefox. Chrome nie
-              wspiera tej funkcji, reszta przeglądarek nie była testowana.
+              ⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera obecnie
+              tylko przeglądarkę Firefox. Funkcjonalność nie jest dostępna w
+              Chrome, a pozostałe przeglądarki nie były testowane.
             </div>
             <div class="code-wrapper">
               <pre
@@ -410,8 +377,14 @@
                 powyżej).
               </li>
               <li>
-                Otwórz stronę Trading212 w przeglądarce, dodaj ją do
-                <b>Zakładek</b> (ikona gwiazdki lub menu udostępniania).
+                Otwórz stronę <b>Trading212</b> (<a
+                  href="https://app.trading212.com"
+                  >app.trading212.com</a
+                >).
+              </li>
+              <li>
+                W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki lub
+                menu udostępniania).
               </li>
               <li>
                 Przejdź do edycji tej zakładki. Zmień jej nazwę na:
@@ -419,11 +392,10 @@
               </li>
               <li>
                 W polu <b>Adres URL</b> usuń aktualny link i wklej skopiowany
-                kod (zaczynający się od <code>javascript:</code>). Zapisz
-                zmiany.
+                kod. Zapisz zmiany.
               </li>
               <li>
-                <b>Uruchomienie:</b> Będąc na zalogowanym koncie CFD, kliknij w
+                <b>Uruchomienie:</b> Będąc na zalogowanym koncie T212, kliknij w
                 pasek adresu przeglądarki i wpisz: <kbd>T212 Export</kbd>.
               </li>
               <li>
@@ -432,14 +404,16 @@
                 stronie.
               </li>
               <li>
-                W oknach, które się pojawią, podaj kolejno:
-                <b>Walutę konta</b> (np. <kbd>PLN</kbd>), <b>Datę OD</b> oraz
-                <b>Datę DO</b> (format: <kbd>RRRR-MM-DD</kbd>).
+                W oknie które się pojawi wybierz z listy
+                <b>walutę swojego konta</b>
+                i wybierz daty <b>OD</b> oraz <b>DO</b>. Transakcji które mają
+                zostać pobrane
               </li>
               <li>
                 Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
                 <b>.json</b>.
               </li>
+              <li>Wczytaj plik na platformie wspierającej format T212 JSON.</li>
             </ol>
             <p
               style="
@@ -550,7 +524,7 @@
       import { getData, getInstruction } from "./js/generatorJsonData.js";
       document
         .querySelectorAll(".date")
-        .forEach((el) => (el.textContent = "24.02.2026"));
+        .forEach((el) => (el.textContent = "03.03.2026"));
 
       const currencies = await getData(true);
       document.querySelectorAll(".availableCurriences").forEach((el) => {

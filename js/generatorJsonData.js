@@ -6,34 +6,19 @@ const getInstruction = () => {
   Platforma Trading212 nie posiada natywnego eksportu danych CFD.
   Ten skrypt generuje plik JSON gotowy do rozliczeń podatkowych.
 
-  Pełna instrukcja i Bookmarklet (szybsza metoda): 
-  👉 https://darkspine433.github.io/T212-CFD-DATA/
-
-  Kod źródłowy: https://github.com/DarkSpine433/T212-CFD-DATA/
-  Autor: Dawid Konopiaty (DarkSpine433)
-  ===========================================================
-
   ⚠️  WAŻNE OSTRZEŻENIE:
   Nie uruchamiaj skryptu kilkukrotnie w ciągu krótkiego czasu! 
   Zbyt częste zapytania mogą skutkować tymczasową blokadą konta 
   przez Trading212 (ok. 5 minut).
 
-  INSTRUKCJA URUCHOMIENIA (KONSOLA):
-  1. Zaloguj się do Trading212 w przeglądarce Chrome lub Firefox.
-  2. Przejdź na konto CFD. 
-     (Jeśli skrypt nie zadziała, otwórz wyszukiwarkę instrumentów CFD).
-  3. Otwórz Narzędzia Deweloperskie naciskając klawisz [F12].
-  4. Przejdź do zakładki "Console" (Konsola).
-  5. Wklej cały skopiowany kod i naciśnij [ENTER].
-     *Przeglądarka może wymagać wpisania 'allow pasting' przed wklejeniem.
-  6. Postępuj zgodnie z komunikatami na ekranie:
-     a) Wpisz walutę konta (np. PLN, EUR, USD, GBP, CHF, HUF itp.).
-     b) Podaj datę POCZĄTKOWĄ w formacie RRRR-MM-DD (np. 2024-01-01).
-     c) Podaj datę KOŃCOWĄ w formacie RRRR-MM-DD (np. 2024-12-31).
-  7. Po zakończeniu pobierania (ok. 30-60s) zatwierdź komunikat OK.
-  8. Plik 'Trading212_CFD_[DATA].json' zostanie automatycznie pobrany.
+  Pełna instrukcja: 
+  👉 https://darkspine433.github.io/T212-CFD-DATA/
 
-  9. Wczytaj pobrany plik na platformie wspierającej ten format.
+  Kod źródłowy: 
+  👉 https://github.com/DarkSpine433/T212-CFD-DATA/
+
+
+  Autor: 「 ✦ Dawid Konopiaty (DarkSpine433) ✦ 」
   ===========================================================
 `;
   return instruction;
@@ -791,7 +776,7 @@ async function getData(
         const st = loadUIState();
         if (st && st.minimized) {
           const side = st.side || "right";
-          /* apply minimize after small timeout so layout stabilizes */
+
           setTimeout(() => {
             minimizeUI(side);
             if (st.top) ui.style.top = st.top;
@@ -1299,7 +1284,6 @@ SUMA NETTO: ${summary["Łącznie netto PLN"].toFixed(2)} PLN
     `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN`,
     false,
   );
-  /* Manual close only - as requested by user */
 
   alert(
     `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj profesjonalnego narzędzia do obliczania podatków.`,
