@@ -24,7 +24,7 @@ const getInstruction = () => {
   return instruction;
 };
 1;
-/* TO DO: Fix collapsing system of the t212 exporter window */
+/* Collapsing system fixed */
 async function getData(
   getCurrencies = false,
   currencyPredifined = null,
@@ -368,12 +368,16 @@ async function getData(
         .t212-scroll-bottom { position: absolute; bottom: 10px; right: 15px; background: #3b82f6; color: white; border-radius: 50%; width: 24px; height: 24px; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-weight: bold; }
         .t212-scroll-bottom.visible { display: flex; }
         /* Minimize / Restore UI - production-ready */
-        .t212-minimized { width: 48px !important; height: 120px !important; border-radius: 28px; cursor: pointer; overflow: visible; display: flex; align-items: center; justify-content: center; }
-        .t212-minimized.on-right { right: 8px !important; left: auto !important; }
-        .t212-minimized.on-left { left: 8px !important; right: auto !important; }
-        .t212-minimized .t212-content, .t212-minimized .t212-header { display: none !important; }
-        .t212-minimized .t212-minimize-handle { display: flex !important; }
-        .t212-minimize-handle { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; writing-mode: vertical-rl; font-size: 11px; font-weight: 700; color: #3b82f6; letter-spacing: 0.08em; text-transform: uppercase; touch-action: none; user-select: none; }
+        .t212-minimized { cursor: pointer; }
+        .t212-minimized.on-right { border-radius: 16px 0 0 16px !important; }
+        .t212-minimized.on-left { border-radius: 0 16px 16px 0 !important; }
+        .t212-header { transition: opacity 0.3s ease, transform 0.4s ease; min-width: 380px; box-sizing: border-box; }
+        .t212-content { transition: opacity 0.3s ease, transform 0.4s ease; min-width: 380px; box-sizing: border-box; }
+        .t212-footer-madeby { transition: opacity 0.3s ease, transform 0.4s ease; min-width: 380px; box-sizing: border-box; padding:12px 20px; text-align:center; font-size:10px; color:#64748b; background:rgba(0,0,0,0.2); border-top:1px solid rgba(255,255,255,0.05); }
+        .t212-minimized .t212-content, .t212-minimized .t212-header, .t212-minimized .t212-footer-madeby { opacity: 0; pointer-events: none; transform: translateX(-10px); }
+        .t212-minimized.on-left .t212-content, .t212-minimized.on-left .t212-header, .t212-minimized.on-left .t212-footer-madeby { transform: translateX(10px); }
+        .t212-minimize-handle { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; font-size: 11px; font-weight: 700; color: #3b82f6; letter-spacing: 0.08em; text-transform: uppercase; touch-action: none; user-select: none; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .t212-minimized .t212-minimize-handle { opacity: 1; pointer-events: auto; }
         .t212-minimize-btn { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 6px 8px; display:flex; gap:6px; align-items:center; }
         .t212-minimized .t212-minimize-btn { transform: rotate(90deg); }
         .t212-minimized.dragging { transition: none !important; }
@@ -462,7 +466,7 @@ async function getData(
             <div class="t212-logs" id="t212-logs-container"></div>
           </div>
         </div>
-        <div style="padding:12px 20px; text-align:center; font-size:10px; color:#64748b; background:rgba(0,0,0,0.2); border-top:1px solid rgba(255,255,255,0.05);">
+        <div class="t212-footer-madeby">
           Made by <a href="https://github.com/DarkSpine433" target="_blank" style="color:#3b82f6; text-decoration:none;">DarkSpine</a> • <a href="https://github.com/DarkSpine433/T212-CFD-DATA" target="_blank" style="color:#3b82f6; text-decoration:none;">Project Code</a>
         </div>
       `;
@@ -483,41 +487,6 @@ async function getData(
         dragData.offsetX = e.clientX - r.left;
         dragData.offsetY = e.clientY - r.top;
         ui.style.transition = "none";
-      };
-
-      /* Make minimize handle draggable when minimized */
-      const restoreHandle = document.getElementById("t212-restore-handle");
-      let minimizeDrag = { active: false, startY: 0, startTop: 0 };
-      restoreHandle.onpointerdown = (ev) => {
-        minimizeDrag.active = true;
-        minimizeDrag.startY = ev.clientY;
-        const rect = ui.getBoundingClientRect();
-        minimizeDrag.startTop = rect.top;
-        try {
-          restoreHandle.setPointerCapture(ev.pointerId);
-        } catch (e) {}
-      };
-      restoreHandle.onpointermove = (ev) => {
-        if (!minimizeDrag.active) return;
-        const dy = ev.clientY - minimizeDrag.startY;
-        let newTop = Math.max(
-          6,
-          Math.min(
-            window.innerHeight - ui.offsetHeight - 6,
-            minimizeDrag.startTop + dy,
-          ),
-        );
-        ui.style.top = newTop + "px";
-        ui.style.left = ui.style.left || uiLastPos.left || "6px";
-        ui.style.right = "auto";
-      };
-      restoreHandle.onpointerup = (ev) => {
-        minimizeDrag.active = false;
-        try {
-          restoreHandle.releasePointerCapture(ev.pointerId);
-        } catch (e) {}
-        uiLastPos.left = ui.style.left;
-        uiLastPos.top = ui.style.top;
       };
 
       window.onmousemove = (e) => {
@@ -542,14 +511,28 @@ async function getData(
       };
 
       window.onmouseup = () => {
+        if (!dragData.isDragging) return;
         dragData.isDragging = false;
-        ui.style.transition =
-          "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, width 0.3s ease, left 0.3s ease, right 0.3s ease, height 0.3s ease";
+        ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
       };
 
       const fixUIPosition = () => {
-        if (!ui || isMinimized) return;
+        if (!ui) return;
         const rect = ui.getBoundingClientRect();
+
+        if (isMinimized) {
+          const side = ui.classList.contains("on-right") ? "right" : "left";
+          let y = Math.max(
+            0,
+            Math.min(rect.top, window.innerHeight - ui.offsetHeight),
+          );
+          ui.style.top = y + "px";
+          ui.style.left =
+            (side === "right" ? window.innerWidth - 36 : 0) + "px";
+          ui.style.right = "auto";
+          return;
+        }
+
         let x = Math.max(
           0,
           Math.min(rect.left, window.innerWidth - rect.width),
@@ -582,65 +565,80 @@ async function getData(
       const minimizeUI = (side) => {
         if (!ui) return;
         const r = ui.getBoundingClientRect();
-        uiLastRect = {
-          left: r.left,
-          top: r.top,
-          width: r.width,
-          height: r.height,
-        };
-        ui.classList.add("t212-minimized", `on-${side}`);
-        ui.classList.remove("t212-minimized", "dragging");
-        /* place at edge with small margin */
-        if (side === "right") {
-          ui.style.left = "auto";
-          ui.style.right = "8px";
-        } else {
-          ui.style.right = "auto";
-          ui.style.left = "8px";
-        }
-        ui.style.top =
-          Math.max(
-            8,
-            Math.min(window.innerHeight - ui.offsetHeight - 8, r.top),
-          ) + "px";
+
+        ui.style.transition = "none";
+        ui.style.width = r.width + "px";
+        ui.style.height = r.height + "px";
+        ui.offsetHeight; // force reflow
+
         isMinimized = true;
+        ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+        ui.classList.add("t212-minimized", `on-${side}`);
+        ui.classList.remove("dragging");
+
+        ui.style.right = "auto";
+        ui.style.width = "36px";
+        ui.style.height = "120px";
+        ui.style.left = (side === "right" ? window.innerWidth - 36 : 0) + "px";
+        ui.style.top =
+          Math.max(0, Math.min(window.innerHeight - 120, r.top)) + "px";
+
         saveUIState({ minimized: true, side: side, top: ui.style.top });
       };
 
       const restoreUI = () => {
         if (!ui) return;
+        const r = ui.getBoundingClientRect();
+        const side = ui.classList.contains("on-right") ? "right" : "left";
+
+        // Disable transitions for calculation
+        ui.style.transition = "none";
         ui.classList.remove(
           "t212-minimized",
           "on-left",
           "on-right",
           "dragging",
         );
-        /* restore to last rect if available */
-        if (uiLastRect) {
-          ui.style.left =
-            Math.max(
-              6,
-              Math.min(
-                window.innerWidth - uiLastRect.width - 6,
-                uiLastRect.left,
-              ),
-            ) + "px";
-          ui.style.top =
-            Math.max(
-              6,
-              Math.min(
-                window.innerHeight - uiLastRect.height - 6,
-                uiLastRect.top,
-              ),
-            ) + "px";
-        } else {
-          const st = loadUIState();
-          if (st && st.left) ui.style.left = st.left;
-          if (st && st.top) ui.style.top = st.top;
-        }
+
+        // Measure the natural size
+        ui.style.width = "380px";
+        ui.style.height = "auto";
+        const targetHeight = ui.getBoundingClientRect().height;
+
+        // Revert to minimized form to start animation
+        ui.style.width = "36px";
+        ui.style.height = "120px";
+        ui.style.left = r.left + "px";
+        ui.style.top = r.top + "px";
+        ui.classList.add("t212-minimized", `on-${side}`);
+
+        ui.offsetHeight; // force reflow
+
+        // Remove min classes to animate out
         isMinimized = false;
+        ui.classList.remove("t212-minimized", `on-${side}`);
+        ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+
+        const targetLeft =
+          side === "right" ? Math.max(6, window.innerWidth - 380 - 6) : 6;
+        const targetTop = Math.max(
+          6,
+          Math.min(window.innerHeight - targetHeight - 6, r.top),
+        );
+
+        ui.style.left = targetLeft + "px";
+        ui.style.top = targetTop + "px";
+        ui.style.width = "380px";
+        ui.style.height = targetHeight + "px";
+
+        ui.style.right = "auto";
         saveUIState({ minimized: false });
-        fixUIPosition();
+
+        setTimeout(() => {
+          if (!isMinimized && ui) {
+            ui.style.height = "auto";
+          }
+        }, 500);
       };
 
       /* minimize button behavior */
@@ -653,24 +651,45 @@ async function getData(
 
       /* restore handle: support click to restore and drag when minimized */
       const restoreHandleEl = document.getElementById("t212-restore-handle");
-      let restorePointer = { dragging: false, startY: 0, startTop: 0 };
+      let restorePointer = {
+        dragging: false,
+        hasMoved: false,
+        startX: 0,
+        startY: 0,
+        startLeft: 0,
+        startTop: 0,
+      };
       restoreHandleEl.onclick = (e) => {
-        if (isMinimized && !restorePointer.dragging) {
+        if (isMinimized && !restorePointer.hasMoved) {
           restoreUI();
         }
       };
       restoreHandleEl.onpointerdown = (ev) => {
         if (!isMinimized) return;
         restorePointer.dragging = true;
+        restorePointer.hasMoved = false;
+        restorePointer.startX = ev.clientX;
         restorePointer.startY = ev.clientY;
-        restorePointer.startTop =
-          parseInt(ui.style.top || ui.getBoundingClientRect().top, 10) || 0;
+        const rect = ui.getBoundingClientRect();
+        restorePointer.startLeft = rect.left;
+        restorePointer.startTop = rect.top;
         restoreHandleEl.setPointerCapture?.(ev.pointerId);
         ui.classList.add("dragging");
       };
       restoreHandleEl.onpointermove = (ev) => {
         if (!restorePointer.dragging) return;
+        const dx = ev.clientX - restorePointer.startX;
         const dy = ev.clientY - restorePointer.startY;
+        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+          restorePointer.hasMoved = true;
+        }
+        let newLeft = Math.max(
+          6,
+          Math.min(
+            window.innerWidth - ui.offsetWidth - 6,
+            restorePointer.startLeft + dx,
+          ),
+        );
         let newTop = Math.max(
           6,
           Math.min(
@@ -678,12 +697,9 @@ async function getData(
             restorePointer.startTop + dy,
           ),
         );
+        ui.style.left = newLeft + "px";
         ui.style.top = newTop + "px";
-        saveUIState({
-          minimized: true,
-          top: ui.style.top,
-          side: ui.classList.contains("on-right") ? "right" : "left",
-        });
+        ui.style.right = "auto";
       };
       restoreHandleEl.onpointerup = (ev) => {
         restorePointer.dragging = false;
@@ -691,6 +707,26 @@ async function getData(
           restoreHandleEl.releasePointerCapture(ev.pointerId);
         } catch (e) {}
         ui.classList.remove("dragging");
+
+        if (restorePointer.hasMoved) {
+          const r = ui.getBoundingClientRect();
+          const centerX = r.left + r.width / 2;
+          const side = centerX > window.innerWidth / 2 ? "right" : "left";
+
+          ui.classList.remove("on-left", "on-right");
+          ui.classList.add(`on-${side}`);
+
+          ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+          ui.style.left =
+            (side === "right" ? window.innerWidth - 36 : 0) + "px";
+          ui.style.right = "auto";
+
+          saveUIState({
+            minimized: true,
+            top: ui.style.top,
+            side: side,
+          });
+        }
       };
 
       document.getElementById("t212-btn-close").onclick = () => {
