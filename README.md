@@ -11,10 +11,11 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 👉 **Oficjalna strona i generator skryptu:** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
 
 ---
+<img width="398" height="627" alt="T212-exporter-showcase" src="https://github.com/user-attachments/assets/b5f688aa-cf4e-4236-bfee-c73d9e8dda19" />
+
 
 ## ✨ Kluczowe Funkcje
 
-- **Zgodność z Polskim Prawem Podatkowym:** Skrypt automatycznie pobiera kursy średnie z API NBP z dnia poprzedzającego uzyskanie przychodu/poniesienie kosztu.
 - **Kompleksowy eksport:** Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`) oraz opłatach overnight.
 - **Interaktywne UI:** Nowoczesny panel z paskiem postępu i konsolą logów wyświetlany bezpośrednio na stronie Trading212.
 - **Anti-Ban System:** Mechanizm _Retry_ chroniący przed blokadą za zbyt dużą liczbę zapytań (błąd 429).
