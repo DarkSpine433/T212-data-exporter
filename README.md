@@ -16,7 +16,10 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 
 ---
 
-<img width="398" height="627" alt="T212-exporter-showcase" src="https://github.com/user-attachments/assets/b5f688aa-cf4e-4236-bfee-c73d9e8dda19" />
+<img width="415" height="431" alt="1" src="https://github.com/user-attachments/assets/2b454139-fb60-4b12-93a9-def8b7fa5800" />
+
+<img width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
+
 
 ## ✨ Kluczowe Funkcje
 
