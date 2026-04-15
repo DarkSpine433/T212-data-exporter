@@ -35,7 +35,7 @@
     <title>T212 CFD Data Exporter | Profesjonalne Raporty PIT-38</title>
     <meta
       name="description"
-      content="Darmowe narzędzie open-source do eksportu danych z Trading212 CFD do formatu JSON. Generuj raporty podatkowe PIT-38 bezpiecznie i lokalnie w przeglądarce."
+      content="Darmowe narzędzie open-source do eksportu danych z Trading212 CFD do formatu JSON. Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl i zostało wykonane we współpracy z nimi."
     />
     <meta
       name="keywords"
@@ -88,6 +88,20 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <div style="position: fixed; top: 0; right: 0; z-index: 100000">
+      <script
+        data-name="BMC-Widget"
+        data-cfasync="false"
+        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="DarkSpine"
+        data-description="Support me on Buy me a coffee!"
+        data-message="Wspomóż kodowanie po służbie! ☕"
+        data-color="#5F7FFF"
+        data-position="Right"
+        data-x_margin="18"
+        data-y_margin="18"
+      ></script>
+    </div>
     <div class="bg-canvas">
       <div class="glow-orb orb-1"></div>
       <div class="glow-orb orb-2"></div>
@@ -181,6 +195,13 @@
             w kilka sekund.
             <br />Bezpiecznie i za darmo.
           </p>
+          <a
+            href="https://kalkulatorgieldowy.pl/"
+            target="_blank"
+            class="partnership-badge"
+          >
+            🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl
+          </a>
 
           <hr
             style="max-width: 100px; margin: 20px auto 0px auto; opacity: 0.2"
@@ -330,7 +351,10 @@
                   <b>.json</b>.
                 </li>
                 <li>
-                  Wczytaj plik na platformie wspierającej format T212 JSON.
+                  Wczytaj plik na platformie
+                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                    ><b>kalkulatorgieldowy.pl</b></a
+                  >, z którą narzędzie zostało wykonane we współpracy.
                 </li>
               </ol>
             </div>
@@ -413,7 +437,10 @@
                   <b>.json</b>.
                 </li>
                 <li>
-                  Wczytaj plik na platformie wspierającej format T212 JSON.
+                  Wczytaj plik na platformie
+                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                    ><b>kalkulatorgieldowy.pl</b></a
+                  >, z którą narzędzie zostało wykonane we współpracy.
                 </li>
               </ol>
             </div>
@@ -513,7 +540,10 @@
                   <b>.json</b>.
                 </li>
                 <li>
-                  Wczytaj plik na platformie wspierającej format T212 JSON.
+                  Wczytaj plik na platformie
+                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                    ><b>kalkulatorgieldowy.pl</b></a
+                  >, z którą narzędzie zostało wykonane we współpracy.
                 </li>
               </ol>
               <p
@@ -703,6 +733,56 @@
           console.error("Błąd kopiowania:", err);
         }
       };
+
+      // Cookie Consent Logic
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!localStorage.getItem("cookieConsent")) {
+          const overlay = document.createElement("div");
+          overlay.className = "cookie-overlay";
+          
+          const banner = document.createElement("div");
+          banner.className = "cookie-consent";
+          banner.innerHTML = `
+            <h3 style="margin-bottom: 5px; font-size: 1.3rem;">Zgoda na pliki cookies</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 20px;">
+              Korzystając z tej strony, wyrażasz zgodę na używanie plików cookies do celów prawidłowego działania narzędzia oraz statystyk.<br/><br/>
+              <a href="privacy-policy.html" style="text-decoration: underline;">Polityka Prywatności</a>
+            </p>
+            <div class="cookie-buttons">
+              <button class="cookie-consent-btn decline" id="decline-cookies">Nie zgadzam się</button>
+              <button class="cookie-consent-btn" id="accept-cookies">Jestem tego świadomy</button>
+            </div>
+          `;
+          
+          document.body.appendChild(overlay);
+          document.body.appendChild(banner);
+          
+          // Disable body scroll when modal is active
+          document.body.style.overflow = "hidden";
+
+          setTimeout(() => {
+            overlay.classList.add("show");
+            banner.classList.add("show");
+          }, 500);
+
+          document.getElementById("accept-cookies").addEventListener("click", function () {
+            localStorage.setItem("cookieConsent", "true");
+            overlay.classList.remove("show");
+            banner.classList.remove("show");
+            document.body.style.overflow = ""; // restore scroll
+            setTimeout(() => {
+              overlay.remove();
+              banner.remove();
+            }, 400);
+          });
+          
+          document.getElementById("decline-cookies").addEventListener("click", function () {
+            if (confirm("Zostaniesz przeniesiony do google.com. Chcesz kontynuować?")) {
+               window.location.href = "https://google.com";
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>

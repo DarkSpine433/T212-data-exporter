@@ -5,6 +5,8 @@ const getInstruction = () => {
   ===========================================================
   Platforma Trading212 nie posiada natywnego eksportu danych CFD.
   Ten skrypt generuje plik JSON gotowy do rozliczeń podatkowych.
+  Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl
+  i zostało wykonane z ich współpracą.
 
   ⚠️  WAŻNE OSTRZEŻENIE:
   Nie uruchamiaj skryptu kilkukrotnie w ciągu krótkiego czasu! 
@@ -420,19 +422,26 @@ async function getData(
           </div>
         </div> 
         <div class="t212-content">
-          <a style="text-decoration:none; color:#fff;" href="https://github.com/darkspine433/T212-CFD-DATA" target="_blank"> <div style="cursor:pointer; display:flex; align-items:center; flex-direction:column; gap:10px; background-color: #1e1e1e; font-weight:700; font-size:15px; color:#fff; justify-content:center; padding: 16px 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px;">
-           <div style="display:flex; align-items:center; gap:10px;">
-              <div style="text-align: center;">
-                Wesprzyj projekt zostawiając gwiazdkę na GitHubie 🌟
+          <div style="display:flex; gap:10px; margin-bottom:15px;">
+            <a style="flex:1; text-decoration:none; color:#fff;" href="https://github.com/darkspine433/T212-CFD-DATA" target="_blank">
+              <div style="cursor:pointer; display:flex; flex-direction:column; align-items:center; background-color: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;">
+                <div style="display:flex; align-items:center; gap:6px; font-weight:600; font-size:12px;">
+                  <svg style="color:#fff;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>
+                  Zostaw gwiazdkę 🌟
+                </div>
               </div>
-              <div style="color:#fff; display:flex; align-items:center; gap:10px;" >GitHub <svg style="color:#fff;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-              </svg></div>
-            </div>
-            <div style="color:#fff; display:flex; align-items:center; gap:10px; text-decoration:none;"> <div class="t212-btn-icon" style="flex:1; font-size:11px; gap:8px; margin-top:10px;">Możesz to zrobić podczas pobierania danych z T212</div></div>
-            <div  style="flex:1; font-size:11px; gap:8px; margin-top:10px; color: #ef4444; text-align: center; margin-bottom:0px;">Jeżeli korzystasz z urządzenia mobilnego musisz zostać na stronie T212 bez wygaszania ekrenu</div>
+            </a>
+            <a style="flex:1; text-decoration:none; color:#fff;" href="https://buymeacoffee.com/darkspine" target="_blank">
+              <div style="cursor:pointer; display:flex; flex-direction:column; align-items:center; background-color: rgba(255, 200, 30, 0.15); padding: 10px; border-radius: 12px; border: 1px solid rgba(255, 200, 30, 0.3); transition: background 0.2s;">
+                <div style="display:flex; align-items:center; gap:6px; font-weight:600; font-size:12px; color: #ffdd44;">
+                  ☕ Buy me a coffee!
+                </div>
+              </div>
+            </a>
           </div>
-          </a>
+          <div style="font-size:10px; color: #ef4444; text-align: center; margin-bottom:12px; line-height: 1.3;">
+            ⚠️ Użytkownicy mobilni: Pozostań na stronie T212, nie wygaszaj ekranu.
+          </div>
           
           <div id="t212-msg" class="t212-msg"></div>
           <div class="t212-btn-icon" id="t212-btn-blur" title="Ukryj wyniki"  style="flex:1; font-size:11px; gap:8px; margin-bottom:10px;">${eyeIcon} Ukryj wyniki</div>
@@ -473,7 +482,9 @@ async function getData(
           </div>
         </div>
         <div class="t212-footer-madeby">
-          Made by <a href="https://github.com/DarkSpine433" target="_blank" style="color:#3b82f6; text-decoration:none;">DarkSpine</a> • <a href="https://github.com/DarkSpine433/T212-CFD-DATA" target="_blank" style="color:#3b82f6; text-decoration:none;">Project Code</a>
+          Made with 🤝 <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6; text-decoration:none;">Kalkulator Giełdowy</a> 
+          • <a href="https://github.com/DarkSpine433" target="_blank" style="color:#3b82f6; text-decoration:none;">DarkSpine</a> 
+          • <a href="https://github.com/DarkSpine433/T212-CFD-DATA" target="_blank" style="color:#3b82f6; text-decoration:none;">Project Code</a>
         </div>
       `;
 
@@ -1288,7 +1299,7 @@ async function getData(
     summary["Odsetki overnight PLN"];
 
   const summaryText = `
-Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj profesjonalnego narzędzia do obliczania podatków.
+Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj Kalkulatorgieldowy.pl.
 
 RAPORT TRADING 212 CFD
 Okres: ${fromDateStr} - ${toDateStr}
@@ -1317,14 +1328,14 @@ SUMA NETTO: ${summary["Łącznie netto PLN"].toFixed(2)} PLN
   }
 
   updateProgress(
-    `✅ <b>Eksport zakończony!</b><br/>Plik JSON został pobrany. Możesz teraz zapisać raport tekstowy lub przejrzeć logi. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj profesjonalnego narzędzia do obliczania podatków.`,
+    `✅ <b>Eksport zakończony!</b><br/>Plik JSON został pobrany. Możesz teraz zapisać raport tekstowy lub przejrzeć logi. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a>.`,
     100,
     `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN`,
     false,
   );
 
   alert(
-    `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj profesjonalnego narzędzia do obliczania podatków.`,
+    `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj Kalkulatorgieldowy.pl.`,
   );
   /* Replace spinner with green check if no errors occurred */
   try {

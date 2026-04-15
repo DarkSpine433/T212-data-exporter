@@ -12,6 +12,8 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 
 👉 **Oficjalna strona** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
 
+🤝 **Współpraca:** Narzędzie najlepiej współpracuje z [kalkulatorgieldowy.pl](https://kalkulatorgieldowy.pl/) i zostało wykonane z ich współpracą.
+
 ---
 
 <img width="398" height="627" alt="T212-exporter-showcase" src="https://github.com/user-attachments/assets/b5f688aa-cf4e-4236-bfee-c73d9e8dda19" />

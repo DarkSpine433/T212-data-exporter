@@ -9,7 +9,7 @@
 // 6. Wklej caly ponizszy tekst i kliknij ENTER/Uruchom
 // 6a. Przegladarka moze Cie poprosic o dodatkowa weryfikacje upewniajaca sie, ze chcesz uruchomic zewnetrzny skrypt
 // 7. Po okolo 30 sekundach powinien zostac pobrany plik 'Trading212_CFD.json'.
-// 8. Wczytaj go na naszej platformie
+// 8. Wczytaj go na platformie kalkulatorgieldowy.pl, z którą narzędzie zotanło wykonane we współpracy.
 //SKRYPT POBIERA TYLKO DANE ZA ROK 2025!!!! By pobieral inne lata zmodyfikuj zakres dat kilka linii nizej!!!!
 async function getData() {
   let requestBase = `https://live.trading212.com/rest/reports/`;

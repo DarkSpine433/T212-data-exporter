@@ -9,6 +9,7 @@
   --border: #30363d;
   --success: #238636;
   --warning: #ffa657;
+  --error: #ff4444;
 }
 
 * {
@@ -509,4 +510,119 @@ a {
   .content-ad {
     display: block;
   }
+}
+
+.partnership-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(88, 166, 255, 0.1);
+  border: 1px solid var(--accent);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 15px;
+  gap: 8px;
+  text-decoration: none;
+  animation: fadeIn 0.6s ease-out;
+  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.partnership-badge:hover {
+  background: rgba(88, 166, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 166, 255, 0.2);
+  color: #fff;
+}
+
+.cookie-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 9000;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+.cookie-overlay.show {
+  opacity: 1;
+}
+
+.cookie-consent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 90%;
+  max-width: 450px;
+  background: rgba(22, 27, 34, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  z-index: 9001; /* above overlay, but below BMC widget */
+  padding: 30px;
+  text-align: center;
+  color: var(--text-main);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: all 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cookie-consent.show {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.cookie-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 500px) {
+  .cookie-buttons {
+    flex-direction: row;
+  }
+}
+
+.cookie-consent-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(3, 102, 214, 0.3);
+}
+
+.cookie-consent-btn.decline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: #8b949e;
+  box-shadow: none;
+}
+
+.cookie-consent-btn.decline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.cookie-consent-btn:hover:not(.decline) {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(3, 102, 214, 0.4);
 }
