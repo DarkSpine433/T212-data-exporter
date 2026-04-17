@@ -27,7 +27,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-blend-mode: hard-light;
   color: var(--text-main);
   margin: 0;
   line-height: 1.6;
@@ -35,9 +34,13 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding-bottom: 50px;
+  background-position: center bottom;
+  padding-bottom: 220px;
 }
-
+@media (max-width: 600px) {
+  body {
+  }
+}
 .bg-glow {
   position: fixed;
   top: 0;
