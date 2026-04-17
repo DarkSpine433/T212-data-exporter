@@ -202,7 +202,18 @@ async function getData(
       submitBtn.onmouseenter = () => (submitBtn.style.background = "#2563eb");
       submitBtn.onmouseleave = () => (submitBtn.style.background = "#3b82f6");
 
+      const keydownHandler = (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          submitBtn.click();
+        } else if (e.key === "Escape") {
+          cancelBtn.click();
+        }
+      };
+      window.addEventListener("keydown", keydownHandler);
+
       cancelBtn.onclick = () => {
+        window.removeEventListener("keydown", keydownHandler);
         overlay.remove();
         resolve(null);
       };
@@ -223,6 +234,7 @@ async function getData(
           return;
         }
 
+        window.removeEventListener("keydown", keydownHandler);
         overlay.remove();
         resolve({
           currency: selectedCurrency.toUpperCase(),
@@ -462,9 +474,11 @@ async function getData(
             
           </div>
           <div class="t212-progress-bg" id="t212-progress-bg"><div class="t212-progress-bar" id="t212-bar"></div></div>
-          <div style="display:flex; gap:10px; margin-bottom:12px;">
-            <button id="t212-save-logs" class="t212-btn-icon" style="flex:1; font-size:11px; gap:6px;">${saveIcon} Zapisz Logi</button>
-            <button id="t212-save-results" class="t212-btn-icon" style="flex:1; font-size:11px; gap:6px; display:none;">${saveIcon} Wynik</button>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <button id="t212-save-logs" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px;">${saveIcon} LOGI</button>
+            <button id="t212-save-json" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} JSON</button>
+            <button id="t212-save-csv" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} CSV</button>
+            <button id="t212-save-results" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} TXT</button>
           </div>
           <div style="display:flex; gap:10px; margin-bottom:12px;">
             <button id="t212-toggle-logs" class="t212-btn-icon" style="flex:1; font-size:11px; gap:8px;">${eyeIcon} Pokaż logki</button>
@@ -1464,6 +1478,37 @@ SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
       a.href = url;
       a.download = `T212_Summary_${fromDateStr}_${toDateStr}.txt`;
       a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    };
+  }
+
+  const btnSaveJson = document.getElementById("t212-save-json");
+  if (btnSaveJson) {
+    btnSaveJson.style.display = "flex";
+    btnSaveJson.onclick = () => {
+      const blob = new Blob([JSON.stringify(combinedData, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `T212_CFD_${fromDateStr}_${toDateStr}.json`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    };
+  }
+
+  const btnSaveCsv = document.getElementById("t212-save-csv");
+  if (btnSaveCsv) {
+    btnSaveCsv.style.display = "flex";
+    btnSaveCsv.onclick = () => {
+      const blob = new Blob([convertToCSV(combinedData)], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `T212_Export_${fromDateStr}_${toDateStr}.csv`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 100);
     };
   }
 
@@ -1624,22 +1669,41 @@ SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
     };
 
     document.getElementById("t212-dl-json").onclick = () => {
-      download(jsonContent, `T212_CFD_${fromDateStr}_${toDateStr}.json`, "application/json");
+      download(
+        jsonContent,
+        `T212_CFD_${fromDateStr}_${toDateStr}.json`,
+        "application/json",
+      );
     };
 
     document.getElementById("t212-dl-csv").onclick = () => {
-      download(csvContent, `T212_Export_${fromDateStr}_${toDateStr}.csv`, "text/csv");
+      download(
+        csvContent,
+        `T212_Export_${fromDateStr}_${toDateStr}.csv`,
+        "text/csv",
+      );
     };
 
     document.getElementById("t212-dl-txt").onclick = () => {
-      download(summaryText, `T212_Summary_${fromDateStr}_${toDateStr}.txt`, "text/plain");
+      download(
+        summaryText,
+        `T212_Summary_${fromDateStr}_${toDateStr}.txt`,
+        "text/plain",
+      );
     };
 
+    const finalKeyHandler = (e) => {
+      if (e.key === "Escape") {
+        document.getElementById("t212-close-final").click();
+      }
+    };
+    window.addEventListener("keydown", finalKeyHandler);
+
     document.getElementById("t212-close-final").onclick = () => {
+      window.removeEventListener("keydown", finalKeyHandler);
       document.body.removeChild(overlay);
     };
 
-    /* Hover effects */
     [
       document.getElementById("t212-dl-json"),
       document.getElementById("t212-dl-csv"),
@@ -1651,27 +1715,13 @@ SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
 
   showFinalDialog();
 
-  /* Automatically download JSON by default (preserving old behavior) */
-  const downloadJSON = () => {
-    const blob = new Blob([jsonContent], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `T212_CFD_${fromDateStr}_${toDateStr}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 100);
-  };
-  downloadJSON();
-
   updateProgress(
     `✅ <b>Eksport zakończony!</b><br/>Otwarto okno pobierania. <b>Zaimportuj plik .json do <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.`,
     100,
     `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}`,
     false,
   );
-  /* Replace spinner with green check if no errors occurred */
+
   try {
     if (!encounteredError) {
       const sp = document.getElementById("t212-spinner");

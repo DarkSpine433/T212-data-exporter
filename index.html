@@ -431,10 +431,14 @@
                 style="padding: 10px; margin-top: 10px; border-radius: 10px"
               >
                 <span data-i18n="mobile_warning"
-                  >⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera
-                  obecnie tylko przeglądarkę Firefox. Funkcjonalność nie jest
-                  dostępna w Chrome, a pozostałe przeglądarki nie były
-                  testowane.</span
+                  >⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt był
+                  testowany na przeglądarkach Chrome i Firefox. Jeżeli udało Ci
+                  się odtworzyć skrypt na innej przeglądarce mobilnej niż Chrome
+                  lub Firefox, prosimy o zgłoszenie tego w sekcji "Issues" na
+                  GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę
+                  przeglądarki oraz dołącz screenshot potwierdzający działanie –
+                  pomoże nam to w aktualizacji listy wspieranych
+                  środowisk!</span
                 >
               </div>
               <div class="code-wrapper">
@@ -689,14 +693,15 @@
       });
 
       const rawCode = getData.toString();
-      
-      // Wykrywanie URL do skryptu - domyślnie produkcja
-      let scriptUrl = "https://darkspine433.github.io/T212-CFD-DATA/js/generatorJsonData.js";
-      
-      // Jeśli jesteśmy na HTTPS (np. na Twoim forku na GitHub Pages), używamy bieżącej lokalizacji
+
+      let scriptUrl =
+        "https://darkspine433.github.io/T212-CFD-DATA/js/generatorJsonData.js";
+
       if (window.location.protocol === "https:") {
         const currentPath = window.location.origin + window.location.pathname;
-        scriptUrl = currentPath.replace("index.html", "").replace(/\/$/, "") + "/js/generatorJsonData.js";
+        scriptUrl =
+          currentPath.replace("index.html", "").replace(/\/$/, "") +
+          "/js/generatorJsonData.js";
       }
 
       const bookmarkletCode = `javascript:(function(){
@@ -707,7 +712,9 @@
           import('${scriptUrl}').then(m => m.getData());
         };
         document.head.appendChild(script);
-      })();`.replace(/\n/g, "").replace(/\s\s+/g, " ");
+      })();`
+        .replace(/\n/g, "")
+        .replace(/\s\s+/g, " ");
 
       document.getElementById("t212-bookmarklet").href = bookmarkletCode;
 

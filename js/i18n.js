@@ -79,7 +79,7 @@ const langTranslations = {
     fi_5: 'Wklej skopiowany wcześniej kod skryptu i naciśnij <kbd>Enter</kbd>. <br /><small style="color: var(--text-muted)">* Jeśli przeglądarka blokuje wklejanie, wpisz ręcznie <code>allow pasting</code> i naciśnij Enter, a następnie spróbuj ponownie.</small>',
     mobile_inst_title: "📱 Pełna Instrukcja dla urządzeń mobilnych",
     mobile_warning:
-      "⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera obecnie tylko przeglądarkę Firefox. Funkcjonalność nie jest dostępna w Chrome, a pozostałe przeglądarki nie były testowane.",
+      "⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt był testowany na przeglądarkach Chrome i Firefox. Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej niż Chrome lub Firefox, prosimy o zgłoszenie tego w sekcji \"Issues\" na GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę przeglądarki oraz dołącz screenshot potwierdzający działanie – pomoże nam to w aktualizacji listy wspieranych środowisk!",
     mi_3: "W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki lub menu udostępniania).",
     mi_4: "Przejdź do edycji tej zakładki. Zmień jej nazwę na: <kbd>🚀 T212 Export</kbd>.",
     mi_5: "W polu <b>Adres URL</b> usuń aktualny link i wklej skopiowany kod. Zapisz zmiany.",
@@ -187,7 +187,7 @@ const langTranslations = {
     fi_5: 'Paste the previously copied script code and press <kbd>Enter</kbd>. <br /><small style="color: var(--text-muted)">* If the browser blocks pasting, type <code>allow pasting</code> manually and press Enter, then try again.</small>',
     mobile_inst_title: "📱 Full instructions for mobile devices",
     mobile_warning:
-      "⚠️ <b>IMPORTANT:</b> On mobile devices, the script currently only supports the Firefox browser. The functionality is not available in Chrome, and other browsers have not been tested.",
+      "⚠️ <b>IMPORTANT:</b> On mobile devices, the script has been tested on Chrome and Firefox. If you managed to run the script on a mobile browser other than Chrome or Firefox, please report it in the \"Issues\" section on GitHub or via email. In your report, include the browser name and attach a screenshot confirming it works – this will help us update the list of supported environments!",
     mi_3: "In the browser, add it to <b>Bookmarks</b> (star icon or share menu).",
     mi_4: "Go to edit this bookmark. Change its name to: <kbd>🚀 T212 Export</kbd>.",
     mi_5: "In the <b>URL</b> field, remove the current link and paste the copied code. Save changes.",
