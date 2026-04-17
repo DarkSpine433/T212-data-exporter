@@ -8,6 +8,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
+[![GitHub version](https://img.shields.io/badge/Wersja-1.2.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
 [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENCE.md)
 
 Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych z konta **Trading212 CFD** do formatu JSON oraz CSV. Projekt rozwiązuje problem braku natywnego eksportu danych CFD na platformie.
@@ -22,12 +23,16 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 
 <img class="showcase"  width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
 
-## ✨ Kluczowe Funkcje
+## ✨ Kluczowe Funkcje (v1.2.0)
 
-- **Kompleksowy eksport:** Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`) oraz opłatach overnight.
+- **Kompleksowy eksport:** Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`), opłatach overnight, **historii transakcji** (wpłaty, wypłaty, przelewy) oraz **rejestrach dywidend**.
+- **Wiele formatów eksportu:** Eksportuj dane do **JSON** (dla kalkulatorów podatkowych), **CSV** (format T212) oraz **TXT** (podsumowanie tekstowe).
 - **Interaktywne UI:** Nowoczesny panel z paskiem postępu i konsolą logów wyświetlany bezpośrednio na stronie Trading212.
+- **Wsparcie dwóch języków:** Pełne wsparcie dla **języka polskiego i angielskiego** z możliwością przełączania w czasie rzeczywistym.
+- **Skróty klawiszowe:** Naciśnij **Enter** aby potwierdzić, **Escape** aby anulować w oknie konfiguracji.
 - **Anti-Ban System:** Mechanizm _Retry_ chroniący przed blokadą za zbyt dużą liczbę zapytań (błąd 429).
 - **100% Prywatności:** Dane przetwarzane są wyłącznie lokalnie w Twojej przeglądarce.
+- **Wsparcie urządzeń mobilnych:** Działa na przeglądarkach mobilnych - pozostań na stronie T212 i nie wygaszaj ekranu.
 
 ---
 
@@ -46,6 +51,8 @@ Jeśli skrypt napotka problem:
 - `index.html` - Strona wizytówka i generator kodu.
 - `style.css` - Design strony (Premium Dark Design).
 - `js/generatorJsonData.js` - Główny silnik aplikacji i logika API.
+- `js/i18n.js` - System międzynarodowy (i18n).
+- `js/utils/` - Moduły narzędziowe (analytics, zgody cookies, reklamy).
 
 ---
 

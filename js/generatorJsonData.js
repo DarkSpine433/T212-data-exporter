@@ -600,7 +600,6 @@ async function getData(
     } catch (e) {}
   };
 
-  /*---  Tablice Danych ---*/
   let positionDetails = [];
   let interestDetails = [];
   let feeDetails = [];
@@ -1989,9 +1988,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
 
-    /* Attach lang buttons for the final dialog */
     _attachLangBtns(overlay, "t212-fin-lang", () => {
-      /* Re-render the final dialog in-place */
       document.body.removeChild(overlay);
       showFinalDialog();
     });
