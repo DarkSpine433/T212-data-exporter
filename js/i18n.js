@@ -52,7 +52,7 @@ const langTranslations = {
     nav_instructions: "Instrukcje",
     instructions_header: "Instrukcje",
     info_date:
-      'ℹ️ <b>INFO:</b> Ostatnia aktualizacja kodu: <b class="date"></b>. <br />Jeśli Twoja zapisana zakładka jest starsza, usuń ją i dodaj ponownie. Możesz również skopiować aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w pole adresu istniejącej zakładki, aby cieszyć się najnowszymi poprawkami.',
+      "ℹ️ <b>INFO:</b> Jeśli Twoja zapisana zakładka jest starsza niż 17.04.2026 r., usuń ją i dodaj ponownie. Możesz również skopiować aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w pole adresu istniejącej zakładki, aby cieszyć się najnowszymi poprawkami. i już od tego momentu nie będziesz musiał za każdym razem zmieniać zakładki ponieważ kod będzie ciągle aktualny",
     warning_account: "⚠️ <b>WAŻNE:</b> Uruchamiaj skrypt będąc na koncie CFD.",
     warning_spam:
       "⚠️ <b>WAŻNE:</b> Nie uruchamiaj skryptu kilkukrotnie w ciągu kilku minut! Może to skutkować blokadą dostępu do Trading212 na około 5 minut.",
@@ -79,7 +79,7 @@ const langTranslations = {
     fi_5: 'Wklej skopiowany wcześniej kod skryptu i naciśnij <kbd>Enter</kbd>. <br /><small style="color: var(--text-muted)">* Jeśli przeglądarka blokuje wklejanie, wpisz ręcznie <code>allow pasting</code> i naciśnij Enter, a następnie spróbuj ponownie.</small>',
     mobile_inst_title: "📱 Pełna Instrukcja dla urządzeń mobilnych",
     mobile_warning:
-      "⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt był testowany na przeglądarkach Chrome i Firefox. Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej niż Chrome lub Firefox, prosimy o zgłoszenie tego w sekcji \"Issues\" na GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę przeglądarki oraz dołącz screenshot potwierdzający działanie – pomoże nam to w aktualizacji listy wspieranych środowisk!",
+      '⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt był testowany na przeglądarkach Chrome i Firefox. Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej niż Chrome lub Firefox, prosimy o zgłoszenie tego w sekcji "Issues" na GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę przeglądarki oraz dołącz screenshot potwierdzający działanie – pomoże nam to w aktualizacji listy wspieranych środowisk!',
     mi_3: "W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki lub menu udostępniania).",
     mi_4: "Przejdź do edycji tej zakładki. Zmień jej nazwę na: <kbd>🚀 T212 Export</kbd>.",
     mi_5: "W polu <b>Adres URL</b> usuń aktualny link i wklej skopiowany kod. Zapisz zmiany.",
@@ -159,7 +159,7 @@ const langTranslations = {
     nav_instructions: "Instructions",
     instructions_header: "Instructions",
     info_date:
-      'ℹ️ <b>INFO:</b> Last code update: <b class="date"></b>. <br />If your saved bookmark is older, remove it and add it again. You can also copy the current code from the mobile instructions and paste it into the address field of the existing bookmark to enjoy the latest fixes.',
+      "ℹ️ <b>INFO:</b> If your saved bookmark is older than April 17, 2026, please delete it and add it again. Alternatively, you can copy the current code from the mobile instructions and paste it into the URL field of your existing bookmark to enjoy the latest fixes. From this point on, you won't need to change your bookmark every time, as the code will remain constantly up to date.",
     warning_account:
       "⚠️ <b>IMPORTANT:</b> Run the script while on your CFD account.",
     warning_spam:
@@ -187,7 +187,7 @@ const langTranslations = {
     fi_5: 'Paste the previously copied script code and press <kbd>Enter</kbd>. <br /><small style="color: var(--text-muted)">* If the browser blocks pasting, type <code>allow pasting</code> manually and press Enter, then try again.</small>',
     mobile_inst_title: "📱 Full instructions for mobile devices",
     mobile_warning:
-      "⚠️ <b>IMPORTANT:</b> On mobile devices, the script has been tested on Chrome and Firefox. If you managed to run the script on a mobile browser other than Chrome or Firefox, please report it in the \"Issues\" section on GitHub or via email. In your report, include the browser name and attach a screenshot confirming it works – this will help us update the list of supported environments!",
+      '⚠️ <b>IMPORTANT:</b> On mobile devices, the script has been tested on Chrome and Firefox. If you managed to run the script on a mobile browser other than Chrome or Firefox, please report it in the "Issues" section on GitHub or via email. In your report, include the browser name and attach a screenshot confirming it works – this will help us update the list of supported environments!',
     mi_3: "In the browser, add it to <b>Bookmarks</b> (star icon or share menu).",
     mi_4: "Go to edit this bookmark. Change its name to: <kbd>🚀 T212 Export</kbd>.",
     mi_5: "In the <b>URL</b> field, remove the current link and paste the copied code. Save changes.",

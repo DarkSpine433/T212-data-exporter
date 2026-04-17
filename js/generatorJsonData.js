@@ -52,6 +52,17 @@ async function getData(
         "Data początkowa nie może być późniejsza niż data końcowa.",
       cfg_lang_label: "Język / Language",
 
+      export_profit: "Zysk",
+      export_loss: "Strata",
+      export_trade_result: "Wynik (Trade)",
+      export_fx_fees: "Opłaty FX",
+      export_interest: "Odsetki",
+      export_overnight: "Overnight",
+      export_net_total: "SUMA NETTO",
+      export_remember:
+        "Pamiętaj, że wartości w tym raporcie są orientacyjne...",
+      ui_period: "Okres",
+
       ui_title: "T212 Exporter",
       ui_minimize: "Minimalizuj",
       ui_close: "Zamknij",
@@ -70,8 +81,6 @@ async function getData(
       ui_btn_txt: "TXT",
       ui_show_logs: "Pokaż logki",
       ui_hide_logs: "Ukryj logki",
-      ui_errors: "Błędy",
-      ui_report_bug: "Zgłoś błąd",
 
       fin_title: "Eksport Zakończony!",
       fin_records: "Pobrano pomyślnie",
@@ -106,6 +115,16 @@ async function getData(
       cfg_err_date_order: "Start date cannot be later than end date.",
       cfg_lang_label: "Język / Language",
 
+      export_profit: "Profit",
+      export_loss: "Loss",
+      export_trade_result: "Trade Result",
+      export_fx_fees: "FX Fees",
+      export_interest: "Interest",
+      export_overnight: "Overnight",
+      export_net_total: "NET TOTAL",
+      export_remember: "Remember that values in this report are approximate...",
+      ui_period: "Period",
+
       ui_title: "T212 Exporter",
       ui_minimize: "Minimize",
       ui_close: "Close",
@@ -124,8 +143,8 @@ async function getData(
       ui_btn_txt: "TXT",
       ui_show_logs: "Show logs",
       ui_hide_logs: "Hide logs",
+
       ui_errors: "Errors",
-      ui_report_bug: "Report bug",
 
       fin_title: "Export Complete!",
       fin_records: "Successfully downloaded",
@@ -187,8 +206,16 @@ async function getData(
   const _attachLangBtns = (root, prefix, onSwitch) => {
     const plBtn = root.querySelector(`#${prefix}-pl`);
     const enBtn = root.querySelector(`#${prefix}-en`);
-    if (plBtn) plBtn.onclick = () => { _setLang("pl"); onSwitch("pl"); };
-    if (enBtn) enBtn.onclick = () => { _setLang("en"); onSwitch("en"); };
+    if (plBtn)
+      plBtn.onclick = () => {
+        _setLang("pl");
+        onSwitch("pl");
+      };
+    if (enBtn)
+      enBtn.onclick = () => {
+        _setLang("en");
+        onSwitch("en");
+      };
   };
 
   const nbpCache = {};
@@ -320,9 +347,12 @@ async function getData(
 
       const _renderConfigDialog = () => {
         /* Preserve user-entered values across re-renders */
-        const prevStart = dialog.querySelector("#t212-cfg-start")?.value || defaultStart;
-        const prevEnd = dialog.querySelector("#t212-cfg-end")?.value || defaultEnd;
-        const prevCurrency = dialog.querySelector("#t212-cfg-currency")?.value || "PLN";
+        const prevStart =
+          dialog.querySelector("#t212-cfg-start")?.value || defaultStart;
+        const prevEnd =
+          dialog.querySelector("#t212-cfg-end")?.value || defaultEnd;
+        const prevCurrency =
+          dialog.querySelector("#t212-cfg-currency")?.value || "PLN";
 
         dialog.innerHTML = `
           ${_langToggleHTML("t212-cfg-lang")}
@@ -631,7 +661,7 @@ async function getData(
           </div>
           
           <div id="t212-msg" class="t212-msg"></div>
-          <div class="t212-btn-icon" id="t212-btn-blur" title="${t("ui_hide_results")}"  style="flex:1; font-size:11px; gap:8px; margin-bottom:10px;">${eyeIcon} ${t("ui_hide_results")}</div>
+          <div class="t212-btn-icon" id="t212-btn-blur" title="${t("ui_hide_results")}"  style="flex:1; font-size:13px; gap:8px; margin-bottom:10px;">${eyeIcon} ${t("ui_hide_results")}</div>
           <div class="t212-live-summary">
             <div style="display:flex; flex-direction:column; gap:2px;">
               <span style="color:#64748b; font-size:10px; text-transform:uppercase;">${t("ui_trade_result")}</span>
@@ -653,13 +683,13 @@ async function getData(
           </div>
           <div class="t212-progress-bg" id="t212-progress-bg"><div class="t212-progress-bar" id="t212-bar"></div></div>
           <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-            <button id="t212-save-logs" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px;">${saveIcon} ${t("ui_btn_logs")}</button>
-            <button id="t212-save-json" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_json")}</button>
-            <button id="t212-save-csv" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_csv")}</button>
-            <button id="t212-save-results" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_txt")}</button>
+            <button id="t212-save-logs" class="t212-btn-icon" style="flex:1; min-width:100px; font-size:12px; gap:4px;">${saveIcon} ${t("ui_btn_logs")}</button>
+            <button id="t212-save-json" class="t212-btn-icon" style="flex:1; min-width:100px; font-size:12px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_json")}</button>
+            <button id="t212-save-csv" class="t212-btn-icon" style="flex:1; min-width:100px; font-size:12px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_csv")}</button>
+            <button id="t212-save-results" class="t212-btn-icon" style="flex:1; min-width:100px; font-size:12px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_txt")}</button>
           </div>
           <div style="display:flex; gap:10px; margin-bottom:12px;">
-            <button id="t212-toggle-logs" class="t212-btn-icon" style="flex:1; font-size:11px; gap:8px;">${eyeIcon} ${t("ui_show_logs")}</button>
+            <button id="t212-toggle-logs" class="t212-btn-icon" style="flex:1; font-size:13px; gap:8px;">${eyeIcon} ${isLogsVisible ? t("ui_hide_logs") : t("ui_show_logs")}</button>
           </div>
           <div class="t212-error-box" id="t212-error-box">
             <div class="t212-error-header"><span>${t("ui_errors")}</span><a href="https://github.com/DarkSpine433/T212-CFD-DATA/issues" target="_blank" class="t212-report-btn">${t("ui_report_bug")}</a></div>
@@ -688,17 +718,44 @@ async function getData(
         _setLang(lang);
 
         const existingUI = document.getElementById("t212-exporter-progress");
-        if (existingUI) existingUI.remove();
         const existingStyle = document.getElementById("t212-exporter-styles");
-        if (existingStyle) existingStyle.remove();
 
-        updateProgress(
-          "🔄 " +
-            (lang === "pl"
-              ? "Zmieniono język na Polski."
-              : "Language changed to English."),
-          -1,
-        );
+        const oldLogs = logsHtml;
+        const oldLogsVisible = isLogsVisible;
+
+        if (existingUI) {
+          existingUI.style.opacity = "0.5";
+          const spinner = existingUI.querySelector(".t212-spinner");
+          if (spinner) spinner.style.display = "inline-block";
+        }
+
+        setTimeout(() => {
+          if (existingUI) existingUI.remove();
+          if (existingStyle) existingStyle.remove();
+
+          updateProgress(
+            "🔄 " +
+              (lang === "pl"
+                ? "Zmieniono język na Polski."
+                : "Language changed to English."),
+            -1,
+            null,
+            null,
+            true,
+          );
+
+          const newUI = document.getElementById("t212-exporter-progress");
+          if (newUI && oldLogs) {
+            const logsBox = newUI.querySelector(".t212-logs");
+            if (logsBox) {
+              logsBox.innerHTML = oldLogs;
+            }
+            if (oldLogsVisible) {
+              const logsWrapper = newUI.querySelector(".t212-logs-wrapper");
+              if (logsWrapper) logsWrapper.classList.add("show");
+            }
+          }
+        }, 50);
       };
       if (uiLangPl) uiLangPl.onclick = () => _reloadUILang("pl");
       if (uiLangEn) uiLangEn.onclick = () => _reloadUILang("en");
@@ -1004,8 +1061,8 @@ async function getData(
           const live = document.querySelector(".t212-live-summary");
 
           toggleBtn.innerHTML = isLogsVisible
-            ? eyeOffIcon + " Pokaż logki"
-            : eyeIcon + " Pokaż logki";
+            ? eyeOffIcon + " " + t("ui_hide_logs")
+            : eyeIcon + " " + t("ui_show_logs");
           if (isLogsVisible) {
             logsBox.scrollTop = logsBox.scrollHeight;
             isAutoScroll = true;
@@ -1023,9 +1080,9 @@ async function getData(
           const isNowBlurred = !live.classList.toggle("t212-blur");
           /*   when toggled, update text and icon: if blurred -> show eyeOff + 'Pokaż wyniki' */
           if (live.classList.contains("t212-blur")) {
-            headerBlurBtn.innerHTML = eyeOffIcon + " Pokaż wyniki";
+            headerBlurBtn.innerHTML = eyeOffIcon + " " + t("ui_show_results");
           } else {
-            headerBlurBtn.innerHTML = eyeIcon + " Ukryj wyniki";
+            headerBlurBtn.innerHTML = eyeIcon + " " + t("ui_hide_results");
           }
         };
       }
@@ -1629,12 +1686,7 @@ async function getData(
   }
 
   /*--- EKSPORT ---*/
-  updateProgress(
-    t("prog_preparing"),
-    100,
-    t("prog_preparing_log"),
-    false,
-  );
+  updateProgress(t("prog_preparing"), 100, t("prog_preparing_log"), false);
   const combinedData = [
     ...positionDetails,
     ...feeDetails,
@@ -1652,19 +1704,19 @@ async function getData(
     summary["Odsetki overnight"];
 
   const summaryText = `
-Pamiętaj, że wartości w tym raporcie są orientacyjne. Aby poprawnie wyliczyć podatek w PLN (PIT-38), zaimportuj pobrany wcześniej plik .json do platformy kalkulatorgieldowy.pl.
+${t("export_remember")}
 
 RAPORT TRADING 212 CFD
-Okres: ${fromDateStr} - ${toDateStr}
+${t("ui_period") || "Period"}: ${fromDateStr} - ${toDateStr}
 --------------------------------------
-Zysk: ${summary["Zysk"].toFixed(2)} ${accountCurrency}
-Strata: ${summary["Strata"].toFixed(2)} ${accountCurrency}
-Wynik (Trade): ${summary["Wyniki zamknięte"].toFixed(2)} ${accountCurrency}
-Opłaty FX: ${summary["Opłaty FX"].toFixed(2)} ${accountCurrency}
-Odsetki: ${summary["Odsetki od gotówki"].toFixed(2)} ${accountCurrency}
-Overnight: ${summary["Odsetki overnight"].toFixed(2)} ${accountCurrency}
+${t("export_profit")}: ${summary["Zysk"].toFixed(2)} ${accountCurrency}
+${t("export_loss")}: ${summary["Strata"].toFixed(2)} ${accountCurrency}
+${t("export_trade_result")}: ${summary["Wyniki zamknięte"].toFixed(2)} ${accountCurrency}
+${t("export_fx_fees")}: ${summary["Opłaty FX"].toFixed(2)} ${accountCurrency}
+${t("export_interest")}: ${summary["Odsetki od gotówki"].toFixed(2)} ${accountCurrency}
+${t("export_overnight")}: ${summary["Odsetki overnight"].toFixed(2)} ${accountCurrency}
 --------------------------------------
-SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
+${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
   `;
 
   const btnSaveResults = document.getElementById("t212-save-results");

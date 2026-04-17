@@ -188,12 +188,13 @@
               style="padding: 10px; border-radius: 10px; margin-top: 10px"
             >
               <span data-i18n="info_date"
-                >ℹ️ <b>INFO:</b>: Ostatnia aktualizacja kodu:
-                <b class="date"></b>. <br />Jeśli Twoja zapisana zakładka jest
-                starsza, usuń ją i dodaj ponownie. Możesz również skopiować
-                aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w
-                pole adresu istniejącej zakładki, aby cieszyć się najnowszymi
-                poprawkami.</span
+                >ℹ️ <b>INFO:</b><br />Jeśli Twoja zapisana zakładka jest starsza
+                niż 17.04.2026 r., usuń ją i dodaj ponownie. Możesz również
+                skopiować aktualny kod z instrukcji dla urządzeń mobilnych i
+                wkleić go w pole adresu istniejącej zakładki, aby cieszyć się
+                najnowszymi poprawkami. i już od tego momentu nie będziesz
+                musiał za każdym razem zmieniać zakładki ponieważ kod będzie
+                ciągle aktualny</span
               >
             </div>
             <div
@@ -230,7 +231,7 @@
                 id="t212-bookmarklet"
                 href="javascript:void(0)"
                 class="bookmark-btn"
-                >🚀 T212 Export Tool | <b class="date"></b>
+                >🚀 T212 Export Tool
               </a>
               <p
                 style="
@@ -431,14 +432,10 @@
                 style="padding: 10px; margin-top: 10px; border-radius: 10px"
               >
                 <span data-i18n="mobile_warning"
-                  >⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt był
-                  testowany na przeglądarkach Chrome i Firefox. Jeżeli udało Ci
-                  się odtworzyć skrypt na innej przeglądarce mobilnej niż Chrome
-                  lub Firefox, prosimy o zgłoszenie tego w sekcji "Issues" na
-                  GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę
-                  przeglądarki oraz dołącz screenshot potwierdzający działanie –
-                  pomoże nam to w aktualizacji listy wspieranych
-                  środowisk!</span
+                  >⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera
+                  obecnie tylko przeglądarkę Firefox. Funkcjonalność nie jest
+                  dostępna w Chrome, a pozostałe przeglądarki nie były
+                  testowane.</span
                 >
               </div>
               <div class="code-wrapper">
@@ -693,16 +690,9 @@
       });
 
       const rawCode = getData.toString();
-
-      let scriptUrl =
-        "https://darkspine433.github.io/T212-CFD-DATA/js/generatorJsonData.js";
-
-      if (window.location.protocol === "https:") {
-        const currentPath = window.location.origin + window.location.pathname;
-        scriptUrl =
-          currentPath.replace("index.html", "").replace(/\/$/, "") +
-          "/js/generatorJsonData.js";
-      }
+      const currentUrl = window.location.origin + window.location.pathname;
+      const scriptUrl =
+        currentUrl.replace("index.html", "") + "js/generatorJsonData.js";
 
       const bookmarkletCode = `javascript:(function(){
         const script = document.createElement('script');
