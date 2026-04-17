@@ -1,33 +1,17 @@
 <!doctype html>
 <html lang="pl">
   <head>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-4G118Q2EH2"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-4G118Q2EH2");
-    </script>
-    <script type="text/javascript">
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "w8jntdkg7x");
-    </script>
+    <script src="./js/analytics.js"></script>
+    <script src="./js/i18n.js"></script>
+    <script src="./js/cookieConsent.js"></script>
+    <script src="./js/components/BuyMeCoffee.js"></script>
+    <script src="./js/components/LanguageSwitcher.js"></script>
+    <script src="./js/components/AdSidebar.js"></script>
+    <script src="./js/components/AdBanner.js"></script>
+    <script src="./js/components/LanguageSwitcher.js"></script>
+    <script src="./js/components/BuyMeCoffee.js"></script>
+    <script src="./js/components/AdSidebar.js"></script>
+    <script src="./js/components/AdBanner.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -88,20 +72,8 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div style="position: fixed; top: 0; right: 0; z-index: 100000">
-      <script
-        data-name="BMC-Widget"
-        data-cfasync="false"
-        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
-        data-id="DarkSpine"
-        data-description="Support me on Buy me a coffee!"
-        data-message="Wspomóż kodowanie po służbie! ☕"
-        data-color="#5F7FFF"
-        data-position="Right"
-        data-x_margin="18"
-        data-y_margin="18"
-      ></script>
-    </div>
+    <language-switcher></language-switcher>
+    <buy-me-coffee></buy-me-coffee>
     <div class="bg-canvas">
       <div class="glow-orb orb-1"></div>
       <div class="glow-orb orb-2"></div>
@@ -110,43 +82,8 @@
     </div>
 
     <div class="app-container">
-      <div class="aads-sidebar left">
-        <input autocomplete="off" type="checkbox" id="aads-hide-left" hidden />
-        <div class="aads-sidebar-content">
-          <label for="aads-hide-left" class="aads-close-btn">
-            <svg viewBox="0 0 490 490">
-              <polygon
-                points="456.851,0 245,212.564 33.149,0 0.708,32.337 212.669,245.004 0.708,457.678 33.149,490 245,277.443 456.851,490 489.292,457.678 277.331,245.004 489.292,32.337 "
-              />
-            </svg>
-          </label>
-          <div class="aads-frame">
-            <iframe
-              data-aa="2433499"
-              src="//acceptable.a-ads.com/2433499/?size=Adaptive"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-
-      <div class="aads-sidebar right">
-        <input autocomplete="off" type="checkbox" id="aads-hide-right" hidden />
-        <div class="aads-sidebar-content">
-          <label for="aads-hide-right" class="aads-close-btn">
-            <svg viewBox="0 0 490 490">
-              <polygon
-                points="456.851,0 245,212.564 33.149,0 0.708,32.337 212.669,245.004 0.708,457.678 33.149,490 245,277.443 456.851,490 489.292,457.678 277.331,245.004 489.292,32.337 "
-              />
-            </svg>
-          </label>
-          <div class="aads-frame">
-            <iframe
-              data-aa="2433499"
-              src="//acceptable.a-ads.com/2433499/?size=Adaptive"
-            ></iframe>
-          </div>
-        </div>
-      </div>
+      <ad-sidebar position="left"></ad-sidebar>
+      <ad-sidebar position="right"></ad-sidebar>
 
       <div
         class="app-container"
@@ -182,11 +119,14 @@
             >
           </div>
 
-          <h1 class="text-gradient">CFD Data Exporter</h1>
+          <h1 class="text-gradient" data-i18n="title_main">
+            CFD Data Exporter
+          </h1>
 
           <p
             class="subtitle p-2"
             style="max-width: 600px; margin: 0 auto; line-height: 1.8"
+            data-i18n="subtitle"
           >
             Eksportuj transakcje CFD do formatu
             <strong style="color: var(--warning); font-weight: 600">
@@ -196,12 +136,12 @@
             <br />Bezpiecznie i za darmo.
           </p>
           <a
+            data-i18n="partner_link"
             href="https://kalkulatorgieldowy.pl/"
             target="_blank"
             class="partnership-badge"
+            >🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl</a
           >
-            🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl
-          </a>
 
           <hr
             style="max-width: 100px; margin: 20px auto 0px auto; opacity: 0.2"
@@ -210,83 +150,62 @@
 
         <div class="container" style="margin: 0 auto">
           <nav id="menu">
-            <a href="#markdown-content">O Narzędziu</a>
-            <a href="#instructions-header">Instrukcje</a>
+            <a href="#markdown-content" data-i18n="nav_about">O Narzędziu</a>
+            <a href="#instructions-header" data-i18n="nav_instructions"
+              >Instrukcje</a
+            >
           </nav>
           <main class="tool-card">
-            <div
-              id="frame"
-              class="content-ad"
-              style="width: 100%; margin: auto; position: relative"
-            >
-              <iframe
-                data-aa="2433499"
-                src="//acceptable.a-ads.com/2433499/?size=Adaptive"
-                style="
-                  border: 0;
-                  padding: 0;
-                  width: 100%;
-                  height: auto;
-                  overflow: hidden;
-                  display: block;
-                  margin: auto;
-                "
-              ></iframe>
-            </div>
+            <ad-banner></ad-banner>
             <div id="markdown-content">Loading github markdown...</div>
             <hr style="margin-top: 40px; margin-bottom: 40px" />
-            <div
-              id="frame"
-              style="width: 100%; margin: auto; position: relative"
-            >
-              <iframe
-                data-aa="2433499"
-                src="//acceptable.a-ads.com/2433499/?size=Adaptive"
-                style="
-                  border: 0;
-                  padding: 0;
-                  width: 100%;
-                  height: auto;
-                  overflow: hidden;
-                  display: block;
-                  margin: auto;
-                "
-              ></iframe>
-            </div>
+            <ad-banner></ad-banner>
             <hr style="margin-top: 40px" />
-            <h2 id="instructions-header">Instrukcje</h2>
+            <h2 id="instructions-header" data-i18n="instructions_header">
+              Instrukcje
+            </h2>
 
             <div
               class="info-box"
               style="padding: 10px; border-radius: 10px; margin-top: 10px"
             >
-              ℹ️ <b>INFO:</b>: Ostatnia aktualizacja kodu: <b class="date"></b>.
-              <br />Jeśli Twoja zapisana zakładka jest starsza, usuń ją i dodaj
-              ponownie. Możesz również skopiować aktualny kod z instrukcji dla
-              urządzeń mobilnych i wkleić go w pole adresu istniejącej zakładki,
-              aby cieszyć się najnowszymi poprawkami.
+              <span data-i18n="info_date"
+                >ℹ️ <b>INFO:</b>: Ostatnia aktualizacja kodu:
+                <b class="date"></b>. <br />Jeśli Twoja zapisana zakładka jest
+                starsza, usuń ją i dodaj ponownie. Możesz również skopiować
+                aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w
+                pole adresu istniejącej zakładki, aby cieszyć się najnowszymi
+                poprawkami.</span
+              >
             </div>
             <div
               class="warning-box"
               style="padding: 10px; margin-top: 10px; border-radius: 10px"
             >
-              ⚠️ <b>WAŻNE:</b> Uruchamiaj skrypt będąc na koncie CFD.
+              <span data-i18n="warning_account"
+                >⚠️ <b>WAŻNE:</b> Uruchamiaj skrypt będąc na koncie CFD.</span
+              >
             </div>
             <div
               class="warning-box"
               style="padding: 10px; margin-top: 10px; border-radius: 10px"
             >
-              ⚠️ <b>WAŻNE:</b> Nie uruchamiaj skryptu kilkukrotnie w ciągu kilku
-              minut! Może to skutkować blokadą dostępu do Trading212 na około 5
-              minut.
+              <span data-i18n="warning_spam"
+                >⚠️ <b>WAŻNE:</b> Nie uruchamiaj skryptu kilkukrotnie w ciągu
+                kilku minut! Może to skutkować blokadą dostępu do Trading212 na
+                około 5 minut.</span
+              >
             </div>
             <hr style="margin: 40px 0 20px 0" />
-            <h3 style="text-align: left; margin-top: 20px">
+            <h3
+              style="text-align: left; margin-top: 20px"
+              data-i18n="opt1_title"
+            >
               Opcja 1: Zakładka Bookmarklet (PC)
             </h3>
             <div class="step-box">
-              <h3>Krok 1: Dodawanie zakładki</h3>
-              <p style="margin-bottom: 20px">
+              <h3 data-i18n="step1_title">Krok 1: Dodawanie zakładki</h3>
+              <p style="margin-bottom: 20px" data-i18n="step1_desc">
                 Przeciągnij przycisk na pasek zakładek.
               </p>
               <a
@@ -304,9 +223,10 @@
                   color: var(--text-muted);
                 "
               >
-                Brak paska? Naciśnij <kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
-
-                <kbd>B</kbd>
+                <span data-i18n="bookmark_nomenu"
+                  >Brak paska? Naciśnij <kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
+                  <kbd>B</kbd></span
+                >
               </p>
             </div>
 
@@ -319,7 +239,9 @@
                   padding-left: 10px;
                 "
               >
-                🚀 Szybka Instrukcja (Bookmarklet)
+                <span data-i18n="quick_inst_title"
+                  >🚀 Szybka Instrukcja (Bookmarklet)</span
+                >
               </h3>
               <ol
                 style="
@@ -330,41 +252,52 @@
                 "
               >
                 <li>
-                  Otwórz stronę <b>Trading212</b> (<a
-                    target="_blank"
-                    href="https://app.trading212.com"
-                    >app.trading212.com</a
-                  >).
+                  <span data-i18n="qi_1"
+                    >Otwórz stronę <b>Trading212</b> (<a
+                      target="_blank"
+                      href="https://app.trading212.com"
+                      >app.trading212.com</a
+                    >).</span
+                  >
                 </li>
                 <li>
-                  Kliknij zakładkę <b>🚀 T212 Export Tool</b> zapisaną wcześniej
-                  na Twoim pasku zakładek.
+                  <span data-i18n="qi_2"
+                    >Kliknij zakładkę <b>🚀 T212 Export Tool</b> zapisaną
+                    wcześniej na Twoim pasku zakładek.</span
+                  >
                 </li>
                 <li>
-                  W oknie które się pojawi wybierz z listy
-                  <b>walutę swojego konta</b>
-                  i wybierz daty <b>OD</b> oraz <b>DO</b>. Transakcji które mają
-                  zostać pobrane
+                  <span data-i18n="qi_3"
+                    >W oknie które się pojawi wybierz z listy
+                    <b>walutę swojego konta</b> i wybierz daty <b>OD</b> oraz
+                    <b>DO</b>. Transakcji które mają zostać pobrane</span
+                  >
                 </li>
                 <li>
-                  Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
-                  <b>.json</b>.
+                  <span data-i18n="qi_4"
+                    >Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
+                    <b>.json</b>.</span
+                  >
                 </li>
                 <li>
-                  Wczytaj plik na platformie
-                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
-                    ><b>kalkulatorgieldowy.pl</b></a
-                  >, z którą narzędzie zostało wykonane we współpracy.
+                  <span data-i18n="qi_5"
+                    >Wczytaj plik na platformie
+                    <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                      ><b>kalkulatorgieldowy.pl</b></a
+                    >, z którą narzędzie zostało wykonane we współpracy.</span
+                  >
                 </li>
               </ol>
             </div>
             <hr style="margin: 40px 0 20px 0" />
             <hr style="margin: 40px 0 20px 0" />
             <div class="copy-section">
-              <h3>Opcja 2: Konsola DevTools</h3>
+              <h3 data-i18n="opt2_title">Opcja 2: Konsola DevTools</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted)">
-                Skopiuj kod i wklej go w zakładce <b>Console</b> (F12) na
-                stronie Trading212.
+                <span data-i18n="opt2_desc"
+                  >Skopiuj kod i wklej go w zakładce <b>Console</b> (F12) na
+                  stronie Trading212.</span
+                >
               </p>
 
               <div class="code-wrapper">
@@ -373,10 +306,10 @@
                   <span
                     id="copy-status"
                     style="color: var(--success); font-size: 0.8rem; opacity: 0"
-                    >Skopiowano!</span
+                    ><span data-i18n="copy_status">Skopiowano!</span></span
                   >
                   <button class="copy-btn" onclick="copyRawCode()">
-                    Kopiuj kod skryptu
+                    <span data-i18n="copy_btn">Kopiuj kod skryptu</span>
                   </button>
                 </div>
               </div>
@@ -390,7 +323,9 @@
                   padding-left: 10px;
                 "
               >
-                📋 Pełna Instrukcja Eksportu (Konsola F12)
+                <span data-i18n="full_inst_f12_title"
+                  >📋 Pełna Instrukcja Eksportu (Konsola F12)</span
+                >
               </h3>
               <ol
                 style="
@@ -401,46 +336,61 @@
                   text-align: left;
                 "
               >
-                <li>
+                <li data-i18n="fi_1">
                   Skopiuj kod przyciskiem <b>"Kopiuj kod skryptu"</b> (sekcja
                   powyżej).
                 </li>
                 <li>
-                  Otwórz stronę <b>Trading212</b> (<a
-                    target="_blank"
-                    href="https://app.trading212.com"
-                    >app.trading212.com</a
-                  >).
-                </li>
-                <li>
-                  Otwórz narzędzia deweloperskie: naciśnij klawisz
-                  <kbd>F12</kbd>.
-                </li>
-                <li>Przejdź do zakładki <b>Console</b> (Konsola).</li>
-                <li>
-                  Wklej skopiowany wcześniej kod skryptu i naciśnij
-                  <kbd>Enter</kbd>. <br /><small
-                    style="color: var(--text-muted)"
-                    >* Jeśli przeglądarka blokuje wklejanie, wpisz ręcznie
-                    <code>allow pasting</code> i naciśnij Enter, a następnie
-                    spróbuj ponownie.</small
+                  <span data-i18n="qi_1"
+                    >Otwórz stronę <b>Trading212</b> (<a
+                      target="_blank"
+                      href="https://app.trading212.com"
+                      >app.trading212.com</a
+                    >).</span
                   >
                 </li>
                 <li>
-                  W oknie które się pojawi wybierz z listy
-                  <b>walutę swojego konta</b>
-                  i wybierz daty <b>OD</b> oraz <b>DO</b>. Transakcji które mają
-                  zostać pobrane
+                  <span data-i18n="fi_3"
+                    >Otwórz narzędzia deweloperskie: naciśnij klawisz
+                    <kbd>F12</kbd>.</span
+                  >
                 </li>
                 <li>
-                  Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
-                  <b>.json</b>.
+                  <span data-i18n="fi_4"
+                    >Przejdź do zakładki <b>Console</b> (Konsola).</span
+                  >
                 </li>
                 <li>
-                  Wczytaj plik na platformie
-                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
-                    ><b>kalkulatorgieldowy.pl</b></a
-                  >, z którą narzędzie zostało wykonane we współpracy.
+                  <span data-i18n="fi_5"
+                    >Wklej skopiowany wcześniej kod skryptu i naciśnij
+                    <kbd>Enter</kbd>. <br /><small
+                      style="color: var(--text-muted)"
+                      >* Jeśli przeglądarka blokuje wklejanie, wpisz ręcznie
+                      <code>allow pasting</code> i naciśnij Enter, a następnie
+                      spróbuj ponownie.</small
+                    ></span
+                  >
+                </li>
+                <li>
+                  <span data-i18n="qi_3"
+                    >W oknie które się pojawi wybierz z listy
+                    <b>walutę swojego konta</b> i wybierz daty <b>OD</b> oraz
+                    <b>DO</b>. Transakcji które mają zostać pobrane</span
+                  >
+                </li>
+                <li>
+                  <span data-i18n="qi_4"
+                    >Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
+                    <b>.json</b>.</span
+                  >
+                </li>
+                <li>
+                  <span data-i18n="qi_5"
+                    >Wczytaj plik na platformie
+                    <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                      ><b>kalkulatorgieldowy.pl</b></a
+                    >, z którą narzędzie zostało wykonane we współpracy.</span
+                  >
                 </li>
               </ol>
             </div>
@@ -454,15 +404,20 @@
                   padding-left: 10px;
                 "
               >
-                📱 Pełna Instrukcja dla urządzeń mobilnych
+                <span data-i18n="mobile_inst_title"
+                  >📱 Pełna Instrukcja dla urządzeń mobilnych</span
+                >
               </h3>
               <div
                 class="warning-box"
                 style="padding: 10px; margin-top: 10px; border-radius: 10px"
               >
-                ⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera
-                obecnie tylko przeglądarkę Firefox. Funkcjonalność nie jest
-                dostępna w Chrome, a pozostałe przeglądarki nie były testowane.
+                <span data-i18n="mobile_warning"
+                  >⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera
+                  obecnie tylko przeglądarkę Firefox. Funkcjonalność nie jest
+                  dostępna w Chrome, a pozostałe przeglądarki nie były
+                  testowane.</span
+                >
               </div>
               <div class="code-wrapper">
                 <pre
@@ -481,10 +436,10 @@
                   <span
                     id="copy-status-2"
                     style="color: var(--success); font-size: 0.8rem; opacity: 0"
-                    >Skopiowano!</span
+                    ><span data-i18n="copy_status">Skopiowano!</span></span
                   >
                   <button class="copy-btn" onclick="copyBookmarkletCode()">
-                    Kopiuj kod skryptu
+                    <span data-i18n="copy_btn">Kopiuj kod skryptu</span>
                   </button>
                 </div>
               </div>
@@ -497,53 +452,71 @@
                   text-align: left;
                 "
               >
-                <li>
+                <li data-i18n="fi_1">
                   Skopiuj kod przyciskiem <b>"Kopiuj kod skryptu"</b> (sekcja
                   powyżej).
                 </li>
                 <li>
-                  Otwórz stronę <b>Trading212</b> (<a
-                    target="_blank"
-                    href="https://app.trading212.com"
-                    >app.trading212.com</a
-                  >).
+                  <span data-i18n="qi_1"
+                    >Otwórz stronę <b>Trading212</b> (<a
+                      target="_blank"
+                      href="https://app.trading212.com"
+                      >app.trading212.com</a
+                    >).</span
+                  >
                 </li>
                 <li>
-                  W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki
-                  lub menu udostępniania).
+                  <span data-i18n="mi_3"
+                    >W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki
+                    lub menu udostępniania).</span
+                  >
                 </li>
                 <li>
-                  Przejdź do edycji tej zakładki. Zmień jej nazwę na:
-                  <kbd>🚀 T212 Export</kbd>.
+                  <span data-i18n="mi_4"
+                    >Przejdź do edycji tej zakładki. Zmień jej nazwę na:
+                    <kbd>🚀 T212 Export</kbd>.</span
+                  >
                 </li>
                 <li>
-                  W polu <b>Adres URL</b> usuń aktualny link i wklej skopiowany
-                  kod. Zapisz zmiany.
+                  <span data-i18n="mi_5"
+                    >W polu <b>Adres URL</b> usuń aktualny link i wklej
+                    skopiowany kod. Zapisz zmiany.</span
+                  >
                 </li>
                 <li>
-                  <b>Uruchomienie:</b> Będąc na zalogowanym koncie T212, kliknij
-                  w pasek adresu przeglądarki i wpisz: <kbd>T212 Export</kbd>.
+                  <span data-i18n="mi_6"
+                    ><b>Uruchomienie:</b> Będąc na zalogowanym koncie T212,
+                    kliknij w pasek adresu przeglądarki i wpisz:
+                    <kbd>T212 Export</kbd>.</span
+                  >
                 </li>
                 <li>
-                  Z listy podpowiedzi wybierz element z
-                  <b>ikoną gwiazdki</b> (Twoją zakładkę). Skrypt uruchomi się na
-                  stronie.
+                  <span data-i18n="mi_7"
+                    >Z listy podpowiedzi wybierz element z
+                    <b>ikoną gwiazdki</b> (Twoją zakładkę). Skrypt uruchomi się
+                    na stronie.</span
+                  >
                 </li>
                 <li>
-                  W oknie które się pojawi wybierz z listy
-                  <b>walutę swojego konta</b>
-                  i wybierz daty <b>OD</b> oraz <b>DO</b>. Transakcji które mają
-                  zostać pobrane
+                  <span data-i18n="qi_3"
+                    >W oknie które się pojawi wybierz z listy
+                    <b>walutę swojego konta</b> i wybierz daty <b>OD</b> oraz
+                    <b>DO</b>. Transakcji które mają zostać pobrane</span
+                  >
                 </li>
                 <li>
-                  Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
-                  <b>.json</b>.
+                  <span data-i18n="qi_4"
+                    >Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
+                    <b>.json</b>.</span
+                  >
                 </li>
                 <li>
-                  Wczytaj plik na platformie
-                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
-                    ><b>kalkulatorgieldowy.pl</b></a
-                  >, z którą narzędzie zostało wykonane we współpracy.
+                  <span data-i18n="qi_5"
+                    >Wczytaj plik na platformie
+                    <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                      ><b>kalkulatorgieldowy.pl</b></a
+                    >, z którą narzędzie zostało wykonane we współpracy.</span
+                  >
                 </li>
               </ol>
               <p
@@ -555,30 +528,15 @@
                   line-height: 1.4;
                 "
               >
-                ⚠️ Przeglądarki mobilne blokują skrypty uruchamiane bezpośrednio
-                z menu zakładek. Musisz wpisać nazwę zakładki w pasku adresu i
-                wybrać ją z podpowiedzi – to jedyny sposób na start narzędzia.
+                <span data-i18n="mobile_note"
+                  >⚠️ Przeglądarki mobilne blokują skrypty uruchamiane
+                  bezpośrednio z menu zakładek. Musisz wpisać nazwę zakładki w
+                  pasku adresu i wybrać ją z podpowiedzi – to jedyny sposób na
+                  start narzędzia.</span
+                >
               </p>
             </div>
-            <div
-              id="frame"
-              class="content-ad"
-              style="width: 100%; margin: auto; position: relative"
-            >
-              <iframe
-                data-aa="2433499"
-                src="//acceptable.a-ads.com/2433499/?size=Adaptive"
-                style="
-                  border: 0;
-                  padding: 0;
-                  width: 100%;
-                  height: auto;
-                  overflow: hidden;
-                  display: block;
-                  margin: auto;
-                "
-              ></iframe>
-            </div>
+            <ad-banner></ad-banner>
           </main>
 
           <section class="attribution-card">
@@ -589,7 +547,7 @@
               />
             </div>
             <div class="info">
-              <h4>Developed by Dawid Konopiaty</h4>
+              <h4 data-i18n="dev_by">Developed by Dawid Konopiaty</h4>
               <p
                 style="
                   margin: 5px 0;
@@ -597,6 +555,7 @@
                   font-size: 0.9rem;
                   color: var(--text-muted);
                 "
+                data-i18n="dev_desc"
               >
                 Pasjonat programowania i inwestowania. Ten projekt powstał z
                 myślą o ułatwieniu życia inwestorom korzystającym z Trading212
@@ -615,17 +574,21 @@
 
           <section class="docs-grid">
             <div class="doc-item">
-              <h4>Dlaczego ten skrypt?</h4>
+              <h4 data-i18n="about_title">Dlaczego ten skrypt?</h4>
               <p>
-                Trading212 CFD nie posiada natywnego eksportu szczegółowych
-                raportów JSON. To narzędzie wypełnia tę lukę.
+                <span data-i18n="about_desc"
+                  >Trading212 CFD nie posiada natywnego eksportu szczegółowych
+                  raportów JSON. To narzędzie wypełnia tę lukę.</span
+                >
               </p>
             </div>
             <div class="doc-item" style="border-left-color: #3fb950">
-              <h4>Prywatność</h4>
+              <h4 data-i18n="privacy_title">Prywatność</h4>
               <p>
-                Dane są przetwarzane lokalnie. Kod jest dostępny na GitHub do
-                wglądu dla każdego użytkownika.
+                <span data-i18n="privacy_desc"
+                  >Dane są przetwarzane lokalnie. Kod jest dostępny na GitHub do
+                  wglądu dla każdego użytkownika.</span
+                >
               </p>
               <button
                 class="copy-btn"
@@ -638,7 +601,7 @@
                   window.open('https:/\/github.com/DarkSpine433', '_blank')
                 "
               >
-                Zobacz kod na GitHub
+                <span data-i18n="github_btn">Zobacz kod na GitHub</span>
               </button>
             </div>
           </section>
@@ -649,6 +612,7 @@
     <footer
       style="
         margin-top: 40px;
+        margin-bottom: 20px;
         color: var(--text-muted);
         font-size: 0.8rem;
         text-align: center;
@@ -658,22 +622,40 @@
       <script>
         document.write(new Date().getFullYear());
       </script>
-      Dawid Konopiaty
+      Dawid Konopiaty |
+      <a
+        href="privacy-policy.html"
+        style="color: inherit; text-decoration: underline"
+        data-i18n="footer_privacy"
+        >Polityka Prywatności</a
+      >
     </footer>
     <script type="module">
       import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
       async function getMarkdownData() {
         try {
-          const response = await fetch("README.md");
+          const langSuffix = currentLang === "en" ? "en" : "pl";
+          const response = await fetch(`README.${langSuffix}.md`);
           const text = await response.text();
           return text;
         } catch (error) {
           console.error("Could not read file", error);
         }
       }
-      const markdownText = await getMarkdownData();
-      document.getElementById("markdown-content").innerHTML =
-        marked.parse(markdownText);
+
+      const loadReadMe = async () => {
+        const markdownText = await getMarkdownData();
+        document.getElementById("markdown-content").innerHTML =
+          marked.parse(markdownText);
+      };
+      await loadReadMe();
+
+      // Reload README on language change
+      document
+        .getElementById("lang-switcher")
+        ?.addEventListener("change", () => {
+          loadReadMe();
+        });
     </script>
     <script type="module">
       import { getData, getInstruction } from "./js/generatorJsonData.js";
@@ -739,24 +721,23 @@
         if (!localStorage.getItem("cookieConsent")) {
           const overlay = document.createElement("div");
           overlay.className = "cookie-overlay";
-          
+
           const banner = document.createElement("div");
           banner.className = "cookie-consent";
           banner.innerHTML = `
-            <h3 style="margin-bottom: 5px; font-size: 1.3rem;">Zgoda na pliki cookies</h3>
+            <h3 data-i18n="cookie_title" style="margin-bottom: 5px; font-size: 1.3rem;">Zgoda na pliki cookies</h3>
             <p style="font-size: 0.95rem; margin-bottom: 20px;">
-              Korzystając z tej strony, wyrażasz zgodę na używanie plików cookies do celów prawidłowego działania narzędzia oraz statystyk.<br/><br/>
-              <a href="privacy-policy.html" style="text-decoration: underline;">Polityka Prywatności</a>
+              <span data-i18n="cookie_desc">Korzystając z tej strony, wyrażasz zgodę na używanie plików cookies do celów prawidłowego działania narzędzia oraz statystyk.<br/><br/><a href="privacy-policy.html" style="text-decoration: underline;">Polityka Prywatności</a></span>
             </p>
             <div class="cookie-buttons">
-              <button class="cookie-consent-btn decline" id="decline-cookies">Nie zgadzam się</button>
-              <button class="cookie-consent-btn" id="accept-cookies">Jestem tego świadomy</button>
+              <button class="cookie-consent-btn decline" id="decline-cookies"><span data-i18n="cookie_decline">Nie zgadzam się</span></button>
+              <button class="cookie-consent-btn" id="accept-cookies"><span data-i18n="cookie_accept">Jestem tego świadomy</span></button>
             </div>
           `;
-          
+
           document.body.appendChild(overlay);
           document.body.appendChild(banner);
-          
+
           // Disable body scroll when modal is active
           document.body.style.overflow = "hidden";
 
@@ -765,22 +746,30 @@
             banner.classList.add("show");
           }, 500);
 
-          document.getElementById("accept-cookies").addEventListener("click", function () {
-            localStorage.setItem("cookieConsent", "true");
-            overlay.classList.remove("show");
-            banner.classList.remove("show");
-            document.body.style.overflow = ""; // restore scroll
-            setTimeout(() => {
-              overlay.remove();
-              banner.remove();
-            }, 400);
-          });
-          
-          document.getElementById("decline-cookies").addEventListener("click", function () {
-            if (confirm("Zostaniesz przeniesiony do google.com. Chcesz kontynuować?")) {
-               window.location.href = "https://google.com";
-            }
-          });
+          document
+            .getElementById("accept-cookies")
+            .addEventListener("click", function () {
+              localStorage.setItem("cookieConsent", "true");
+              overlay.classList.remove("show");
+              banner.classList.remove("show");
+              document.body.style.overflow = ""; // restore scroll
+              setTimeout(() => {
+                overlay.remove();
+                banner.remove();
+              }, 400);
+            });
+
+          document
+            .getElementById("decline-cookies")
+            .addEventListener("click", function () {
+              if (
+                confirm(
+                  "Zostaniesz przeniesiony do google.com. Chcesz kontynuować?",
+                )
+              ) {
+                window.location.href = "https://google.com";
+              }
+            });
         }
       });
     </script>
