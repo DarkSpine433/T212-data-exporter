@@ -26,13 +26,171 @@ const getInstruction = () => {
   return instruction;
 };
 1;
-/* Collapsing system fixed */
+
 async function getData(
   getCurrencies = false,
   currencyPredifined = null,
   startDatePredifined = null,
   endDatePredifined = null,
 ) {
+  /* =====================================================================
+   *  i18n — Translation System
+   * ===================================================================== */
+  const T212_TRANSLATIONS = {
+    pl: {
+      cfg_title: "Konfiguracja Eksportu",
+      cfg_subtitle: "Podaj walutę konta Trading212 CFD oraz zakres dat.",
+      cfg_info:
+        'ℹ️ Wyniki w narzędziu są przeliczane <b>orientacyjnie</b>. Aby poprawnie wyliczyć podatek w PLN, zaimportuj końcowy plik .json do platformy <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#3b82f6;">kalkulatorgieldowy.pl</a></b>. Wszystkie waluty przeliczane są na podstawie średnich kursów NBP.',
+      cfg_currency_label: "Waluta",
+      cfg_start_label: "Data Początkowa (OD)",
+      cfg_end_label: "Data Końcowa (DO)",
+      cfg_cancel: "Anuluj",
+      cfg_submit: "Rozpocznij Pobieranie",
+      cfg_err_dates: "Wypełnij obie daty!",
+      cfg_err_date_order:
+        "Data początkowa nie może być późniejsza niż data końcowa.",
+      cfg_lang_label: "Język / Language",
+
+      ui_title: "T212 Exporter",
+      ui_minimize: "Minimalizuj",
+      ui_close: "Zamknij",
+      ui_star: "Zostaw gwiazdkę 🌟",
+      ui_mobile_warn:
+        "⚠️ Użytkownicy mobilni: Pozostań na stronie T212, nie wygaszaj ekranu.",
+      ui_hide_results: "Ukryj wyniki",
+      ui_show_results: "Pokaż wyniki",
+      ui_trade_result: "Wynik Trade",
+      ui_fx_fees: "Opłaty FX",
+      ui_interest: "Odsetki",
+      ui_net_total: "Suma Netto",
+      ui_btn_logs: "LOGI",
+      ui_btn_json: "JSON",
+      ui_btn_csv: "CSV",
+      ui_btn_txt: "TXT",
+      ui_show_logs: "Pokaż logki",
+      ui_hide_logs: "Ukryj logki",
+      ui_errors: "Błędy",
+      ui_report_bug: "Zgłoś błąd",
+
+      fin_title: "Eksport Zakończony!",
+      fin_records: "Pobrano pomyślnie",
+      fin_records2: "rekordów.",
+      fin_net: "Wynik netto:",
+      fin_cta:
+        '🚀 WAŻNE: Zaimportuj plik .json do platformy <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#60a5fa; text-decoration: underline;">Kalkulatorgieldowy.pl</a></b>, aby poprawnie wyliczyć podatek PIT-38.',
+      fin_dl_json: "📄 Pobierz JSON (Dla kalkulatora)",
+      fin_dl_csv: "📊 Pobierz CSV (Format T212)",
+      fin_dl_txt: "Wynik tekstowy (.txt)",
+      fin_close: "Zamknij",
+
+      prog_done:
+        '✅ <b>Eksport zakończony!</b><br/>Otwarto okno pobierania. <b>Zaimportuj plik .json do <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.',
+      prog_done_log: "Eksport zakończony sukcesem. Suma netto:",
+      prog_preparing:
+        "⚙️ <b>Zakończono pobieranie.</b><br/>Przygotowywanie raportów (JSON & CSV)...",
+      prog_preparing_log: "Pobieranie zakończone. Trwa generowanie plików...",
+    },
+    en: {
+      cfg_title: "Export Configuration",
+      cfg_subtitle:
+        "Enter your Trading212 CFD account currency and date range.",
+      cfg_info:
+        'ℹ️ Results shown in the tool are <b>approximate</b>. To correctly calculate tax in PLN, import the final .json file into <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#3b82f6;">kalkulatorgieldowy.pl</a></b>. All currencies are converted using NBP average exchange rates.',
+      cfg_currency_label: "Currency",
+      cfg_start_label: "Start Date (FROM)",
+      cfg_end_label: "End Date (TO)",
+      cfg_cancel: "Cancel",
+      cfg_submit: "Start Download",
+      cfg_err_dates: "Please fill in both dates!",
+      cfg_err_date_order: "Start date cannot be later than end date.",
+      cfg_lang_label: "Język / Language",
+
+      ui_title: "T212 Exporter",
+      ui_minimize: "Minimize",
+      ui_close: "Close",
+      ui_star: "Leave a star 🌟",
+      ui_mobile_warn:
+        "⚠️ Mobile users: Stay on the T212 page, don't lock your screen.",
+      ui_hide_results: "Hide results",
+      ui_show_results: "Show results",
+      ui_trade_result: "Trade Result",
+      ui_fx_fees: "FX Fees",
+      ui_interest: "Interest",
+      ui_net_total: "Net Total",
+      ui_btn_logs: "LOGS",
+      ui_btn_json: "JSON",
+      ui_btn_csv: "CSV",
+      ui_btn_txt: "TXT",
+      ui_show_logs: "Show logs",
+      ui_hide_logs: "Hide logs",
+      ui_errors: "Errors",
+      ui_report_bug: "Report bug",
+
+      fin_title: "Export Complete!",
+      fin_records: "Successfully downloaded",
+      fin_records2: "records.",
+      fin_net: "Net result:",
+      fin_cta:
+        '🚀 IMPORTANT: Import the .json file into <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#60a5fa; text-decoration: underline;">Kalkulatorgieldowy.pl</a></b> to correctly calculate your PIT-38 tax.',
+      fin_dl_json: "📄 Download JSON (For calculator)",
+      fin_dl_csv: "📊 Download CSV (T212 Format)",
+      fin_dl_txt: "Text summary (.txt)",
+      fin_close: "Close",
+
+      prog_done:
+        '✅ <b>Export complete!</b><br/>Download window opened. <b>Import the .json file into <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.',
+      prog_done_log: "Export completed successfully. Net total:",
+      prog_preparing:
+        "⚙️ <b>Download finished.</b><br/>Preparing reports (JSON & CSV)...",
+      prog_preparing_log: "Download complete. Generating files...",
+    },
+  };
+
+  const _detectLang = () => {
+    const stored = (() => {
+      try {
+        return localStorage.getItem("t212_ui_lang");
+      } catch (e) {
+        return null;
+      }
+    })();
+    if (stored && T212_TRANSLATIONS[stored]) return stored;
+    const nav = (
+      navigator.language ||
+      navigator.userLanguage ||
+      "pl"
+    ).toLowerCase();
+    return nav.startsWith("pl") ? "pl" : "en";
+  };
+  let _currentLang = _detectLang();
+  const t = (key) =>
+    (T212_TRANSLATIONS[_currentLang] || T212_TRANSLATIONS["pl"])[key] || key;
+
+  const _setLang = (lang) => {
+    _currentLang = lang;
+    try {
+      localStorage.setItem("t212_ui_lang", lang);
+    } catch (e) {}
+  };
+
+  /* Parametrized lang toggle HTML — prefix avoids duplicate IDs */
+  const _langToggleHTML = (prefix = "t212-lang") => `
+    <div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:14px; gap:8px;">
+      <span style="font-size:12px; color:#64748b;">${t("cfg_lang_label")}:</span>
+      <button id="${prefix}-pl" style="padding:5px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); cursor:pointer; font-size:13px; font-weight:700; background:${_currentLang === "pl" ? "#3b82f6" : "rgba(255,255,255,0.07)"}; color:#fff; transition:background 0.2s;">🇵🇱 PL</button>
+      <button id="${prefix}-en" style="padding:5px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); cursor:pointer; font-size:13px; font-weight:700; background:${_currentLang === "en" ? "#3b82f6" : "rgba(255,255,255,0.07)"}; color:#fff; transition:background 0.2s;">🇬🇧 EN</button>
+    </div>
+  `;
+
+  /* Attach lang button handlers using querySelector on a root element (works before DOM append) */
+  const _attachLangBtns = (root, prefix, onSwitch) => {
+    const plBtn = root.querySelector(`#${prefix}-pl`);
+    const enBtn = root.querySelector(`#${prefix}-en`);
+    if (plBtn) plBtn.onclick = () => { _setLang("pl"); onSwitch("pl"); };
+    if (enBtn) enBtn.onclick = () => { _setLang("en"); onSwitch("en"); };
+  };
+
   const nbpCache = {};
 
   const formatDate = (date) => {
@@ -160,88 +318,109 @@ async function getData(
         color: #f8fafc; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       `;
 
-      dialog.innerHTML = `
-        <h2 style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #fff;">Konfiguracja Eksportu</h2>
-        <p style="margin: 0 0 10px 0; font-size: 13px; color: #94a3b8;">Podaj walutę konta Trading212 CFD oraz zakres dat.</p>
-        <p style="margin: 0 0 20px 0; font-size: 11px; color: #64748b; line-height: 1.4;">ℹ️ Wyniki w narzędziu są przeliczane <b>orientacyjnie</b>. Aby poprawnie wyliczyć podatek w PLN, zaimportuj końcowy plik .json do platformy <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#3b82f6;">kalkulatorgieldowy.pl</a></b>. Wszystkie waluty przeliczane są na podstawie średnich kursów NBP.</p>
-        
-        <div style="margin-bottom: 15px;">
-          <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Waluta</label>
-          <select id="t212-cfg-currency" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none;">
-            ${currencyList.map((c) => `<option value="${c}" ${c === "PLN" ? "selected" : ""}>${c}</option>`).join("")}
-          </select>
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-          <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Data Początkowa (OD)</label>
-          <input type="date" id="t212-cfg-start" value="${defaultStart}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
-        </div>
-        
-        <div style="margin-bottom: 25px;">
-          <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Data Końcowa (DO)</label>
-          <input type="date" id="t212-cfg-end" value="${defaultEnd}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
-        </div>
-        
-        <div style="display: flex; gap: 10px; justify-content: flex-end;">
-          <button id="t212-cfg-cancel" style="padding: 10px 16px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s;">Anuluj</button>
-          <button id="t212-cfg-submit" style="padding: 10px 20px; background: #3b82f6; border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); transition: background 0.2s;">Rozpocznij Pobieranie</button>
-        </div>
-      `;
+      const _renderConfigDialog = () => {
+        /* Preserve user-entered values across re-renders */
+        const prevStart = dialog.querySelector("#t212-cfg-start")?.value || defaultStart;
+        const prevEnd = dialog.querySelector("#t212-cfg-end")?.value || defaultEnd;
+        const prevCurrency = dialog.querySelector("#t212-cfg-currency")?.value || "PLN";
+
+        dialog.innerHTML = `
+          ${_langToggleHTML("t212-cfg-lang")}
+          <h2 style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #fff;">${t("cfg_title")}</h2>
+          <p style="margin: 0 0 10px 0; font-size: 13px; color: #94a3b8;">${t("cfg_subtitle")}</p>
+          <p style="margin: 0 0 20px 0; font-size: 11px; color: #64748b; line-height: 1.4;">${t("cfg_info")}</p>
+          
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">${t("cfg_currency_label")}</label>
+            <select id="t212-cfg-currency" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none;">
+              ${currencyList.map((c) => `<option value="${c}" ${c === prevCurrency ? "selected" : ""}>${c}</option>`).join("")}
+            </select>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">${t("cfg_start_label")}</label>
+            <input type="date" id="t212-cfg-start" value="${prevStart}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
+          </div>
+          
+          <div style="margin-bottom: 25px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">${t("cfg_end_label")}</label>
+            <input type="date" id="t212-cfg-end" value="${prevEnd}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
+          </div>
+          
+          <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button id="t212-cfg-cancel" style="padding: 10px 16px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s;">${t("cfg_cancel")}</button>
+            <button id="t212-cfg-submit" style="padding: 10px 20px; background: #3b82f6; border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); transition: background 0.2s;">${t("cfg_submit")}</button>
+          </div>
+        `;
+
+        /* Use dialog.querySelector — works even before dialog is appended to document */
+        _attachLangBtns(dialog, "t212-cfg-lang", () => {
+          _renderConfigDialog();
+          _reAttachConfigHandlers();
+        });
+      };
+      _renderConfigDialog();
 
       overlay.appendChild(dialog);
       document.body.appendChild(overlay);
 
-      const cancelBtn = document.getElementById("t212-cfg-cancel");
-      const submitBtn = document.getElementById("t212-cfg-submit");
+      let keydownHandler = null;
 
-      cancelBtn.onmouseenter = () =>
-        (cancelBtn.style.background = "rgba(255,255,255,0.05)");
-      cancelBtn.onmouseleave = () =>
-        (cancelBtn.style.background = "transparent");
+      const _reAttachConfigHandlers = () => {
+        const cancelBtn = document.getElementById("t212-cfg-cancel");
+        const submitBtn = document.getElementById("t212-cfg-submit");
+        if (!cancelBtn || !submitBtn) return;
 
-      submitBtn.onmouseenter = () => (submitBtn.style.background = "#2563eb");
-      submitBtn.onmouseleave = () => (submitBtn.style.background = "#3b82f6");
+        cancelBtn.onmouseenter = () =>
+          (cancelBtn.style.background = "rgba(255,255,255,0.05)");
+        cancelBtn.onmouseleave = () =>
+          (cancelBtn.style.background = "transparent");
+        submitBtn.onmouseenter = () => (submitBtn.style.background = "#2563eb");
+        submitBtn.onmouseleave = () => (submitBtn.style.background = "#3b82f6");
 
-      const keydownHandler = (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          submitBtn.click();
-        } else if (e.key === "Escape") {
-          cancelBtn.click();
-        }
+        if (keydownHandler)
+          window.removeEventListener("keydown", keydownHandler);
+        keydownHandler = (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submitBtn.click();
+          } else if (e.key === "Escape") {
+            cancelBtn.click();
+          }
+        };
+        window.addEventListener("keydown", keydownHandler);
+
+        cancelBtn.onclick = () => {
+          window.removeEventListener("keydown", keydownHandler);
+          overlay.remove();
+          resolve(null);
+        };
+
+        submitBtn.onclick = () => {
+          const selectedCurrency =
+            document.getElementById("t212-cfg-currency").value;
+          const selectedStart = document.getElementById("t212-cfg-start").value;
+          const selectedEnd = document.getElementById("t212-cfg-end").value;
+
+          if (!selectedStart || !selectedEnd) {
+            alert(t("cfg_err_dates"));
+            return;
+          }
+          if (new Date(selectedStart) > new Date(selectedEnd)) {
+            alert(t("cfg_err_date_order"));
+            return;
+          }
+
+          window.removeEventListener("keydown", keydownHandler);
+          overlay.remove();
+          resolve({
+            currency: selectedCurrency.toUpperCase(),
+            startDate: selectedStart,
+            endDate: selectedEnd,
+          });
+        };
       };
-      window.addEventListener("keydown", keydownHandler);
-
-      cancelBtn.onclick = () => {
-        window.removeEventListener("keydown", keydownHandler);
-        overlay.remove();
-        resolve(null);
-      };
-
-      submitBtn.onclick = () => {
-        const selectedCurrency =
-          document.getElementById("t212-cfg-currency").value;
-        const selectedStart = document.getElementById("t212-cfg-start").value;
-        const selectedEnd = document.getElementById("t212-cfg-end").value;
-
-        if (!selectedStart || !selectedEnd) {
-          alert("Wypełnij obie daty!");
-          return;
-        }
-
-        if (new Date(selectedStart) > new Date(selectedEnd)) {
-          alert("Data początkowa nie może być późniejsza niż data końcowa.");
-          return;
-        }
-
-        window.removeEventListener("keydown", keydownHandler);
-        overlay.remove();
-        resolve({
-          currency: selectedCurrency.toUpperCase(),
-          startDate: selectedStart,
-          endDate: selectedEnd,
-        });
-      };
+      _reAttachConfigHandlers();
     });
   };
 
@@ -419,15 +598,14 @@ async function getData(
       ui.innerHTML = `
         <div  class="t212-minimize-handle" id="t212-restore-handle"><span style="margin-bottom:5px; margin-top:20px;">T212 Exporter</span><span style="margin-bottom:10px; margin-top:5px;">${maximizeIcon}</span></div>
         <div class="t212-header">
-         
-    
           <div style="display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; color:#fff;">
-            <div class="t212-spinner" id="t212-spinner"></div><span>T212 Exporter</span>
+            <div class="t212-spinner" id="t212-spinner"></div><span>${t("ui_title")}</span>
           </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <div class="t212-btn-icon" id="t212-btn-min" title="Minimalizuj">${minIcon}</div>
-            
-            <div class="t212-btn-icon" id="t212-btn-close" title="Zamknij" style="color:#ef4444;">${closeIcon}</div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button id="t212-ui-lang-pl" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:10px; font-weight:600; background:${_currentLang === "pl" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇵🇱</button>
+            <button id="t212-ui-lang-en" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:10px; font-weight:600; background:${_currentLang === "en" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇬🇧</button>
+            <div class="t212-btn-icon" id="t212-btn-min" title="${t("ui_minimize")}">${minIcon}</div>
+            <div class="t212-btn-icon" id="t212-btn-close" title="${t("ui_close")}" style="color:#ef4444;">${closeIcon}</div>
           </div>
         </div> 
         <div class="t212-content">
@@ -436,7 +614,7 @@ async function getData(
               <div style="cursor:pointer; display:flex; flex-direction:column; align-items:center; background-color: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;">
                 <div style="display:flex; align-items:center; gap:6px; font-weight:600; font-size:12px;">
                   <svg style="color:#fff;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg>
-                  Zostaw gwiazdkę 🌟
+                  ${t("ui_star")}
                 </div>
               </div>
             </a>
@@ -448,43 +626,43 @@ async function getData(
               </div>
             </a>
           </div>
-          <div style="font-size:10px; color: #ef4444; text-align: center; margin-bottom:12px; line-height: 1.3;">
-            ⚠️ Użytkownicy mobilni: Pozostań na stronie T212, nie wygaszaj ekranu.
+          <div id="t212-mobile-warn" style="font-size:10px; color: #ef4444; text-align: center; margin-bottom:12px; line-height: 1.3;">
+            ${t("ui_mobile_warn")}
           </div>
           
           <div id="t212-msg" class="t212-msg"></div>
-          <div class="t212-btn-icon" id="t212-btn-blur" title="Ukryj wyniki"  style="flex:1; font-size:11px; gap:8px; margin-bottom:10px;">${eyeIcon} Ukryj wyniki</div>
+          <div class="t212-btn-icon" id="t212-btn-blur" title="${t("ui_hide_results")}"  style="flex:1; font-size:11px; gap:8px; margin-bottom:10px;">${eyeIcon} ${t("ui_hide_results")}</div>
           <div class="t212-live-summary">
             <div style="display:flex; flex-direction:column; gap:2px;">
-              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Wynik Trade</span>
+              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">${t("ui_trade_result")}</span>
               <span class="t212-stat-value" id="t212-stat-pnl">0.00 ${accountCurrency}</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:2px;">
-              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Opłaty FX</span>
+              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">${t("ui_fx_fees")}</span>
               <span class="t212-stat-value" id="t212-stat-fx">0.00 ${accountCurrency}</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:2px;">
-              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Odsetki</span>
+              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">${t("ui_interest")}</span>
               <span class="t212-stat-value" id="t212-stat-interest">0.00 ${accountCurrency}</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:2px;">
-              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Suma Netto</span>
+              <span style="color:#64748b; font-size:10px; text-transform:uppercase;">${t("ui_net_total")}</span>
               <span class="t212-stat-value" id="t212-stat-total" style="color:#3b82f6;">0.00 ${accountCurrency}</span>
             </div>
             
           </div>
           <div class="t212-progress-bg" id="t212-progress-bg"><div class="t212-progress-bar" id="t212-bar"></div></div>
           <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-            <button id="t212-save-logs" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px;">${saveIcon} LOGI</button>
-            <button id="t212-save-json" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} JSON</button>
-            <button id="t212-save-csv" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} CSV</button>
-            <button id="t212-save-results" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} TXT</button>
+            <button id="t212-save-logs" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px;">${saveIcon} ${t("ui_btn_logs")}</button>
+            <button id="t212-save-json" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_json")}</button>
+            <button id="t212-save-csv" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_csv")}</button>
+            <button id="t212-save-results" class="t212-btn-icon" style="flex:1; min-width:80px; font-size:10px; gap:4px; display:none;">${saveIcon} ${t("ui_btn_txt")}</button>
           </div>
           <div style="display:flex; gap:10px; margin-bottom:12px;">
-            <button id="t212-toggle-logs" class="t212-btn-icon" style="flex:1; font-size:11px; gap:8px;">${eyeIcon} Pokaż logki</button>
+            <button id="t212-toggle-logs" class="t212-btn-icon" style="flex:1; font-size:11px; gap:8px;">${eyeIcon} ${t("ui_show_logs")}</button>
           </div>
           <div class="t212-error-box" id="t212-error-box">
-            <div class="t212-error-header"><span>Błędy</span><a href="https://github.com/DarkSpine433/T212-CFD-DATA/issues" target="_blank" class="t212-report-btn">Zgłoś błąd</a></div>
+            <div class="t212-error-header"><span>${t("ui_errors")}</span><a href="https://github.com/DarkSpine433/T212-CFD-DATA/issues" target="_blank" class="t212-report-btn">${t("ui_report_bug")}</a></div>
             <div id="t212-error-list"></div>
           </div>
           <div class="t212-logs-wrapper" id="t212-logs-wrapper">
@@ -503,6 +681,27 @@ async function getData(
       const logsBox = document.getElementById("t212-logs-container");
       const scrollBtn = document.getElementById("t212-btn-scroll");
       const toggleBtn = document.getElementById("t212-toggle-logs");
+
+      const uiLangPl = document.getElementById("t212-ui-lang-pl");
+      const uiLangEn = document.getElementById("t212-ui-lang-en");
+      const _reloadUILang = (lang) => {
+        _setLang(lang);
+
+        const existingUI = document.getElementById("t212-exporter-progress");
+        if (existingUI) existingUI.remove();
+        const existingStyle = document.getElementById("t212-exporter-styles");
+        if (existingStyle) existingStyle.remove();
+
+        updateProgress(
+          "🔄 " +
+            (lang === "pl"
+              ? "Zmieniono język na Polski."
+              : "Language changed to English."),
+          -1,
+        );
+      };
+      if (uiLangPl) uiLangPl.onclick = () => _reloadUILang("pl");
+      if (uiLangEn) uiLangEn.onclick = () => _reloadUILang("en");
 
       let uiLastPos = { left: null, top: null };
       let uiLastRect = null;
@@ -1431,9 +1630,9 @@ async function getData(
 
   /*--- EKSPORT ---*/
   updateProgress(
-    `⚙️ <b>Zakończono pobieranie.</b><br/>Przygotowywanie raportów (JSON & CSV)...`,
+    t("prog_preparing"),
     100,
-    `Pobieranie zakończone. Trwa generowanie plików...`,
+    t("prog_preparing_log"),
     false,
   );
   const combinedData = [
@@ -1627,36 +1826,44 @@ SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
     `;
 
     dialog.innerHTML = `
+      ${_langToggleHTML("t212-fin-lang")}
       <div style="font-size: 48px; margin-bottom: 20px;">✅</div>
-      <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 700; color: #fff;">Eksport Zakończony!</h2>
+      <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 700; color: #fff;">${t("fin_title")}</h2>
       <p style="margin: 0 0 25px 0; font-size: 15px; color: #94a3b8; line-height: 1.5;">
-        Pobrano pomyślnie <b>${combinedData.length}</b> rekordów.<br/>
-        Wynik netto: <b>${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}</b>
+        ${t("fin_records")} <b>${combinedData.length}</b> ${t("fin_records2")}<br/>
+        ${t("fin_net")} <b>${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}</b>
       </p>
 
       <div style="background: rgba(59, 130, 246, 0.1); border-radius: 12px; padding: 15px; margin-bottom: 30px; border: 1px dashed rgba(59, 130, 246, 0.3);">
         <p style="margin: 0; font-size: 13px; color: #3b82f6; font-weight: 500;">
-          🚀 WAŻNE: Zaimportuj plik .json do platformy <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#60a5fa; text-decoration: underline;">Kalkulatorgieldowy.pl</a></b>, aby poprawnie wyliczyć podatek PIT-38.
+          ${t("fin_cta")}
         </p>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <button id="t212-dl-json" style="padding: 14px; background: #3b82f6; border: none; color: #fff; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600; transition: transform 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
-          <span>📄 Pobierz JSON (Dla kalkulatora)</span>
+          <span>${t("fin_dl_json")}</span>
         </button>
         <button id="t212-dl-csv" style="padding: 14px; background: #10b981; border: none; color: #fff; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600; transition: transform 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
-          <span>📊 Pobierz CSV (Format T212)</span>
+          <span>${t("fin_dl_csv")}</span>
         </button>
         <button id="t212-dl-txt" style="padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 500;">
-          Wynik tekstowy (.txt)
+          ${t("fin_dl_txt")}
         </button>
       </div>
 
-      <button id="t212-close-final" style="color: #64748b; background: none; border: none; font-size: 13px; cursor: pointer; text-decoration: underline;">Zamknij</button>
+      <button id="t212-close-final" style="color: #64748b; background: none; border: none; font-size: 13px; cursor: pointer; text-decoration: underline;">${t("fin_close")}</button>
     `;
 
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
+
+    /* Attach lang buttons for the final dialog */
+    _attachLangBtns(overlay, "t212-fin-lang", () => {
+      /* Re-render the final dialog in-place */
+      document.body.removeChild(overlay);
+      showFinalDialog();
+    });
 
     const download = (content, filename, type) => {
       const blob = new Blob([content], { type });
@@ -1716,9 +1923,9 @@ SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
   showFinalDialog();
 
   updateProgress(
-    `✅ <b>Eksport zakończony!</b><br/>Otwarto okno pobierania. <b>Zaimportuj plik .json do <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.`,
+    t("prog_done"),
     100,
-    `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}`,
+    `${t("prog_done_log")} ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}`,
     false,
   );
 
