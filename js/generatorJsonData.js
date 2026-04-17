@@ -165,7 +165,8 @@ async function getData(
 
       dialog.innerHTML = `
         <h2 style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #fff;">Konfiguracja Eksportu</h2>
-        <p style="margin: 0 0 20px 0; font-size: 13px; color: #94a3b8;">Podaj walutę konta Trading212 CFD oraz zakres dat.</p>
+        <p style="margin: 0 0 10px 0; font-size: 13px; color: #94a3b8;">Podaj walutę konta Trading212 CFD oraz zakres dat.</p>
+        <p style="margin: 0 0 20px 0; font-size: 11px; color: #64748b; line-height: 1.4;">ℹ️ Wyniki w narzędziu są przeliczane <b>orientacyjnie</b>. Aby poprawnie wyliczyć podatek w PLN, zaimportuj końcowy plik .json do platformy <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#3b82f6;">kalkulatorgieldowy.pl</a></b>. Wszystkie waluty przeliczane są na podstawie średnich kursów NBP.</p>
         
         <div style="margin-bottom: 15px;">
           <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">Waluta</label>
@@ -309,13 +310,13 @@ async function getData(
   let feeDetails = [];
 
   let summary = {
-    "Zysk PLN": 0,
-    "Strata PLN": 0,
-    "Wyniki zamknięte PLN": 0,
-    "Opłaty FX PLN": 0,
-    "Odsetki od gotówki PLN": 0,
-    "Odsetki overnight PLN": 0,
-    "Łącznie netto PLN": 0,
+    Zysk: 0,
+    Strata: 0,
+    "Wyniki zamknięte": 0,
+    "Opłaty FX": 0,
+    "Odsetki od gotówki": 0,
+    "Odsetki overnight": 0,
+    "Łącznie netto": 0,
   };
   /*
   _________________________________________________________________________________
@@ -448,19 +449,19 @@ async function getData(
           <div class="t212-live-summary">
             <div style="display:flex; flex-direction:column; gap:2px;">
               <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Wynik Trade</span>
-              <span class="t212-stat-value" id="t212-stat-pnl">0.00 PLN</span>
+              <span class="t212-stat-value" id="t212-stat-pnl">0.00 ${accountCurrency}</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:2px;">
               <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Opłaty FX</span>
-              <span class="t212-stat-value" id="t212-stat-fx">0.00 PLN</span>
+              <span class="t212-stat-value" id="t212-stat-fx">0.00 ${accountCurrency}</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:2px;">
               <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Odsetki</span>
-              <span class="t212-stat-value" id="t212-stat-interest">0.00 PLN</span>
+              <span class="t212-stat-value" id="t212-stat-interest">0.00 ${accountCurrency}</span>
             </div>
             <div style="display:flex; flex-direction:column; gap:2px;">
               <span style="color:#64748b; font-size:10px; text-transform:uppercase;">Suma Netto</span>
-              <span class="t212-stat-value" id="t212-stat-total" style="color:#3b82f6;">0.00 PLN</span>
+              <span class="t212-stat-value" id="t212-stat-total" style="color:#3b82f6;">0.00 ${accountCurrency}</span>
             </div>
             
           </div>
@@ -836,26 +837,26 @@ async function getData(
 
     /* Refresh UI content */
     if (summary) {
-      const pnl = (summary["Zysk PLN"] || 0) + (summary["Strata PLN"] || 0);
+      const pnl = (summary["Zysk"] || 0) + (summary["Strata"] || 0);
       const tt =
         pnl +
-        (summary["Opłaty FX PLN"] || 0) +
-        (summary["Odsetki od gotówki PLN"] || 0) +
-        (summary["Odsetki overnight PLN"] || 0);
+        (summary["Opłaty FX"] || 0) +
+        (summary["Odsetki od gotówki"] || 0) +
+        (summary["Odsetki overnight"] || 0);
       const setV = (id, val, color = false) => {
         const el = document.getElementById(id);
         if (!el) return;
-        el.innerText = `${val.toFixed(2)} PLN`;
+        el.innerText = `${val.toFixed(2)} ${accountCurrency}`;
         if (color)
           el.style.color =
             val > 0 ? "#22c55e" : val < 0 ? "#ef4444" : "#f1f5f9";
       };
       setV("t212-stat-pnl", pnl, true);
-      setV("t212-stat-fx", summary["Opłaty FX PLN"] || 0);
+      setV("t212-stat-fx", summary["Opłaty FX"] || 0);
       setV(
         "t212-stat-interest",
-        (summary["Odsetki od gotówki PLN"] || 0) +
-          (summary["Odsetki overnight PLN"] || 0),
+        (summary["Odsetki od gotówki"] || 0) +
+          (summary["Odsetki overnight"] || 0),
         true,
       );
       setV("t212-stat-total", tt, true);
@@ -1020,6 +1021,10 @@ async function getData(
                   position.currency,
                   event.time,
                 );
+                const rateTarget = await getNBPExchangeRate(
+                  accountCurrency,
+                  event.time,
+                );
 
                 let pnl = (exitPrice - entryPrice) * closedQty;
                 if (openDirection === "sell") {
@@ -1031,13 +1036,15 @@ async function getData(
                 const netPnL = pnl - fxFee;
                 const netPnLPLN = netPnL * rate;
                 const fxFeePLN = fxFee * rate;
+                const netPnLTarget = (netPnL * rate) / rateTarget;
+                const fxFeeTarget = (fxFee * rate) / rateTarget;
 
                 if (pnl > 0) {
-                  summary["Zysk PLN"] += pnl * rate;
+                  summary["Zysk"] += (pnl * rate) / rateTarget;
                 } else {
-                  summary["Strata PLN"] += pnl * rate;
+                  summary["Strata"] += (pnl * rate) / rateTarget;
                 }
-                summary["Opłaty FX PLN"] -= fxFeePLN;
+                summary["Opłaty FX"] -= fxFeeTarget;
 
                 if (fxFee > 0) {
                   feeDetails.push({
@@ -1065,6 +1072,7 @@ async function getData(
                   openPrice: entryPrice,
                   closePrice: exitPrice,
                   pnlNetPLN: netPnLPLN.toFixed(4),
+                  pnlNetChosenCurrency: netPnLTarget.toFixed(4),
                 });
 
                 updateProgress(
@@ -1155,9 +1163,14 @@ async function getData(
           }
 
           if (itemDate <= maxDate && itemDate >= minDate) {
+            const itemexecutionDate = item.executionDate;
             const rate = await getNBPExchangeRate(
               item.currency,
-              item.executionDate,
+              itemexecutionDate,
+            );
+            const rateTarget = await getNBPExchangeRate(
+              accountCurrency,
+              itemexecutionDate,
             );
             const interestAmt =
               typeof item.interestNetAmount === "number"
@@ -1167,8 +1180,10 @@ async function getData(
                   ) || 0;
             const rateNum = Number(rate) || 1;
             const interestInPLN = interestAmt * rateNum;
-            summary["Odsetki od gotówki PLN"] =
-              (Number(summary["Odsetki od gotówki PLN"]) || 0) + interestInPLN;
+            const interestInTarget = (interestAmt * rateNum) / rateTarget;
+
+            summary["Odsetki od gotówki"] =
+              (Number(summary["Odsetki od gotówki"]) || 0) + interestInTarget;
 
             interestDetails.push({
               type: "CASH_INTEREST",
@@ -1178,6 +1193,7 @@ async function getData(
               currency: item.currency,
               interest: item.interestNetAmount,
               interestInPLN: interestInPLN.toFixed(4),
+              interestInChosenCurrency: interestInTarget.toFixed(4),
               quantity: 1,
               direction: "profit",
             });
@@ -1233,8 +1249,14 @@ async function getData(
               overnightFee.accountCurrency,
               overnightFee.time,
             );
+            const rateTarget = await getNBPExchangeRate(
+              accountCurrency,
+              overnightFee.time,
+            );
             const feeInPLN = parseFloat(overnightFee.interest) * rate;
-            summary["Odsetki overnight PLN"] += feeInPLN;
+            const feeInTarget =
+              (parseFloat(overnightFee.interest) * rate) / rateTarget;
+            summary["Odsetki overnight"] += feeInTarget;
 
             feeDetails.push({
               type: "FEE_OVERNIGHT",
@@ -1243,6 +1265,7 @@ async function getData(
               currency: overnightFee.accountCurrency,
               interest: overnightFee.interest,
               feeInPLN: feeInPLN.toFixed(4),
+              feeInChosenCurrency: feeInTarget.toFixed(4),
               quantity: overnightFee.quantity,
               direction: overnightFee.direction,
             });
@@ -1291,27 +1314,27 @@ async function getData(
   document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 100);
 
-  summary["Wyniki zamknięte PLN"] = summary["Zysk PLN"] + summary["Strata PLN"];
-  summary["Łącznie netto PLN"] =
-    summary["Wyniki zamknięte PLN"] +
-    summary["Opłaty FX PLN"] +
-    summary["Odsetki od gotówki PLN"] +
-    summary["Odsetki overnight PLN"];
+  summary["Wyniki zamknięte"] = summary["Zysk"] + summary["Strata"];
+  summary["Łącznie netto"] =
+    summary["Wyniki zamknięte"] +
+    summary["Opłaty FX"] +
+    summary["Odsetki od gotówki"] +
+    summary["Odsetki overnight"];
 
   const summaryText = `
-Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj Kalkulatorgieldowy.pl.
+Pamiętaj, że wartości w tym raporcie są orientacyjne. Aby poprawnie wyliczyć podatek w PLN (PIT-38), zaimportuj pobrany wcześniej plik .json do platformy kalkulatorgieldowy.pl.
 
 RAPORT TRADING 212 CFD
 Okres: ${fromDateStr} - ${toDateStr}
 --------------------------------------
-Zysk: ${summary["Zysk PLN"].toFixed(2)} PLN
-Strata: ${summary["Strata PLN"].toFixed(2)} PLN
-Wynik (Trade): ${summary["Wyniki zamknięte PLN"].toFixed(2)} PLN
-Opłaty FX: ${summary["Opłaty FX PLN"].toFixed(2)} PLN
-Odsetki: ${summary["Odsetki od gotówki PLN"].toFixed(2)} PLN
-Overnight: ${summary["Odsetki overnight PLN"].toFixed(2)} PLN
+Zysk: ${summary["Zysk"].toFixed(2)} ${accountCurrency}
+Strata: ${summary["Strata"].toFixed(2)} ${accountCurrency}
+Wynik (Trade): ${summary["Wyniki zamknięte"].toFixed(2)} ${accountCurrency}
+Opłaty FX: ${summary["Opłaty FX"].toFixed(2)} ${accountCurrency}
+Odsetki: ${summary["Odsetki od gotówki"].toFixed(2)} ${accountCurrency}
+Overnight: ${summary["Odsetki overnight"].toFixed(2)} ${accountCurrency}
 --------------------------------------
-SUMA NETTO: ${summary["Łącznie netto PLN"].toFixed(2)} PLN
+SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
   `;
 
   const btnSaveResults = document.getElementById("t212-save-results");
@@ -1328,14 +1351,14 @@ SUMA NETTO: ${summary["Łącznie netto PLN"].toFixed(2)} PLN
   }
 
   updateProgress(
-    `✅ <b>Eksport zakończony!</b><br/>Plik JSON został pobrany. Możesz teraz zapisać raport tekstowy lub przejrzeć logi. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a>.`,
+    `✅ <b>Eksport zakończony!</b><br/>Plik JSON został pobrany. <b>Zaimportuj go do <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>, aby poprawnie wyliczyć podatek w PLN. <br/><small style="color:#aaa;">Pamiętaj, że wartości w tym oknie są jedynie orientacyjne.</small>`,
     100,
-    `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN`,
+    `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}`,
     false,
   );
 
   alert(
-    `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto PLN"].toFixed(2)} PLN. Pamiętaj, że jest to bardzo przbyliżona kwota do prawdziwego wyniku, a nie dokładny wynik. Do obliczenia dokładnego wyniku użyj Kalkulatorgieldowy.pl.`,
+    `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}.\n\nWAŻNE: Zaimportuj pobrany plik JSON do kalkulatorgieldowy.pl, aby poprawnie wyliczyć podatek w PLN (rozliczenie PIT-38).`,
   );
   /* Replace spinner with green check if no errors occurred */
   try {
