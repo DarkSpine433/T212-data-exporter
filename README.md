@@ -18,9 +18,9 @@ A free tool enabling the export of detailed transaction data from a **Trading212
 
 ---
 
-<img width="415" height="431" alt="1" src="https://github.com/user-attachments/assets/2b454139-fb60-4b12-93a9-def8b7fa5800" />
+<img class="showcase" width="415" height="431" alt="1" src="https://github.com/user-attachments/assets/2b454139-fb60-4b12-93a9-def8b7fa5800" />
 
-<img width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
+<img class="showcase" width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
 
 ## ✨ Key Features
 

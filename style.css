@@ -392,11 +392,10 @@ kbd {
   width: 100%;
 }
 
-@media (max-width: 600px) {
-  #markdown-content img {
-    width: fit-content;
-    max-width: 320px;
-    max-height: 500px;
+@media (max-width: 500px) {
+  .showcase {
+    width: 100%;
+    object-fit: contain;
   }
   #menu {
     gap: 20px;
