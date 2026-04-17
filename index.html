@@ -81,7 +81,10 @@
       content="7yX7mBJzkiLzDVGmW5jIWmQ8WzjyE4hjK2tGfnBR0S0"
     />
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="logo.ico" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -111,7 +114,7 @@
             style="
               display: inline-flex;
               align-items: center;
-              background: var(--bg-card);
+              background: black;
               border: 1px solid var(--border);
               padding: 8px 20px;
               border-radius: 100px;
@@ -120,6 +123,11 @@
               animation: fadeInDown 0.6s ease-out;
             "
           >
+            <img
+              src="logo.png"
+              alt="Logo"
+              style="width: 32px; height: 32px; margin-right: 10px"
+            />
             <span
               style="
                 font-size: 0.9rem;
