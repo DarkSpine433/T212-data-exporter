@@ -63,6 +63,46 @@ async function getData(
         "Pamiętaj, że wartości w tym raporcie są orientacyjne...",
       ui_period: "Okres",
 
+      log_init: "Inicjalizacja pobierania...",
+      log_period: "Okres",
+      log_started: "Rozpoczęto pobieranie z Trading212...",
+      log_positions_page: "Pobrano pozycje ze strony",
+      log_position_details: "Pobieranie detali dla pozycji",
+      log_position_closed: "Zamknięto",
+      log_position_profit_loss: "Zysk/Strata",
+      log_interest_fetching: "Pobieram odsetki",
+      log_interest_date: "wcześniejsze od",
+      log_interest_fetched: "Sukces: Pobrano odsetki od gotówki.",
+      log_interest_found: "Znaleziono dotychczas",
+      log_interest_header: "Pobieranie odsetek",
+
+      log_overnight_header: "Pobieranie opłat overnight",
+      log_overnight_page: "Opłaty: przetworzono stronę",
+      log_overnight_fee: "Opłata overnight",
+      log_overnight_processing: "Przetwarzanie strony",
+      log_positions_fetching: "Pobieranie pozycji",
+      log_page_progress: "Procesowanie strony {i} z {total}...",
+      log_transactions_header: "Pobieranie historii transakcji",
+      log_transactions_page: "Transakcje: przetworzono stronę",
+      log_transactions_fetching: "Pobieram historię transakcji...",
+
+      log_dividends_header: "Pobieranie dywidend",
+      log_dividends_fetching: "Pobieram dywidendy...",
+      log_dividends_page: "Dywidendy: przetworzono stronę",
+      log_dividends_found: "Dywidenda",
+
+      log_preparing: "Pobieranie zakończone. Trwa generowanie plików...",
+      log_completed: "Eksport zakończony sukcesem. Suma netto:",
+      log_nbp_limit: "Limit NBP dla",
+      log_nbp_limit_fallback: "Używam 1:1",
+      log_nbp_error: "Błąd NBP dla",
+      log_nbp_error_fallback: "Używam 1:1",
+      log_nbp_fetching: "Pobieranie kursu NBP dla",
+      log_network_error: "Błąd sieci",
+      log_api_empty: "Odpowiedź API jest pusta",
+      log_rate_limit: "Limit zapytań (429). Czekam",
+      log_retry_exhausted: "Przekroczono limit prób dla",
+
       ui_title: "T212 Exporter",
       ui_minimize: "Minimalizuj",
       ui_close: "Zamknij",
@@ -81,6 +121,7 @@ async function getData(
       ui_btn_txt: "TXT",
       ui_show_logs: "Pokaż logki",
       ui_hide_logs: "Ukryj logki",
+      ui_errors: "Błędy",
 
       fin_title: "Eksport Zakończony!",
       fin_records: "Pobrano pomyślnie",
@@ -124,6 +165,44 @@ async function getData(
       export_net_total: "NET TOTAL",
       export_remember: "Remember that values in this report are approximate...",
       ui_period: "Period",
+
+      log_init: "Initializing download...",
+      log_period: "Period",
+      log_started: "Started download from Trading212...",
+      log_positions_page: "Fetched positions from page",
+      log_position_details: "Fetching details for position",
+      log_position_closed: "Closed",
+      log_position_profit_loss: "Profit/Loss",
+      log_positions_fetching: "Fetching positions",
+      log_page_progress: "Processing page {i} of {total}...",
+      log_position_result: "Position",
+      log_interest_fetching: "Fetching interests",
+      log_interest_date: "older than",
+      log_interest_fetched: "Success: Cash interests fetched.",
+      log_interest_found: "Found so far",
+      log_interest_header: "Fetching interests",
+      log_overnight_header: "Fetching overnight fees",
+      log_overnight_page: "Fees: processed page",
+      log_overnight_fee: "Overnight fee",
+      log_overnight_processing: "Processing page",
+      log_transactions_header: "Fetching transaction history",
+      log_transactions_page: "Transactions: processed page",
+      log_transactions_fetching: "Fetching transaction history...",
+      log_dividends_header: "Fetching dividends",
+      log_dividends_fetching: "Fetching dividends...",
+      log_dividends_page: "Dividends: processed page",
+      log_dividends_found: "Dividend",
+      log_preparing: "Download complete. Generating files...",
+      log_completed: "Export completed successfully. Net total:",
+      log_nbp_limit: "NBP limit for",
+      log_nbp_limit_fallback: "Using 1:1",
+      log_nbp_error: "NBP error for",
+      log_nbp_error_fallback: "Using 1:1",
+      log_nbp_fetching: "Fetching NBP exchange rate for",
+      log_network_error: "Network error",
+      log_api_empty: "API response is empty",
+      log_rate_limit: "Rate limit (429). Waiting",
+      log_retry_exhausted: "Retry limit exceeded for",
 
       ui_title: "T212 Exporter",
       ui_minimize: "Minimize",
@@ -240,12 +319,12 @@ async function getData(
       const promise = (async () => {
         if (rCount > 10) {
           console.warn(
-            `Limit NBP dla ${currency} (${dateString}) przekroczony. Używam 1:1`,
+            `${t("log_nbp_limit")} ${currency} (${dateString}) przekroczony. ${t("log_nbp_limit_fallback")}`,
           );
           updateProgress(
             null,
             -1,
-            `Limit NBP dla ${currency} (${dateString}) przekroczony. Używam 1:1`,
+            `${t("log_nbp_limit")} ${currency} (${dateString}) przekroczony. ${t("log_nbp_limit_fallback")}`,
           );
           return 1;
         }
@@ -272,12 +351,12 @@ async function getData(
             return await fetchWithRetry(prev, rCount + 1);
           }
           console.warn(
-            `Błąd NBP dla ${currency} (${dateString}): ${e.message}. Używam 1:1`,
+            `${t("log_nbp_error")} ${currency} (${dateString}): ${e.message}. ${t("log_nbp_error_fallback")}`,
           );
           updateProgress(
             null,
             -1,
-            `Błąd NBP dla ${currency} (${dateString}): ${e.message}. Używam 1:1`,
+            `${t("log_nbp_error")} ${currency} (${dateString}): ${e.message}. ${t("log_nbp_error_fallback")}`,
           );
           return 1;
         }
@@ -292,7 +371,7 @@ async function getData(
     updateProgress(
       null,
       -1,
-      `Pobieranie kursu NBP dla ${currency} z dnia ${formatDate(startDate)}...`,
+      `${t("log_nbp_fetching")} ${currency} ${t("log_period")} ${formatDate(startDate)}...`,
     );
     return fetchWithRetry(startDate, 0);
   };
@@ -632,8 +711,8 @@ async function getData(
             <div class="t212-spinner" id="t212-spinner"></div><span>${t("ui_title")}</span>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
-            <button id="t212-ui-lang-pl" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:10px; font-weight:600; background:${_currentLang === "pl" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇵🇱</button>
-            <button id="t212-ui-lang-en" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:10px; font-weight:600; background:${_currentLang === "en" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇬🇧</button>
+            <button id="t212-ui-lang-pl" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:15px; font-weight:600; background:${_currentLang === "pl" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇵🇱</button>
+            <button id="t212-ui-lang-en" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:15px; font-weight:600; background:${_currentLang === "en" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇬🇧</button>
             <div class="t212-btn-icon" id="t212-btn-min" title="${t("ui_minimize")}">${minIcon}</div>
             <div class="t212-btn-icon" id="t212-btn-close" title="${t("ui_close")}" style="color:#ef4444;">${closeIcon}</div>
           </div>
@@ -1174,9 +1253,9 @@ async function getData(
   };
 
   updateProgress(
-    `Inicjalizacja pobierania...<br/><span style="color:#aaa;">${fromDateStr} do ${toDateStr}</span>`,
+    `${t("log_init")}<br/><span style="color:#aaa;">${t("log_period")}: ${fromDateStr} - ${toDateStr}</span>`,
     0,
-    `Rozpoczęto pobieranie z Trading212...`,
+    t("log_started"),
   );
 
   /* mark downloading and warn on unload */
@@ -1239,7 +1318,7 @@ async function getData(
           updateProgress(
             null,
             -1,
-            `Pobieranie detali dla pozycji: ${position.orderNumber.name} (${position.code})`,
+            `${t("log_position_details")}: ${position.orderNumber.name} (${position.code})`,
           );
           const detailsResponse = await fetchWithRetry(
             requestBase + position.orderNumber.link,
@@ -1344,7 +1423,7 @@ async function getData(
                 updateProgress(
                   null,
                   -1,
-                  `✅ Zamknięto ${closedQty} ${position.code} (Zysk/Strata: ${pnl.toFixed(2)} ${position.currency})`,
+                  `✅ ${t("log_position_closed")} ${closedQty} ${position.code} (${t("log_position_profit_loss")}: ${pnl.toFixed(2)} ${position.currency})`,
                 );
 
                 currentQty = newTotalQty;
@@ -1355,9 +1434,9 @@ async function getData(
         }
         const progress = Math.round((i / pageCount) * 100);
         updateProgress(
-          `📈<b>Pobieranie pozycji:</b><br/>Trwa przetwarzanie strony ${i} z ${pageCount}...`,
+          `📈<b>${t("log_positions_fetching") || "Pobieranie pozycji"}:</b><br/>${t("log_page_progress").replace("{i}", i).replace("{total}", pageCount)}`,
           progress,
-          `Pobrano pozycje ze strony: ${i}/${pageCount}`,
+          `${t("log_positions_page")}: ${i}/${pageCount}`,
         );
       } else {
         const errorMsg = `Brak danych do pobrania. Zapisz logi i załącz je do zgłoszenia Problemu`;
@@ -1483,7 +1562,7 @@ async function getData(
         hasNext = false;
       }
     }
-    updateProgress(null, -1, "Sukces: Pobrano odsetki od gotówki.");
+    updateProgress(null, -1, t("log_interest_fetched"));
   } catch (e) {
     const errorMsg = `Błąd przy odsetkach od gotówki. Zapisz logi i załącz je do zgłoszenia Problemu`;
     console.error(e);
