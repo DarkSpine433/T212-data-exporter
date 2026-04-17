@@ -729,7 +729,7 @@ async function getData(
             <a style="flex:1; text-decoration:none; color:#fff;" href="https://buymeacoffee.com/darkspine" target="_blank">
               <div style="cursor:pointer; display:flex; flex-direction:column; align-items:center; background-color: rgba(255, 200, 30, 0.15); padding: 10px; border-radius: 12px; border: 1px solid rgba(255, 200, 30, 0.3); transition: background 0.2s;">
                 <div style="display:flex; align-items:center; gap:6px; font-weight:600; font-size:12px; color: #ffdd44;">
-                  ☕ Buy me a coffee!
+                  ☕ Support My Work
                 </div>
               </div>
             </a>
