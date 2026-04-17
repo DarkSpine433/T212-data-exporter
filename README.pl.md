@@ -24,6 +24,7 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 <img  class="showcase" width="407" height="569" alt="1" src="https://github.com/user-attachments/assets/da52ca0f-6aa6-4381-ab1f-59efa3e9d799" />
 <br/>
 <img  class="showcase" width="420" height="450" alt="3" src="https://github.com/user-attachments/assets/160e9c51-c9d6-4902-a02f-054ee2ecf0f3" />
+
 ## ✨ Kluczowe Funkcje (v1.2.0)
 
 - **Kompleksowy eksport:** Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`), opłatach overnight, **historii transakcji** (wpłaty, wypłaty, przelewy) oraz **rejestrach dywidend**.
