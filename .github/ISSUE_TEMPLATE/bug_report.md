@@ -1,30 +1,34 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
+title: '[BUG] '
 labels: bug
 assignees: DarkSpine433
 
 ---
 
-## 🐛 Opis błędu
-[Krótki i zwięzły opis tego, co się dzieje. Np. "Skrypt zatrzymuje się na pobieraniu odsetek"]
+## 🐛 Bug Description
+[A clear and concise description of what the bug is. E.g., "The script stops during interest calculation"]
 
-## 🛠 Środowisko
-- **Przeglądarka:** (np. Chrome, Brave, Firefox)
-- **Waluta konta:** (np. PLN, USD)
-- **Zakres dat:** (np. 01.01.2024 - 31.12.2024)
-- **Metoda uruchomienia:** [ ] Konsola (F12) / [ ] Bookmarklet
+## 🛠 Environment
+- **Browser:** (e.g., Chrome, Brave, Firefox)
+- **Account Currency:** (e.g., PLN, USD, EUR)
+- **Date Range:** (e.g., 2024-01-01 - 2024-12-31)
+- **Launch Method:** [ ] Console (F12) / [ ] Bookmarklet
 
-## 📋 Kroki do błędu
-1. Otwieram Trading212 CFD.
-2. Wklejam kod do konsoli.
-3. Wpisuję dane...
-4. Skrypt wyrzuca błąd w momencie: [np. 45% postępu]
+## 📋 Steps to Reproduce
+1. Open Trading212 CFD.
+2. Paste the code into the console.
+3. Enter data...
+4. The script crashes at: [e.g., 45% progress]
 
-## 📥 Logi i Dane (Kluczowe!)
-> **Ważne:** Kliknij przycisk **"Zapisz Logi"** w panelu skryptu i załącz plik `T212_Logs.txt` poniżej (możesz go przeciągnąć i upuścić).
+## 📥 Logs and Data (Crucial!)
+> **Important:** Click the **"Save Logs"** button in the script panel and attach the `T212_Logs.txt` file below (you can drag and drop it).
 
-**Ostatnie linijki z konsoli logów:**
+**Last lines from the console log:**
 ```text
-[Wklej tutaj ostatnie 5-10 linijek z logów widocznych w panelu na stronie]
+[Paste the last 5-10 lines of logs visible in the panel on the page here]
+```
+
+## 🖼 Screenshots
+If applicable, add screenshots to help explain your problem.
