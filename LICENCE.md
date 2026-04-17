@@ -1,8 +1,10 @@
-# WARUNKI LICENCJI I UŻYTKOWANIA OPROGRAMOWANIA
+# WARUNKI LICENCJI I UŻYTKOWANIA OPROGRAMOWANIA / SOFTWARE LICENSE AND TERMS OF USE
 
-**Copyright (c) 2026 Dawid Konopiaty. Wszystkie prawa zastrzeżone.**
+**Copyright (c) 2026 Dawid Konopiaty. Wszystkie prawa zastrzeżone / All rights reserved.**
 
 ---
+
+## JĘZYK POLSKI (Wersja wiążąca / Binding version)
 
 ### §1. Postanowienia Ogólne
 
@@ -19,8 +21,8 @@
 
 ### §3. Ograniczenia i Zakazy (Restrykcje)
 
-1. **Zakaz Redystrybucji:** Zabrania się kopiowania, powielania, udostępniania, przesyłania, publikowania oraz redystrybucji kodu źródłowego Oprogramowania (w całości lub w jakiejkolwiek części) na innych stronach internetowych, platformach hostingowych, repozytoriach publicznych (np. GitHub, GitLab), forach dyskusyjnych oraz w aplikacjach mobilnych i desktopowych.
-2. **Wymóg Zgody:** Każda forma eksploatacji Oprogramowania wykraczająca poza zakres określony w §2 wymaga uprzedniej, wyraźnej zgody Autora wyrażonej w formie pisemnej pod rygorem nieważności.
+1. **Zakaz Redystrybucji:** Zabrania się kopiowania, powielania, udostępniania, przesyłania, publikowania oraz redystrybucji kodu źródłowego Oprogramowania (w całości lub w jakiejkolwiek części) na innych stronach internetowych, platformach hostingowych, repozytorium publicznych (np. GitHub, GitLab), forach dyskusyjnych oraz w aplikacjach mobilnych i desktopowych.
+2. **Wymóg Zgody:** Każda formę eksploatacji Oprogramowania wykraczająca poza zakres określony w §2 wymaga uprzedniej, wyraźnej zgody Autora wyrażonej w formie pisemnej pod rygorem nieważności.
 3. **Własność Intelektualna:** Użytkownik nie nabywa żadnych praw do modyfikacji, dekompilacji, inżynierii wstecznej (reverse engineering) ani tworzenia utworów zależnych na podstawie Oprogramowania w celu ich dalszego rozpowszechniania.
 
 ### §4. Wyłączenie Gwarancji i Ograniczenie Odpowiedzialności
@@ -41,3 +43,45 @@ Oprogramowanie jest niezależnym narzędziem stworzonym przez Autora. Nie jest o
 1. Naruszenie warunków niniejszej Licencji skutkuje jej natychmiastowym wypowiedzeniem i może pociągać za sobą odpowiedzialność cywilną oraz karną na podstawie ustawy o prawie autorskim i prawach pokrewnych.
 2. W sprawach nieuregulowanych mają zastosowanie przepisy prawa polskiego, w szczególności Kodeksu Cywilnego oraz Ustawy o prawie autorskim i prawach pokrewnych.
 3. Sądem właściwym do rozstrzygania sporów wynikających z niniejszej Licencji jest sąd właściwy dla miejsca zamieszkania lub siedziby Autora.
+
+---
+
+## ENGLISH (Non-binding translation)
+
+### §1. General Provisions
+
+1. This License defines the rules for using the computer script for exporting data from the Trading212 platform, hereinafter referred to as the "Software".
+2. The author and exclusive owner of the economic and moral copyrights to the Software is Dawid Konopiaty (hereinafter referred to as the "Author").
+3. A User is any natural or legal person who downloads, installs, or runs the Software.
+
+### §2. Scope and Subject of the License
+
+1. The Author grants the User a non-exclusive, non-transferable, and royalty-free license to use the Software solely for:
+   a) downloading the Software to an end device,
+   b) running the Software for the technical export of transaction data from the User's account on the Trading212 platform.
+2. The license is granted for an indefinite period and is effective from the first interaction with the source code or executable file of the Software.
+
+### §3. Restrictions and Prohibitions
+
+1. **Redistribution Prohibition:** It is forbidden to copy, reproduce, share, transmit, publish, or redistribute the source code of the Software (in whole or in part) on other websites, hosting platforms, public repositories (e.g., GitHub, GitLab), discussion forums, and in mobile or desktop applications.
+2. **Consent Requirement:** Any form of exploitation of the Software going beyond the scope defined in §2 requires the prior, express consent of the Author in writing under penalty of nullity.
+3. **Intellectual Property:** The User does not acquire any rights to modify, decompile, reverse engineer, or create derivative works based on the Software for further distribution.
+
+### §4. Disclaimer of Warranty and Limitation of Liability
+
+1. **"AS IS" Clause:** The Software is provided "as is", without warranty of any kind, express or implied. The Author does not guarantee that the Software will operate uninterrupted, error-free, or that it will be compatible with future versions of the Trading212 platform.
+2. **Exclusion of Liability for Data:** To the fullest extent permitted by law, the Author is not liable for:
+   a) loss, damage, or misinterpretation of data exported using the Software,
+   b) any financial, tax, or legal consequences resulting from the use of data obtained by the Software,
+   c) any blocking of the User's account by the operator of the Trading212 platform or other sanctions resulting from violations of third-party terms of service.
+3. **User's Risk:** Use of the Software is at the User's own risk and responsibility.
+
+### §5. Relationship with Third Parties
+
+The Software is an independent tool created by the Author. It is not affiliated, authorized, sponsored, or supported by Trading212 or its subsidiaries in any way.
+
+### §6. Final Provisions
+
+1. Violation of the terms of this License results in its immediate termination and may lead to civil and criminal liability under the Copyright and Related Rights Act.
+2. For matters not regulated, the provisions of Polish law apply, in particular the Civil Code and the Copyright and Related Rights Act.
+3. The court competent to settle disputes arising from this License is the court competent for the place of residence or registered office of the Author.
