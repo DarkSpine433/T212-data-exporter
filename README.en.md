@@ -52,7 +52,7 @@ If the script encounters a problem:
 - `style.css` - Page design (Premium Dark Design).
 - `js/generatorJsonData.js` - Main application engine and API logic.
 - `js/i18n.js` - Internationalization system.
-- `js/utils/` - Utility modules (analytics, cookie consent, ads).
+- `js/utils/` - Utility modules (analytics, cookie consent).
 
 ---
 

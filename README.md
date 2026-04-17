@@ -8,6 +8,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
+[![GitHub version](https://img.shields.io/badge/Version-1.2.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
 [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENCE.md)
 
 A free tool enabling the export of detailed transaction data from a **Trading212 CFD** account to JSON and CSV format. This project solves the problem of the lack of native CFD data export on the platform.
@@ -18,16 +19,20 @@ A free tool enabling the export of detailed transaction data from a **Trading212
 
 ---
 
-<img class="showcase" width="415" height="431" alt="1" src="https://github.com/user-attachments/assets/2b454139-fb60-4b12-93a9-def8b7fa5800" />
+<img class="showcase"  width="415" height="431" alt="1" src="https://github.com/user-attachments/assets/2b454139-fb60-4b12-93a9-def8b7fa5800" />
 
-<img class="showcase" width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
+<img class="showcase"  width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
 
-## ✨ Key Features
+## ✨ Key Features (v1.2.0)
 
-- **Comprehensive export:** Downloads data about closed positions, FX fees, interest (`CASH_INTEREST`), and overnight fees.
+- **Comprehensive export:** Downloads data about closed positions, FX fees, interest (`CASH_INTEREST`), overnight fees, **transaction history** (deposits, withdrawals, transfers), and **dividend records**.
+- **Multiple export formats:** Export data to **JSON** (for tax calculators), **CSV** (T212 format), and **TXT** (text summary).
 - **Interactive UI:** A modern panel with a progress bar and a logs console displayed directly on the Trading212 page.
+- **Bilingual support:** Full **Polish and English** language support with real-time language switching.
+- **Keyboard shortcuts:** Press **Enter** to confirm, **Escape** to cancel in the configuration dialog.
 - **Anti-Ban System:** A _Retry_ mechanism protecting against bans for too many requests (error 429).
 - **100% Privacy:** Data is processed exclusively locally in your browser.
+- **Mobile-friendly:** Works on mobile browsers - stay on the T212 page and keep your screen active.
 
 ---
 
@@ -46,6 +51,8 @@ If the script encounters a problem:
 - `index.html` - Homepage and code generator.
 - `style.css` - Page design (Premium Dark Design).
 - `js/generatorJsonData.js` - Main application engine and API logic.
+- `js/i18n.js` - Internationalization system.
+- `js/utils/` - Utility modules (analytics, cookie consent).
 
 ---
 

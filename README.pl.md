@@ -52,7 +52,7 @@ Jeśli skrypt napotka problem:
 - `style.css` - Design strony (Premium Dark Design).
 - `js/generatorJsonData.js` - Główny silnik aplikacji i logika API.
 - `js/i18n.js` - System międzynarodowy (i18n).
-- `js/utils/` - Moduły narzędziowe (analytics, zgody cookies, reklamy).
+- `js/utils/` - Moduły narzędziowe (analytics, zgody cookies).
 
 ---
 
