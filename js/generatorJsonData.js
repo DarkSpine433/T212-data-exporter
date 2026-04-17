@@ -130,10 +130,8 @@ async function getData(
     return currencyList;
   }
 
-  /*---  Pobieranie Konfiguracji (Asynchroniczne okno dialogowe) ---*/
   const getConfigurationFields = () => {
     return new Promise((resolve, reject) => {
-      /* Jeśli wartości są podane jako argumenty do getData, nie pokazujemy formularza */
       if (currencyPredifined && startDatePredifined && endDatePredifined) {
         resolve({
           currency: currencyPredifined.toUpperCase(),
@@ -143,7 +141,6 @@ async function getData(
         return;
       }
 
-      /* Utworzenie nakładki */
       const overlay = document.createElement("div");
       overlay.id = "t212-exporter-config-overlay";
       overlay.style.cssText = `
@@ -194,7 +191,6 @@ async function getData(
       overlay.appendChild(dialog);
       document.body.appendChild(overlay);
 
-      /* Dodanie małych efektów hover */
       const cancelBtn = document.getElementById("t212-cfg-cancel");
       const submitBtn = document.getElementById("t212-cfg-submit");
 
@@ -1292,27 +1288,148 @@ async function getData(
     return;
   }
 
+  const transactionDetails = [];
+  try {
+    const transUrl = `https://live.trading212.com/rest/reports/transactions`;
+    updateProgress(
+      `💸 <b>Pobieranie historii transakcji:</b><br/>Pobieranie wpłat, wypłat i przelewów...`,
+      -1,
+      `Pobieram historię transakcji...`,
+    );
+
+    const res = await (
+      await fetchWithRetry(transUrl + "?page=1" + requestFilter, auth)
+    ).json();
+
+    const totalSize = res.totalSize || 0;
+    const pageCount = Math.ceil(totalSize / 20);
+
+    for (let i = 1; i <= pageCount; i++) {
+      const fetchUrl = `${transUrl}?page=${i}` + requestFilter;
+      const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
+
+      if (pageRes.data) {
+        for (let trans of pageRes.data) {
+          let d = new Date(trans.time);
+          if (d >= minDate && d <= maxDate) {
+            let actionName = trans.type;
+            if (trans.type === "ADYEN" || trans.type === "BANK_TRANSFER") {
+              actionName =
+                trans.direction === "positive" ? "Deposit" : "Withdrawal";
+            } else if (trans.type === "TRANSFER_BETWEEN_ACC") {
+              actionName = "Transfer";
+            }
+
+            const amount = parseFloat(trans.sum);
+            const displayAmount =
+              trans.direction === "negative" ? -amount : amount;
+
+            transactionDetails.push({
+              type: "TRANSACTION",
+              time: trans.time,
+              action: actionName,
+              code: trans.accountCurrency || accountCurrency,
+              amount: displayAmount,
+              currency: trans.accountCurrency || accountCurrency,
+              orderName: trans.notes || trans.type || "Transaction",
+              id: trans.id || trans.transactionId,
+            });
+            updateProgress(
+              null,
+              -1,
+              `💸 Transakcja: ${actionName} ${displayAmount} ${trans.accountCurrency || accountCurrency}`,
+            );
+          }
+        }
+      }
+      const progress = Math.round((i / pageCount) * 100);
+      updateProgress(
+        `💸 <b>Pobieranie transakcji:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
+        progress,
+        `Transakcje: przetworzono stronę ${i}/${pageCount}`,
+      );
+    }
+  } catch (e) {
+    console.warn("Błąd przy pobieraniu transakcji:", e);
+  }
+
+  const dividendDetails = [];
+  try {
+    const divUrl = `https://live.trading212.com/rest/reports/dividends/v2`;
+    updateProgress(
+      `🎁 <b>Pobieranie dywidend:</b><br/>Pobieranie historii dywidend...`,
+      -1,
+      `Pobieram dywidendy...`,
+    );
+
+    const res = await (
+      await fetchWithRetry(divUrl + "?page=1" + requestFilter, auth)
+    ).json();
+
+    const totalSize = res.totalSize || 0;
+    const pageCount = Math.ceil(totalSize / 20);
+
+    for (let i = 1; i <= pageCount; i++) {
+      const fetchUrl = `${divUrl}?page=${i}` + requestFilter;
+      const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
+
+      if (pageRes.data) {
+        for (let div of pageRes.data) {
+          let d = new Date(div.time);
+          if (d >= minDate && d <= maxDate) {
+            /* If div.currency is missing, assume account currency */
+            const divCurrency = div.currency || accountCurrency;
+            const rate = await getNBPExchangeRate(divCurrency, div.time);
+            const rateTarget = await getNBPExchangeRate(
+              accountCurrency,
+              div.time,
+            );
+            const amountTarget = (div.amount * rate) / rateTarget;
+
+            dividendDetails.push({
+              type: "DIVIDEND",
+              time: div.time,
+              code: div.code,
+              currency: divCurrency,
+              amount: div.amount,
+              amountPLN: (div.amount * rate).toFixed(4),
+              amountChosenCurrency: amountTarget.toFixed(4),
+              withholdingTax: div.withholdingTax || 0,
+            });
+            updateProgress(
+              null,
+              -1,
+              `🎁 Dywidenda: ${div.code} ${div.amount} ${divCurrency}`,
+            );
+          }
+        }
+      }
+      const progress = Math.round((i / pageCount) * 100);
+      updateProgress(
+        `🎁 <b>Pobieranie dywidend:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
+        progress,
+        `Dywidendy: przetworzono stronę ${i}/${pageCount}`,
+      );
+    }
+  } catch (e) {
+    console.warn("Błąd przy pobieraniu dywidend:", e);
+  }
+
   /*--- EKSPORT ---*/
   updateProgress(
-    `⚙️ <b>Zakończono pobieranie.</b><br/>Przygotowywanie raportu (sortowanie danych)...`,
+    `⚙️ <b>Zakończono pobieranie.</b><br/>Przygotowywanie raportów (JSON & CSV)...`,
     100,
-    `Pobieranie zakończone. Trwa sortowanie i generowanie piku...`,
+    `Pobieranie zakończone. Trwa generowanie plików...`,
     false,
   );
-  const combinedData = [...positionDetails, ...feeDetails, ...interestDetails];
+  const combinedData = [
+    ...positionDetails,
+    ...feeDetails,
+    ...interestDetails,
+    ...transactionDetails,
+    ...dividendDetails,
+  ];
   combinedData.sort((a, b) => new Date(a.time) - new Date(b.time));
-
-  const blob = new Blob([JSON.stringify(combinedData, null, 2)], {
-    type: "application/json",
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `T212_CFD_${fromDateStr}_${toDateStr}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 100);
 
   summary["Wyniki zamknięte"] = summary["Zysk"] + summary["Strata"];
   summary["Łącznie netto"] =
@@ -1350,15 +1467,209 @@ SUMA NETTO: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
     };
   }
 
+  const convertToCSV = (data) => {
+    const headers = [
+      "Action",
+      "Time",
+      "ISIN",
+      "Ticker",
+      "Name",
+      "Notes",
+      "ID",
+      "No. of shares",
+      "Price / share",
+      "Currency (Price / share)",
+      "Exchange rate",
+      "Result",
+      "Currency (Result)",
+      "Total",
+      "Currency (Total)",
+      "Withholding tax",
+      "Currency (Withholding tax)",
+      "Charge amount",
+      "Currency (Charge amount)",
+      "Deposit fee",
+      "Currency (Deposit fee)",
+      "Currency conversion from amount",
+      "Currency (Currency conversion from amount)",
+      "Currency conversion to amount",
+      "Currency (Currency conversion to amount)",
+      "Currency conversion fee",
+      "Currency (Currency conversion fee)",
+      "Merchant name",
+      "Merchant category",
+    ];
+
+    const escapeCSV = (val) => {
+      if (val === null || val === undefined) return "";
+      const str = String(val);
+      if (str.includes(",") || str.includes('\"') || str.includes("\n")) {
+        return `\"${str.replace(/\"/g, '\"\"')}\"`;
+      }
+      return str;
+    };
+
+    const rows = [headers.join(",")];
+
+    for (let item of data) {
+      let row = new Array(headers.length).fill("");
+
+      if (item.type === "POSITION") {
+        row[0] = item.direction === "buy" ? "Market sell" : "Market buy";
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[3] = item.code;
+        row[4] = item.code;
+        row[6] = item.orderName || "";
+        row[7] = item.quantity;
+        row[8] = item.closePrice;
+        row[9] = item.currency;
+        row[11] = item.pnlNetChosenCurrency;
+        row[12] = accountCurrency;
+        row[13] = (item.quantity * item.closePrice).toFixed(4);
+        row[14] = item.currency;
+      } else if (item.type === "CASH_INTEREST") {
+        row[0] = "Interest on cash";
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[5] = "Interest on cash";
+        row[13] = item.interest;
+        row[14] = item.currency;
+      } else if (item.type === "FEE_OVERNIGHT") {
+        row[0] = "Overnight fee";
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[3] = item.code;
+        row[11] = item.interest;
+        row[12] = item.currency;
+      } else if (item.type === "TRANSACTION") {
+        row[0] = item.action;
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[5] = item.orderName;
+        row[6] = item.id || "";
+        row[13] = item.amount;
+        row[14] = item.currency;
+      } else if (item.type === "DIVIDEND") {
+        row[0] = "Dividend (Dividend)";
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[3] = item.code;
+        row[13] = item.amount;
+        row[14] = item.currency;
+        row[15] = item.withholdingTax || "";
+        row[16] = item.currency;
+      }
+
+      rows.push(row.map(escapeCSV).join(","));
+    }
+
+    return rows.join("\n");
+  };
+
+  const csvContent = convertToCSV(combinedData);
+  const jsonContent = JSON.stringify(combinedData, null, 2);
+
+  const showFinalDialog = () => {
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center; z-index: 2147483647;
+      font-family: -apple-system, system-ui, sans-serif;
+    `;
+
+    const dialog = document.createElement("div");
+    dialog.style.cssText = `
+      background: #1e293b; border: 1px solid rgba(59, 130, 246, 0.2); 
+      border-radius: 24px; padding: 40px; width: 480px; max-width: 95vw;
+      color: #f8fafc; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      text-align: center;
+    `;
+
+    dialog.innerHTML = `
+      <div style="font-size: 48px; margin-bottom: 20px;">✅</div>
+      <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 700; color: #fff;">Eksport Zakończony!</h2>
+      <p style="margin: 0 0 25px 0; font-size: 15px; color: #94a3b8; line-height: 1.5;">
+        Pobrano pomyślnie <b>${combinedData.length}</b> rekordów.<br/>
+        Wynik netto: <b>${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}</b>
+      </p>
+
+      <div style="background: rgba(59, 130, 246, 0.1); border-radius: 12px; padding: 15px; margin-bottom: 30px; border: 1px dashed rgba(59, 130, 246, 0.3);">
+        <p style="margin: 0; font-size: 13px; color: #3b82f6; font-weight: 500;">
+          🚀 WAŻNE: Zaimportuj plik .json do platformy <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#60a5fa; text-decoration: underline;">Kalkulatorgieldowy.pl</a></b>, aby poprawnie wyliczyć podatek PIT-38.
+        </p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        <button id="t212-dl-json" style="padding: 14px; background: #3b82f6; border: none; color: #fff; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600; transition: transform 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <span>📄 Pobierz JSON (Dla kalkulatora)</span>
+        </button>
+        <button id="t212-dl-csv" style="padding: 14px; background: #10b981; border: none; color: #fff; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 600; transition: transform 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <span>📊 Pobierz CSV (Format T212)</span>
+        </button>
+        <button id="t212-dl-txt" style="padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 500;">
+          Wynik tekstowy (.txt)
+        </button>
+      </div>
+
+      <button id="t212-close-final" style="color: #64748b; background: none; border: none; font-size: 13px; cursor: pointer; text-decoration: underline;">Zamknij</button>
+    `;
+
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    const download = (content, filename, type) => {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    };
+
+    document.getElementById("t212-dl-json").onclick = () => {
+      download(jsonContent, `T212_CFD_${fromDateStr}_${toDateStr}.json`, "application/json");
+    };
+
+    document.getElementById("t212-dl-csv").onclick = () => {
+      download(csvContent, `T212_Export_${fromDateStr}_${toDateStr}.csv`, "text/csv");
+    };
+
+    document.getElementById("t212-dl-txt").onclick = () => {
+      download(summaryText, `T212_Summary_${fromDateStr}_${toDateStr}.txt`, "text/plain");
+    };
+
+    document.getElementById("t212-close-final").onclick = () => {
+      document.body.removeChild(overlay);
+    };
+
+    /* Hover effects */
+    [
+      document.getElementById("t212-dl-json"),
+      document.getElementById("t212-dl-csv"),
+    ].forEach((btn) => {
+      btn.onmouseenter = () => (btn.style.transform = "scale(1.02)");
+      btn.onmouseleave = () => (btn.style.transform = "scale(1)");
+    });
+  };
+
+  showFinalDialog();
+
+  /* Automatically download JSON by default (preserving old behavior) */
+  const downloadJSON = () => {
+    const blob = new Blob([jsonContent], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `T212_CFD_${fromDateStr}_${toDateStr}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+  };
+  downloadJSON();
+
   updateProgress(
-    `✅ <b>Eksport zakończony!</b><br/>Plik JSON został pobrany. <b>Zaimportuj go do <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>, aby poprawnie wyliczyć podatek w PLN. <br/><small style="color:#aaa;">Pamiętaj, że wartości w tym oknie są jedynie orientacyjne.</small>`,
+    `✅ <b>Eksport zakończony!</b><br/>Otwarto okno pobierania. <b>Zaimportuj plik .json do <a href="https://kalkulatorgieldowy.pl/" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.`,
     100,
     `Eksport zakończony sukcesem. Suma netto: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}`,
     false,
-  );
-
-  alert(
-    `Gotowe! Pobrano ${combinedData.length} rekordów.\n\nWynik netto: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}.\n\nWAŻNE: Zaimportuj pobrany plik JSON do kalkulatorgieldowy.pl, aby poprawnie wyliczyć podatek w PLN (rozliczenie PIT-38).`,
   );
   /* Replace spinner with green check if no errors occurred */
   try {

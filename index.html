@@ -29,24 +29,57 @@
     <meta name="robots" content="index, follow" />
 
     <!-- SEO & Multilingual -->
-    <link rel="canonical" href="https://darkspine433.github.io/T212-CFD-DATA/" />
-    <link rel="alternate" hreflang="pl" href="https://darkspine433.github.io/T212-CFD-DATA/" />
-    <link rel="alternate" hreflang="en" href="https://darkspine433.github.io/T212-CFD-DATA/?lang=en" />
-    <link rel="alternate" hreflang="x-default" href="https://darkspine433.github.io/T212-CFD-DATA/" />
+    <link
+      rel="canonical"
+      href="https://darkspine433.github.io/T212-CFD-DATA/"
+    />
+    <link
+      rel="alternate"
+      hreflang="pl"
+      href="https://darkspine433.github.io/T212-CFD-DATA/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://darkspine433.github.io/T212-CFD-DATA/?lang=en"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://darkspine433.github.io/T212-CFD-DATA/"
+    />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://darkspine433.github.io/T212-CFD-DATA/" />
+    <meta
+      property="og:url"
+      content="https://darkspine433.github.io/T212-CFD-DATA/"
+    />
     <meta property="og:title" content="T212 CFD Data Exporter" />
-    <meta property="og:description" content="Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo." />
-    <meta property="og:image" content="https://darkspine433.github.io/T212-CFD-DATA/og-image.png" />
+    <meta
+      property="og:description"
+      content="Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo."
+    />
+    <meta
+      property="og:image"
+      content="https://darkspine433.github.io/T212-CFD-DATA/og-image.png"
+    />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://darkspine433.github.io/T212-CFD-DATA/" />
+    <meta
+      property="twitter:url"
+      content="https://darkspine433.github.io/T212-CFD-DATA/"
+    />
     <meta property="twitter:title" content="T212 CFD Data Exporter" />
-    <meta property="twitter:description" content="Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo." />
-    <meta property="twitter:image" content="https://darkspine433.github.io/T212-CFD-DATA/og-image.png" />
+    <meta
+      property="twitter:description"
+      content="Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo."
+    />
+    <meta
+      property="twitter:image"
+      content="https://darkspine433.github.io/T212-CFD-DATA/og-image.png"
+    />
 
     <meta
       name="google-site-verification"
@@ -654,15 +687,27 @@
           .map((curr) => `<kbd>${curr}</kbd>`)
           .join(", ");
       });
+
       const rawCode = getData.toString();
+      
+      // Wykrywanie URL do skryptu - domyślnie produkcja
+      let scriptUrl = "https://darkspine433.github.io/T212-CFD-DATA/js/generatorJsonData.js";
+      
+      // Jeśli jesteśmy na HTTPS (np. na Twoim forku na GitHub Pages), używamy bieżącej lokalizacji
+      if (window.location.protocol === "https:") {
+        const currentPath = window.location.origin + window.location.pathname;
+        scriptUrl = currentPath.replace("index.html", "").replace(/\/$/, "") + "/js/generatorJsonData.js";
+      }
 
-      // Usunięcie blokowych komentarzy i nowych linii, żeby skrypt zmieścił się w 1 linijce
-      let minifiedCode = rawCode
-        .replace(/\/\*[\s\S]*?\*\//g, "")
-        .replace(/\n\s*/g, " ")
-        .trim();
-
-      const bookmarkletCode = `javascript:(function(){(${minifiedCode})();})();`;
+      const bookmarkletCode = `javascript:(function(){
+        const script = document.createElement('script');
+        script.src = '${scriptUrl}';
+        script.type = 'module';
+        script.onload = () => {
+          import('${scriptUrl}').then(m => m.getData());
+        };
+        document.head.appendChild(script);
+      })();`.replace(/\n/g, "").replace(/\s\s+/g, " ");
 
       document.getElementById("t212-bookmarklet").href = bookmarkletCode;
 
@@ -700,7 +745,6 @@
           console.error("Błąd kopiowania:", err);
         }
       };
-
     </script>
   </body>
 </html>
