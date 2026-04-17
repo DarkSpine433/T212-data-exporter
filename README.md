@@ -2,19 +2,19 @@
 
 🌍 **Language / Język:** [🇬🇧 English](README.en.md) | [🇵🇱 Polski](README.pl.md)
 
-### Jeżeli uważasz to narzędzie za przydatne, zostaw gwiazdkę na GitHubie! 🌟
+### If you find this tool useful, please leave a star on GitHub! 🌟
 
-##### link do repozytorium epxortera danych -> <a href="https://github.com/DarkSpine433/T212-CFD-DATA/" target="_blank">https://github.com/DarkSpine433/T212-CFD-DATA/</a>
+##### Data exporter repository link -> <a href="https://github.com/DarkSpine433/T212-CFD-DATA/" target="_blank">https://github.com/DarkSpine433/T212-CFD-DATA/</a>
 
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
-[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENCE.md)
 
-Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych z konta **Trading212 CFD** do formatu JSON oraz CSV. Projekt rozwiązuje problem braku natywnego eksportu danych CFD na platformie.
+A free tool enabling the export of detailed transaction data from a **Trading212 CFD** account to JSON and CSV format. This project solves the problem of the lack of native CFD data export on the platform.
 
-👉 **Oficjalna strona** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
+👉 **Official website** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
 
-🤝 **Współpraca:** Narzędzie najlepiej współpracuje z [kalkulatorgieldowy.pl](https://kalkulatorgieldowy.pl/) i zostało wykonane z ich współpracą.
+🤝 **Collaboration:** The tool works best with [kalkulatorgieldowy.pl](https://kalkulatorgieldowy.pl/) and was built in collaboration with them.
 
 ---
 
@@ -22,55 +22,54 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 
 <img width="388" height="565" alt="2" src="https://github.com/user-attachments/assets/5f6699b7-0b39-4aef-9685-caf01ea612d9" />
 
+## ✨ Key Features
 
-## ✨ Kluczowe Funkcje
-
-- **Kompleksowy eksport:** Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`) oraz opłatach overnight.
-- **Interaktywne UI:** Nowoczesny panel z paskiem postępu i konsolą logów wyświetlany bezpośrednio na stronie Trading212.
-- **Anti-Ban System:** Mechanizm _Retry_ chroniący przed blokadą za zbyt dużą liczbę zapytań (błąd 429).
-- **100% Prywatności:** Dane przetwarzane są wyłącznie lokalnie w Twojej przeglądarce.
-
----
-
-## 🐛 Zgłaszanie Błędów
-
-Jeśli skrypt napotka problem:
-
-1. Kliknij przycisk **"Zapisz Logi"** w panelu narzędzia, aby pobrać plik `T212_Logs.txt`.
-2. Otwórz zgłoszenie w zakładce [Issues](https://github.com/DarkSpine433/T212-CFD-DATA/issues).
-3. Opisz sytuację i załącz pobrany plik z logami.
+- **Comprehensive export:** Downloads data about closed positions, FX fees, interest (`CASH_INTEREST`), and overnight fees.
+- **Interactive UI:** A modern panel with a progress bar and a logs console displayed directly on the Trading212 page.
+- **Anti-Ban System:** A _Retry_ mechanism protecting against bans for too many requests (error 429).
+- **100% Privacy:** Data is processed exclusively locally in your browser.
 
 ---
 
-## 🏗️ Struktura Projektu
+## 🐛 Reporting Bugs
 
-- `index.html` - Strona wizytówka i generator kodu.
-- `style.css` - Design strony (Premium Dark Design).
-- `js/generatorJsonData.js` - Główny silnik aplikacji i logika API.
+If the script encounters a problem:
 
----
-
-## 👨‍💻 Kontrybucja
-
-Chcesz ulepszyć projekt?
-
-1. Zrób Fork repozytorium.
-2. Wprowadź poprawki.
-3. Otwórz Pull Request.
+1. Click the **"Save Logs"** button in the tool panel to download the `T212_Logs.txt` file.
+2. Open an issue in the [Issues](https://github.com/DarkSpine433/T212-CFD-DATA/issues) tab.
+3. Describe the situation and attach the downloaded log file.
 
 ---
 
-## ⚖️ Prawa Autorskie i Licencja
+## 🏗️ Project Structure
 
-© 2026 Dawid Konopiaty. Wszelkie prawa zastrzeżone.
-
-- **Użytkownicy końcowi:** Mogą bezpłatnie korzystać ze skryptu do celów prywatnych (eksport danych własnych).
-- **Ograniczenia:** Zabrania się kopiowania, redystrybucji oraz publikowania kodu źródłowego na innych stronach internetowych bez uprzedniej pisemnej lub ustnej zgody autora.
-
-Pełna treść postanowień znajduje się w pliku [LICENCE.md](LICENCE.md).
+- `index.html` - Homepage and code generator.
+- `style.css` - Page design (Premium Dark Design).
+- `js/generatorJsonData.js` - Main application engine and API logic.
 
 ---
 
-## ⚠️ Disclaimer (Oświadczenie)
+## 👨‍💻 Contributing
 
-Narzędzie jest udostępniane "tak jak jest" (as-is), całkowicie za darmo. Autor nie ponosi odpowiedzialności za ewentualne błędy w obliczeniach, ubytki danych oraz konsekwencje prawno-podatkowe wynikające z użycia wygenerowanego pliku. Wynik należy traktować jako estymację.
+Want to improve the project?
+
+1. Fork the repository.
+2. Make your improvements.
+3. Open a Pull Request.
+
+---
+
+## ⚖️ Copyright and License
+
+© 2026 Dawid Konopiaty. All rights reserved.
+
+- **End Users:** May use the script for personal purposes completely free of charge (exporting personal data).
+- **Restrictions:** Copying, redistributing, or publishing the source code on other websites without prior written or spoken consent from the author is prohibited.
+
+For the full text of the terms, see [LICENCE.md](LICENCE.md).
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is provided "as is", completely free of charge. The author is not responsible for any potential calculations errors, data gaps, or legal and tax consequences resulting from the use of the generated file. The result should be treated as an estimation.
