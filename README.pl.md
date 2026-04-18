@@ -9,7 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
 [![GitHub version](https://img.shields.io/badge/Wersja-1.2.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
-[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENCE.md)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE.md)
 
 Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych z konta **Trading212 CFD** do formatu JSON oraz CSV. Projekt rozwiązuje problem braku natywnego eksportu danych CFD na platformie.
 
@@ -75,7 +75,7 @@ Chcesz ulepszyć projekt?
 - **Użytkownicy końcowi:** Mogą bezpłatnie korzystać ze skryptu do celów prywatnych (eksport danych własnych).
 - **Ograniczenia:** Zabrania się kopiowania, redystrybucji oraz publikowania kodu źródłowego na innych stronach internetowych bez uprzedniej pisemnej lub ustnej zgody autora.
 
-Pełna treść postanowień znajduje się w pliku [LICENCE.md](LICENCE.md).
+Pełna treść postanowień znajduje się w pliku [LICENSE.md](LICENSE.md).
 
 ---
 
