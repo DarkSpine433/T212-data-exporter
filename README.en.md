@@ -9,7 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
 [![GitHub version](https://img.shields.io/badge/Version-1.2.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
-[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENCE.md)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE.md)
 
 A free tool enabling the export of detailed transaction data from a **Trading212 CFD** account to JSON and CSV format. This project solves the problem of the lack of native CFD data export on the platform.
 
@@ -75,7 +75,7 @@ Want to improve the project?
 - **End Users:** May use the script for personal purposes completely free of charge (exporting personal data).
 - **Restrictions:** Copying, redistributing, or publishing the source code on other websites without prior written or spoken consent from the author is prohibited.
 
-For the full text of the terms, see [LICENCE.md](LICENCE.md).
+For the full text of the terms, see [LICENSE.md](LICENSE.md).
 
 ---
 
