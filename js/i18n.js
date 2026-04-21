@@ -105,6 +105,12 @@ const langTranslations = {
     footer_privacy: "Polityka Prywatności",
     meta_keywords:
       "Trading212, CFD, Export, PIT-38, Raport Podatkowy, Giełda, JSON, CSV, Dawid Konopiaty, Kalkulator Giełdowy, zestawienie transakcji, rozliczenie podatku, giełda zagraniczna, T212, Trading 212 data, dane transakcyjne, podatki giełdowe, inwestycje, narzędzia giełdowe, trading212 export, trading 212 tool, pit38, rozliczenie trading212, skrypt trading212, dane giełdowe, finanse, automatyzacja podatków",
+    ad_changenow_title: "ChangeNOW • Giełda Kryptowalut",
+    ad_changenow_desc: "Prosto. Szybko. Bez limitów. Bez rejestracji.",
+    ad_changenow_cta: "Wymień teraz",
+    ad_binance_title: "Binance • Największa Giełda",
+    ad_binance_desc: "Kupuj i handluj krypto bezpiecznie. Bonus na start!",
+    ad_binance_cta: "Zarejestruj się",
   },
   en: {
     pp_title: "Privacy Policy | T212 CFD Data Exporter",
@@ -213,6 +219,12 @@ const langTranslations = {
     footer_privacy: "Privacy Policy",
     meta_keywords:
       "Trading212, CFD, Export, Tax Report, Stock Market, JSON, CSV, Dawid Konopiaty, Trading tool, transaction history, tax settlement, stock trading, T212, Trading 212 data, transactional data, trading taxes, investment tools, open source trading tools, Trading212 data exporter, trading212 spreadsheet, tax automation, stock export, finance tool, trading data script",
+    ad_changenow_title: "ChangeNOW • Crypto Exchange",
+    ad_changenow_desc: "Simple. Fast. Limitless. No Registration Required.",
+    ad_changenow_cta: "Swap Now",
+    ad_binance_title: "Binance • Leading Exchange",
+    ad_binance_desc: "Buy and trade crypto securely. Start with a bonus!",
+    ad_binance_cta: "Sign Up Now",
   },
 };
 
