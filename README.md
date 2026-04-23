@@ -2,41 +2,38 @@
 
 🌍 **Language / Język:** [🇬🇧 English](README.en.md) | [🇵🇱 Polski](README.pl.md)
 
-### If you find this tool useful, please leave a star on GitHub! 🌟
+## If you find this tool useful, please leave a star on GitHub! 🌟
 
-##### Data exporter repository link -> <a href="https://github.com/DarkSpine433/T212-CFD-DATA/" target="_blank">https://github.com/DarkSpine433/T212-CFD-DATA/</a>
+### Data exporter repository link -> [https://github.com/DarkSpine433/T212-CFD-DATA/](https://github.com/DarkSpine433/T212-CFD-DATA/)
 
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
-[![GitHub version](https://img.shields.io/badge/Version-1.2.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
+[![GitHub version](https://img.shields.io/badge/Version-1.3.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
 [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE.md)
 
-A free tool enabling the export of detailed transaction data from a **Trading212 CFD** account to JSON and CSV format. This project solves the problem of the lack of native CFD data export on the platform.
+A free tool enabling the export of detailed transaction data from **Trading212 CFD** and **Crypto** accounts to JSON and CSV format. This project solves the problem of the lack of native data export on the platform.
 
-👉 **Official website** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
+👉 **Official website** [https://darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
 
-🤝 **Collaboration:** The tool works best with [kalkulatorgieldowy.pl](https://kalkulatorgieldowy.pl/) and was built in collaboration with them.
+🤝 **Collaboration:** The tool works best with [https://kalkulatorgieldowy.pl/](https://kalkulatorgieldowy.pl/) and was built in collaboration with them.
 
 ---
 
 <img class="showcase" width="405" height="540" alt="2" src="https://github.com/user-attachments/assets/2d117620-64b9-476e-9a7f-b17dac7efef6" />
-<br/>
 <img  class="showcase" width="407" height="569" alt="1" src="https://github.com/user-attachments/assets/da52ca0f-6aa6-4381-ab1f-59efa3e9d799" />
-<br/>
 <img  class="showcase" width="420" height="450" alt="3" src="https://github.com/user-attachments/assets/160e9c51-c9d6-4902-a02f-054ee2ecf0f3" />
 
+## ✨ Key Features (v1.3.0)
 
-
-## ✨ Key Features (v1.2.0)
-
-- **Comprehensive export:** Downloads data about closed positions, FX fees, interest (`CASH_INTEREST`), overnight fees, **transaction history** (deposits, withdrawals, transfers), and **dividend records**.
-- **Multiple export formats:** Export data to **JSON** (for tax calculators), **CSV** (T212 format), and **TXT** (text summary).
-- **Interactive UI:** A modern panel with a progress bar and a logs console displayed directly on the Trading212 page.
-- **Bilingual support:** Full **Polish and English** language support with real-time language switching.
-- **Keyboard shortcuts:** Press **Enter** to confirm, **Escape** to cancel in the configuration dialog.
-- **Anti-Ban System:** A _Retry_ mechanism protecting against bans for too many requests (error 429).
-- **100% Privacy:** Data is processed exclusively locally in your browser.
-- **Mobile-friendly:** Works on mobile browsers - stay on the T212 page and keep your screen active.
+- **Universal Export:** Now supports both **CFD** and **Crypto** accounts. Downloads closed positions, FX fees, interest (`CASH_INTEREST`), overnight fees, transaction history, and dividend records.
+- **Smart Account Detection:** Automatically identifies if you are on the correct account type (CFD/Crypto) and warns you of any mismatch to prevent errors.
+- **Privacy Mode:** "Hide Results" toggle that instantly blurs sensitive financial data and switches text colors to neutral white.
+- **Pause & Resume:** Total control over the extraction process with real-time pause/resume functionality.
+- **Advanced UI/UX:** A draggable, minimizable panel with a progress bar, a "Back" button for easy reconfiguration, and full language support.
+- **NBP Exchange Rates:** Automated integration with NBP mid-market rates for all supported Trading 212 account currencies.
+- **Multiple Formats:** Export data to **JSON** (optimized for tax calculators), **CSV**, and **TXT** summaries.
+- **Anti-Ban System:** Built-in safeguards against rate limits (Error 429) and session protection.
+- **100% Privacy:** All processing is done locally in your browser; no data ever leaves your device.
 
 ---
 

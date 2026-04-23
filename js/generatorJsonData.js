@@ -3,39 +3,35 @@ const getInstruction = () => {
   ===========================================================
   🚀 TRADING 212 CFD DATA EXPORTER
   ===========================================================
-  Platforma Trading212 nie posiada natywnego eksportu danych CFD.
-  Ten skrypt generuje plik JSON gotowy do rozliczeń podatkowych.
-  Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl
-  i zostało wykonane z ich współpracą.
+  Trading212 platform does not have native CFD data export.
+  This script generates a JSON file ready for tax settlement.
+  This tool works best with kalkulatorgieldowy.pl
+  and was created in cooperation with them.
 
-  ⚠️  WAŻNE OSTRZEŻENIE:
-  Nie uruchamiaj skryptu kilkukrotnie w ciągu krótkiego czasu! 
-  Zbyt częste zapytania mogą skutkować tymczasową blokadą konta 
-  przez Trading212 (ok. 5 minut).
+  ⚠️  IMPORTANT WARNING:
+  Do not run the script multiple times within a short period! 
+  Too frequent requests may result in a temporary account block 
+  by Trading212 (approx. 5 minutes).
 
-  Pełna instrukcja: 
+  Full instruction: 
   👉 https://darkspine433.github.io/T212-CFD-DATA/
 
-  Kod źródłowy: 
+  Source code: 
   👉 https://github.com/DarkSpine433/T212-CFD-DATA/
 
 
-  Autor: 「 ✦ Dawid Konopiaty (DarkSpine433) ✦ 」
+  Author: 「 ✦ Dawid Konopiaty (DarkSpine433) ✦ 」
   ===========================================================
 `;
   return instruction;
 };
-1;
-
 async function getData(
   getCurrencies = false,
-  currencyPredifined = null,
-  startDatePredifined = null,
-  endDatePredifined = null,
+  currencyPredefined = null,
+  startDatePredefined = null,
+  endDatePredefined = null,
 ) {
-  /* =====================================================================
-   *  i18n — Translation System
-   * ===================================================================== */
+  /* i18n — Translation System */
   const T212_TRANSLATIONS = {
     pl: {
       cfg_title: "Konfiguracja Eksportu",
@@ -51,6 +47,9 @@ async function getData(
       cfg_err_date_order:
         "Data początkowa nie może być późniejsza niż data końcowa.",
       cfg_lang_label: "Język / Language",
+      cfg_err_wrong_account:
+        "To nie jest konto {type}! Przełącz konto w aplikacji Trading212 na {type}, aby kontynuować.",
+      cfg_ignore: "Ignoruj i kontynuuj mimo to",
 
       export_profit: "Zysk",
       export_loss: "Strata",
@@ -140,6 +139,35 @@ async function getData(
       prog_preparing:
         "⚙️ <b>Zakończono pobieranie.</b><br/>Przygotowywanie raportów (JSON & CSV)...",
       prog_preparing_log: "Pobieranie zakończone. Trwa generowanie plików...",
+
+      ui_pause: "Pauza",
+      ui_resume: "Wznów",
+
+      cfg_account_label: "Typ konta",
+      cfg_account_cfd: "Konto CFD",
+      cfg_account_crypto: "Konto Crypto (Beta)",
+      log_crypto_header: "Pobieranie historii Crypto",
+      log_crypto_fetching: "Pobieram historię Crypto...",
+      log_crypto_page: "Crypto: przetworzono stronę",
+      log_crypto_record: "Przetwarzanie transakcji Crypto",
+      log_crypto_details: "Pobieranie detali Crypto",
+
+      confirm_stop_title: "Przerwać pobieranie?",
+      confirm_stop_msg:
+        "Pobieranie danych nie zostało zakończone. Czy na pewno chcesz przerwać i zamknąć narzędzie?",
+      confirm_stop_yes: "Tak, przerwij",
+      confirm_stop_no: "Nie, kontynuuj",
+
+      ui_back: "Wróć",
+      confirm_back_title: "Wróć do konfiguracji?",
+      confirm_back_msg:
+        "Trwa pobieranie danych. Czy na pewno chcesz przerwać i wrócić do konfiguracji?",
+      ui_report_bug: "Zgłoś błąd / prześlij logi",
+      instance_title: "Narzędzie jest już uruchomione",
+      instance_msg:
+        "Wykryto otwartą instancję T212 Exporter. Czy chcesz zamknąć poprzednią i otworzyć nową, czy pozostać przy obecnej?",
+      instance_new: "Zamknij i otwórz nową",
+      instance_keep: "Zostań przy obecnej",
     },
     en: {
       cfg_title: "Export Configuration",
@@ -155,6 +183,9 @@ async function getData(
       cfg_err_dates: "Please fill in both dates!",
       cfg_err_date_order: "Start date cannot be later than end date.",
       cfg_lang_label: "Język / Language",
+      cfg_err_wrong_account:
+        "This is not a {type} account! Please switch your account in the Trading212 app to {type} to continue.",
+      cfg_ignore: "Ignore and continue anyway",
 
       export_profit: "Profit",
       export_loss: "Loss",
@@ -242,6 +273,35 @@ async function getData(
       prog_preparing:
         "⚙️ <b>Download finished.</b><br/>Preparing reports (JSON & CSV)...",
       prog_preparing_log: "Download complete. Generating files...",
+
+      ui_pause: "Pause",
+      ui_resume: "Resume",
+
+      cfg_account_label: "Account Type",
+      cfg_account_cfd: "CFD Account",
+      cfg_account_crypto: "Crypto Account (Beta)",
+      log_crypto_header: "Fetching Crypto history",
+      log_crypto_fetching: "Fetching Crypto history...",
+      log_crypto_page: "Crypto: processed page",
+      log_crypto_record: "Processing Crypto transaction",
+      log_crypto_details: "Fetching Crypto details",
+
+      confirm_stop_title: "Stop downloading?",
+      confirm_stop_msg:
+        "Data downloading is not complete. Are you sure you want to stop and close the tool?",
+      confirm_stop_yes: "Yes, stop",
+      confirm_stop_no: "No, continue",
+
+      ui_back: "Back",
+      confirm_back_title: "Back to configuration?",
+      confirm_back_msg:
+        "Data is being downloaded. Are you sure you want to stop and return to configuration?",
+      ui_report_bug: "Report bug / send logs",
+      instance_title: "T212 Exporter is already running",
+      instance_msg:
+        "An instance of the tool is already open. Do you want to close the previous one and start fresh, or keep the existing one?",
+      instance_new: "Restart & Open New",
+      instance_keep: "Keep Existing",
     },
   };
 
@@ -265,6 +325,52 @@ async function getData(
   const t = (key) =>
     (T212_TRANSLATIONS[_currentLang] || T212_TRANSLATIONS["pl"])[key] || key;
 
+  const checkRunningInstance = () => {
+    return new Promise((resolve) => {
+      const eUI = document.getElementById("t212-exporter-progress");
+      const eCfg = document.getElementById("t212-exporter-config-overlay");
+      if (!eUI && !eCfg) return resolve(true);
+
+      const overlay = document.createElement("div");
+      overlay.style.cssText = `position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:2147483647;font-family:-apple-system,system-ui,sans-serif;`;
+      const dialog = document.createElement("div");
+      dialog.style.cssText = `background:#1e293b;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:24px;width:340px;color:#fff;box-shadow:0 20px 25px -5px rgba(0,0,0,0.4);text-align:center;`;
+      dialog.innerHTML = `
+        <div style="font-size: 32px; margin-bottom: 15px;">🚀</div>
+        <h3 style="margin:0 0 8px 0;font-size:16px;font-weight:700;">${t("instance_title")}</h3>
+        <p style="margin:0 0 20px 0;font-size:13px;color:#94a3b8;line-height:1.4;">${t("instance_msg")}</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button id="t212-instance-new" style="padding:10px;background:#3b82f6;border:none;color:#fff;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;">${t("instance_new")}</button>
+          <button id="t212-instance-keep" style="padding:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;">${t("instance_keep")}</button>
+        </div>
+      `;
+      overlay.appendChild(dialog);
+      document.body.appendChild(overlay);
+
+      dialog.querySelector("#t212-instance-keep").onclick = () => {
+        overlay.remove();
+        resolve(false);
+      };
+      dialog.querySelector("#t212-instance-new").onclick = () => {
+        overlay.remove();
+        if (window.t212ExporterAbortController) {
+          try {
+            window.t212ExporterAbortController.abort();
+          } catch (e) {}
+        }
+        if (eUI) eUI.remove();
+        if (eCfg) eCfg.remove();
+        document.getElementById("t212-exporter-styles")?.remove();
+        resolve(true);
+      };
+    });
+  };
+
+  if (!getCurrencies) {
+    const canRun = await checkRunningInstance();
+    if (!canRun) return;
+  }
+
   const _setLang = (lang) => {
     _currentLang = lang;
     try {
@@ -272,7 +378,6 @@ async function getData(
     } catch (e) {}
   };
 
-  /* Parametrized lang toggle HTML — prefix avoids duplicate IDs */
   const _langToggleHTML = (prefix = "t212-lang") => `
     <div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:14px; gap:8px;">
       <span style="font-size:12px; color:#64748b;">${t("cfg_lang_label")}:</span>
@@ -319,12 +424,12 @@ async function getData(
       const promise = (async () => {
         if (rCount > 10) {
           console.warn(
-            `${t("log_nbp_limit")} ${currency} (${dateString}) przekroczony. ${t("log_nbp_limit_fallback")}`,
+            `${t("log_nbp_limit")} ${currency} (${dateString}) exceeded. ${t("log_nbp_limit_fallback")}`,
           );
           updateProgress(
             null,
             -1,
-            `${t("log_nbp_limit")} ${currency} (${dateString}) przekroczony. ${t("log_nbp_limit_fallback")}`,
+            `${t("log_nbp_limit")} ${currency} (${dateString}) exceeded. ${t("log_nbp_limit_fallback")}`,
           );
           return 1;
         }
@@ -396,11 +501,11 @@ async function getData(
 
   const getConfigurationFields = () => {
     return new Promise((resolve, reject) => {
-      if (currencyPredifined && startDatePredifined && endDatePredifined) {
+      if (currencyPredefined && startDatePredefined && endDatePredefined) {
         resolve({
-          currency: currencyPredifined.toUpperCase(),
-          startDate: startDatePredifined,
-          endDate: endDatePredifined,
+          currency: currencyPredefined.toUpperCase(),
+          startDate: startDatePredefined,
+          endDate: endDatePredefined,
         });
         return;
       }
@@ -425,13 +530,15 @@ async function getData(
       `;
 
       const _renderConfigDialog = () => {
-        /* Preserve user-entered values across re-renders */
         const prevStart =
           dialog.querySelector("#t212-cfg-start")?.value || defaultStart;
         const prevEnd =
           dialog.querySelector("#t212-cfg-end")?.value || defaultEnd;
         const prevCurrency =
           dialog.querySelector("#t212-cfg-currency")?.value || "PLN";
+        const prevAccount =
+          dialog.querySelector('input[name="t212-cfg-account"]:checked')
+            ?.value || "cfd";
 
         dialog.innerHTML = `
           ${_langToggleHTML("t212-cfg-lang")}
@@ -439,6 +546,24 @@ async function getData(
           <p style="margin: 0 0 10px 0; font-size: 13px; color: #94a3b8;">${t("cfg_subtitle")}</p>
           <p style="margin: 0 0 20px 0; font-size: 11px; color: #64748b; line-height: 1.4;">${t("cfg_info")}</p>
           
+          <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 8px; font-weight: 600;">${t("cfg_account_label")}</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <label style="cursor: pointer;">
+                <input type="radio" name="t212-cfg-account" value="cfd" ${prevAccount === "cfd" ? "checked" : ""} style="display:none;" />
+                <div class="t212-account-type-btn" style="padding: 10px; border-radius: 10px; border: 1px solid ${prevAccount === "cfd" ? "#3b82f6" : "rgba(255,255,255,0.1)"}; background: ${prevAccount === "cfd" ? "rgba(59, 130, 246, 0.1)" : "transparent"}; color: ${prevAccount === "cfd" ? "#fff" : "#94a3b8"}; text-align: center; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                  ${t("cfg_account_cfd")}
+                </div>
+              </label>
+              <label style="cursor: pointer;">
+                <input type="radio" name="t212-cfg-account" value="crypto" ${prevAccount === "crypto" ? "checked" : ""} style="display:none;" />
+                <div class="t212-account-type-btn" style="padding: 10px; border-radius: 10px; border: 1px solid ${prevAccount === "crypto" ? "#3b82f6" : "rgba(255,255,255,0.1)"}; background: ${prevAccount === "crypto" ? "rgba(59, 130, 246, 0.1)" : "transparent"}; color: ${prevAccount === "crypto" ? "#fff" : "#94a3b8"}; text-align: center; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                  ${t("cfg_account_crypto")}
+                </div>
+              </label>
+            </div>
+          </div>
+
           <div style="margin-bottom: 15px;">
             <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">${t("cfg_currency_label")}</label>
             <select id="t212-cfg-currency" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none;">
@@ -458,11 +583,20 @@ async function getData(
           
           <div style="display: flex; gap: 10px; justify-content: flex-end;">
             <button id="t212-cfg-cancel" style="padding: 10px 16px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s;">${t("cfg_cancel")}</button>
-            <button id="t212-cfg-submit" style="padding: 10px 20px; background: #3b82f6; border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); transition: background 0.2s;">${t("cfg_submit")}</button>
+            <button id="t212-cfg-submit" style="padding: 10px 20px; background: #3b82f6; border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 4px 60px -1px rgba(59, 130, 246, 0.5); transition: background 0.2s;">${t("cfg_submit")}</button>
           </div>
         `;
 
-        /* Use dialog.querySelector — works even before dialog is appended to document */
+        const typeRadios = dialog.querySelectorAll(
+          'input[name="t212-cfg-account"]',
+        );
+        typeRadios.forEach((r) => {
+          r.onchange = () => {
+            _renderConfigDialog();
+            _reAttachConfigHandlers();
+          };
+        });
+
         _attachLangBtns(dialog, "t212-cfg-lang", () => {
           _renderConfigDialog();
           _reAttachConfigHandlers();
@@ -510,6 +644,9 @@ async function getData(
             document.getElementById("t212-cfg-currency").value;
           const selectedStart = document.getElementById("t212-cfg-start").value;
           const selectedEnd = document.getElementById("t212-cfg-end").value;
+          const selectedAccount = document.querySelector(
+            'input[name="t212-cfg-account"]:checked',
+          ).value;
 
           if (!selectedStart || !selectedEnd) {
             alert(t("cfg_err_dates"));
@@ -526,6 +663,7 @@ async function getData(
             currency: selectedCurrency.toUpperCase(),
             startDate: selectedStart,
             endDate: selectedEnd,
+            accountType: selectedAccount,
           });
         };
       };
@@ -534,11 +672,11 @@ async function getData(
   };
 
   const config = await getConfigurationFields();
-  if (!config) return; /* User cancelled */
+  if (!config) return; // User cancelled
 
   if (!currencyList.includes(config.currency)) {
     alert(
-      `Nie obsługiwana waluta ${config.currency}. Obsługiwane waluty to ${currencyList.join(", ")}`,
+      `Unsupported currency ${config.currency}. Supported currencies are ${currencyList.join(", ")}`,
     );
     return;
   }
@@ -554,12 +692,12 @@ async function getData(
 
   if (typeof maxDate === "undefined")
     throw new Error(
-      "Zmienna 'maxDate' nie istnieje. Kod wklejono w złym miejscu?",
+      "Variable 'maxDate' does not exist. Did you paste the code in the wrong place?",
     );
   if (typeof requestBase === "undefined")
-    throw new Error("Zmienna 'requestBase' nie istnieje.");
+    throw new Error("Variable 'requestBase' does not exist.");
 
-  /*---  Mechanizm autoryzacji ---*/
+  /*--- Authorization mechanism ---*/
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -577,12 +715,83 @@ async function getData(
     },
     credentials: "include",
   };
-  /*
-  _________________________________________________________________________________
-  _________________________________________________________________________________
-  */
 
-  console.log(`%c Rozpoczynam pobieranie: ${fromDateStr} - ${toDateStr}`);
+  try {
+    const accountResponse = await fetch(
+      "https://live.trading212.com/rest/v1/accounts",
+      auth,
+    );
+    const data = await accountResponse.json();
+    const allAccounts = [
+      ...(data.liveAccounts || []),
+      ...(data.demoAccounts || []),
+    ];
+
+    const activeAccount = allAccounts.sort(
+      (a, b) => new Date(b.lastSwitchedDate) - new Date(a.lastSwitchedDate),
+    )[0];
+
+    if (activeAccount) {
+      const currentType = activeAccount.tradingType.toUpperCase();
+      const expectedType = config.accountType.toUpperCase();
+
+      const showWrongAccountDialog = (type) => {
+        return new Promise((resolve) => {
+          const overlay = document.createElement("div");
+          overlay.style.cssText = `position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:2147483647;font-family:-apple-system,system-ui,sans-serif;`;
+          const dialog = document.createElement("div");
+          dialog.style.cssText = `background:#1e293b;border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:30px;width:340px;color:#fff;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);text-align:center;`;
+          dialog.innerHTML = `
+            <div style="font-size: 40px; margin-bottom: 20px;">🚫</div>
+            <h3 style="margin:0 0 12px 0;font-size:18px;font-weight:700;color:#fff;">${t("cfg_err_wrong_account").replace(/{type}/g, type)}</h3>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:25px;">
+              <button id="t212-err-ok" style="padding:12px;background:#3b82f6;border:none;color:#fff;border-radius:12px;cursor:pointer;font-size:15px;font-weight:600;transition:all 0.2s;">OK</button>
+              <button id="t212-ignore" style="padding:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#cbd5e1;border-radius:12px;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.2s;">${t("cfg_ignore")}</button>
+            </div>
+          `;
+          overlay.appendChild(dialog);
+          document.body.appendChild(overlay);
+
+          const okBtn = dialog.querySelector("#t212-err-ok");
+          const ignoreBtn = dialog.querySelector("#t212-ignore");
+          
+          okBtn.onmouseenter = () => okBtn.style.background = "#2563eb";
+          okBtn.onmouseleave = () => okBtn.style.background = "#3b82f6";
+
+          ignoreBtn.onmouseenter = () => {
+             ignoreBtn.style.background = "rgba(255,255,255,0.12)";
+             ignoreBtn.style.color = "#fff";
+          };
+          ignoreBtn.onmouseleave = () => {
+             ignoreBtn.style.background = "rgba(255,255,255,0.08)";
+             ignoreBtn.style.color = "#cbd5e1";
+          };
+
+          okBtn.onclick = () => {
+            overlay.remove();
+            resolve(false);
+          };
+          ignoreBtn.onclick = () => {
+            overlay.remove();
+            resolve(true);
+          };
+        });
+      };
+
+      if (expectedType === "CFD" && currentType !== "CFD") {
+        const ignore = await showWrongAccountDialog("CFD");
+        if (!ignore) return;
+      }
+      if (expectedType === "CRYPTO" && currentType !== "CRYPTO") {
+        const ignore = await showWrongAccountDialog("Crypto");
+        if (!ignore) return;
+      }
+    }
+  } catch (e) {
+    console.warn("Account type detection failed, proceeding anyway:", e);
+  }
+
+  console.log(`%c Starting download: ${fromDateStr} - ${toDateStr}`);
   let logsHtml = "";
   let isLogsVisible = false;
   let isMinimized = false;
@@ -591,6 +800,16 @@ async function getData(
   let isDownloading = false;
   let beforeUnloadHandler = null;
   let encounteredError = false;
+  let abortController = new AbortController();
+  window.t212ExporterAbortController = abortController;
+  let isPaused = false;
+
+  const waitIfPaused = async () => {
+    while (isPaused) {
+      if (abortController.signal.aborted) throw new Error("Aborted");
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  };
 
   const stopDownloadingCleanup = () => {
     isDownloading = false;
@@ -603,26 +822,20 @@ async function getData(
   let positionDetails = [];
   let interestDetails = [];
   let feeDetails = [];
+  let transactionDetails = [];
+  let dividendDetails = [];
 
   let summary = {
-    Zysk: 0,
-    Strata: 0,
-    "Wyniki zamknięte": 0,
-    "Opłaty FX": 0,
-    "Odsetki od gotówki": 0,
-    "Odsetki overnight": 0,
-    "Łącznie netto": 0,
+    Profit: 0,
+    Loss: 0,
+    "Closed Results": 0,
+    "FX Fees": 0,
+    "Cash Interests": 0,
+    "Overnight Interests": 0,
+    "Net Total": 0,
   };
-  /*
-  _________________________________________________________________________________
-  _________________________________________________________________________________
-  */
 
-  /***********************************************************************************
-   *
-   * WIZUALIZACJA POSTĘPU POBIERANIA DANYCH
-   *
-   ***********************************************************************************/
+  /* UI PROGRESS VISUALIZATION */
   const updateProgress = (
     message,
     progressPercent = -1,
@@ -705,17 +918,43 @@ async function getData(
 
       ui.innerHTML = `
         <div  class="t212-minimize-handle" id="t212-restore-handle"><span style="margin-bottom:5px; margin-top:20px;">T212 Exporter</span><span style="margin-bottom:10px; margin-top:5px;">${maximizeIcon}</span></div>
-        <div class="t212-header">
-          <div style="display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; color:#fff;">
-            <div class="t212-spinner" id="t212-spinner"></div><span>${t("ui_title")}</span>
+        <div class="t212-header" style="display:flex; flex-direction:column; gap:12px; padding: 16px 20px 12px 20px;">
+          <!-- Top Row: Navigation & Controls -->
+          <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+            <!-- Left: Back -->
+            <button id="t212-btn-back" class="t212-btn-icon" title="${t("ui_back")}" style="color:#94a3b8; display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+
+            <!-- Spacer - will push buttons to right if back is hidden -->
+            <div style="flex:1;"></div>
+
+            <!-- Right: Controls -->
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button id="t212-btn-pause" class="t212-btn-icon" title="${t("ui_pause")}" style="color:#fbbf24;">
+                <svg id="t212-pause-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              </button>
+              <div class="t212-btn-icon" id="t212-btn-min" title="${t("ui_minimize")}">${minIcon}</div>
+              <div class="t212-btn-icon" id="t212-btn-close" title="${t("ui_close")}" style="color:#ef4444;">${closeIcon}</div>
+            </div>
           </div>
-          <div style="display:flex; gap:6px; align-items:center;">
-            <button id="t212-ui-lang-pl" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:15px; font-weight:600; background:${_currentLang === "pl" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇵🇱</button>
-            <button id="t212-ui-lang-en" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:15px; font-weight:600; background:${_currentLang === "en" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇬🇧</button>
-            <div class="t212-btn-icon" id="t212-btn-min" title="${t("ui_minimize")}">${minIcon}</div>
-            <div class="t212-btn-icon" id="t212-btn-close" title="${t("ui_close")}" style="color:#ef4444;">${closeIcon}</div>
+
+          <!-- Bottom Row: Title & Languages -->
+          <div style="display:flex; align-items:center; justify-content:space-between; width:100%; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+            <!-- Left: Title -->
+            <div style="display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; color:#fff;">
+              <div class="t212-spinner" id="t212-spinner"></div>
+              <span>${t("ui_title")}</span>
+            </div>
+
+            <!-- Right: Languages -->
+            <div style="display:flex; align-items:center; gap:4px;">
+              <button id="t212-ui-lang-pl" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:13px; font-weight:600; background:${_currentLang === "pl" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇵🇱</button>
+              <button id="t212-ui-lang-en" style="padding:2px 7px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); cursor:pointer; font-size:13px; font-weight:600; background:${_currentLang === "en" ? "#3b82f6" : "rgba(255,255,255,0.05)"}; color:#fff;">🇬🇧</button>
+            </div>
           </div>
-        </div> 
+        </div>
+         
         <div class="t212-content">
           <div style="display:flex; gap:10px; margin-bottom:15px;">
             <a style="flex:1; text-decoration:none; color:#fff;" href="https://github.com/darkspine433/T212-CFD-DATA" target="_blank">
@@ -1087,13 +1326,121 @@ async function getData(
         }
       };
 
+      const bBtn = document.getElementById("t212-btn-back");
+      if (bBtn) bBtn.style.display = "flex";
+
+      const showConfirmBackDialog = () => {
+        const cOverlay = document.createElement("div");
+        cOverlay.style.cssText = `
+          position: fixed; inset: 0; background: rgba(0,0,0,0.4); 
+          display: flex; align-items: center; justify-content: center; z-index: 2147483647;
+          font-family: -apple-system, system-ui, sans-serif; backdrop-filter: blur(4px);
+        `;
+        const cDialog = document.createElement("div");
+        cDialog.style.cssText = `
+          background: #1e293b; border: 1px solid rgba(255,255,255,0.1); 
+          border-radius: 20px; padding: 24px; width: 320px; color: #fff;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); text-align: center;
+        `;
+        cDialog.innerHTML = `
+          <div style="font-size: 32px; margin-bottom: 15px;">↩️</div>
+          <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700;">${t("confirm_back_title")}</h3>
+          <p style="margin: 0 0 20px 0; font-size: 13px; color: #94a3b8; line-height: 1.4;">${t("confirm_back_msg")}</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button id="t212-back-yes" style="padding: 10px; background: #3b82f6; border: none; color: #fff; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600;">${t("confirm_stop_yes")}</button>
+            <button id="t212-back-no" style="padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 500;">${t("confirm_stop_no")}</button>
+          </div>
+        `;
+        cOverlay.appendChild(cDialog);
+        document.body.appendChild(cOverlay);
+
+        cDialog.querySelector("#t212-back-no").onclick = () =>
+          cOverlay.remove();
+        cDialog.querySelector("#t212-back-yes").onclick = () => {
+          cOverlay.remove();
+          abortController.abort();
+          stopDownloadingCleanup();
+
+          document.getElementById("t212-exporter-progress")?.remove();
+          document.getElementById("t212-exporter-styles")?.remove();
+
+          /* Restart the tool */
+          getData();
+        };
+      };
+
+      if (bBtn) {
+        bBtn.onclick = () => {
+          if (isDownloading) {
+            showConfirmBackDialog();
+          } else {
+            document.getElementById("t212-exporter-progress")?.remove();
+            document.getElementById("t212-exporter-styles")?.remove();
+            getData();
+          }
+        };
+      }
+
+      const showConfirmCloseDialog = () => {
+        const cOverlay = document.createElement("div");
+        cOverlay.style.cssText = `
+          position: fixed; inset: 0; background: rgba(0,0,0,0.4); 
+          display: flex; align-items: center; justify-content: center; z-index: 2147483647;
+          font-family: -apple-system, system-ui, sans-serif; backdrop-filter: blur(4px);
+        `;
+        const cDialog = document.createElement("div");
+        cDialog.style.cssText = `
+          background: #1e293b; border: 1px solid rgba(255,255,255,0.1); 
+          border-radius: 20px; padding: 24px; width: 320px; color: #fff;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); text-align: center;
+        `;
+        cDialog.innerHTML = `
+          <div style="font-size: 32px; margin-bottom: 15px;">⚠️</div>
+          <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700;">${t("confirm_stop_title")}</h3>
+          <p style="margin: 0 0 20px 0; font-size: 13px; color: #94a3b8; line-height: 1.4;">${t("confirm_stop_msg")}</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button id="t212-stop-yes" style="padding: 10px; background: #ef4444; border: none; color: #fff; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600;">${t("confirm_stop_yes")}</button>
+            <button id="t212-stop-no" style="padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 500;">${t("confirm_stop_no")}</button>
+          </div>
+        `;
+        cOverlay.appendChild(cDialog);
+        document.body.appendChild(cOverlay);
+
+        cDialog.querySelector("#t212-stop-no").onclick = () =>
+          cOverlay.remove();
+        cDialog.querySelector("#t212-stop-yes").onclick = () => {
+          cOverlay.remove();
+          abortController.abort();
+          stopDownloadingCleanup();
+          ui.remove();
+          document.getElementById("t212-exporter-styles")?.remove();
+        };
+      };
+
       document.getElementById("t212-btn-close").onclick = () => {
         if (isDownloading) {
-          window.location.reload();
+          showConfirmCloseDialog();
           return;
         }
-        ui.remove();
+        stopDownloadingCleanup();
+        document.getElementById("t212-exporter-progress")?.remove();
         document.getElementById("t212-exporter-styles")?.remove();
+      };
+
+      const pauseBtn = document.getElementById("t212-btn-pause");
+      const pauseSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+      const resumeSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+
+      pauseBtn.onclick = () => {
+        isPaused = !isPaused;
+        pauseBtn.innerHTML = isPaused ? resumeSvg : pauseSvg;
+        pauseBtn.title = isPaused ? t("ui_resume") : t("ui_pause");
+        pauseBtn.style.color = isPaused ? "#10b981" : "#fbbf24";
+        if (isPaused) {
+          updateProgress(null, -1, "⏸️ Download paused.");
+        } else {
+          updateProgress(null, -1, "▶️ Download resumed.");
+        }
       };
 
       document.getElementById("t212-save-logs").onclick = () => {
@@ -1149,23 +1496,21 @@ async function getData(
         };
       }
 
-      /* Header blur button (separate): toggles only the live summary blur */
       const headerBlurBtn = document.getElementById("t212-btn-blur");
       if (headerBlurBtn) {
         headerBlurBtn.onclick = () => {
           const live = document.querySelector(".t212-live-summary");
           if (!live) return;
           const isNowBlurred = !live.classList.toggle("t212-blur");
-          /*   when toggled, update text and icon: if blurred -> show eyeOff + 'Pokaż wyniki' */
           if (live.classList.contains("t212-blur")) {
             headerBlurBtn.innerHTML = eyeOffIcon + " " + t("ui_show_results");
           } else {
             headerBlurBtn.innerHTML = eyeIcon + " " + t("ui_hide_results");
           }
+          updateProgress(null);
         };
       }
 
-      /* Restore UI state from session if available */
       try {
         const st = loadUIState();
         if (st && st.minimized) {
@@ -1179,31 +1524,50 @@ async function getData(
       } catch (e) {}
     }
 
-    /* Refresh UI content */
     if (summary) {
-      const pnl = (summary["Zysk"] || 0) + (summary["Strata"] || 0);
+      const pnl = (summary["Profit"] || 0) + (summary["Loss"] || 0);
       const tt =
         pnl +
-        (summary["Opłaty FX"] || 0) +
-        (summary["Odsetki od gotówki"] || 0) +
-        (summary["Odsetki overnight"] || 0);
+        (summary["FX Fees"] || 0) +
+        (summary["Cash Interests"] || 0) +
+        (summary["Overnight Interests"] || 0);
       const setV = (id, val, color = false) => {
         const el = document.getElementById(id);
         if (!el) return;
         el.innerText = `${val.toFixed(2)} ${accountCurrency}`;
-        if (color)
+
+        const live = document.querySelector(".t212-live-summary");
+        const isBlurred = live && live.classList.contains("t212-blur");
+
+        if (color && !isBlurred) {
           el.style.color =
             val > 0 ? "#22c55e" : val < 0 ? "#ef4444" : "#f1f5f9";
+        } else {
+          el.style.color = "#f1f5f9";
+        }
       };
       setV("t212-stat-pnl", pnl, true);
-      setV("t212-stat-fx", summary["Opłaty FX"] || 0);
+      setV("t212-stat-fx", summary["FX Fees"] || 0);
       setV(
         "t212-stat-interest",
-        (summary["Odsetki od gotówki"] || 0) +
-          (summary["Odsetki overnight"] || 0),
+        (summary["Cash Interests"] || 0) +
+          (summary["Overnight Interests"] || 0),
         true,
       );
       setV("t212-stat-total", tt, true);
+
+      const pBtn = document.getElementById("t212-btn-pause");
+      if (pBtn) {
+        if (isDownloading) {
+          pBtn.style.opacity = "1";
+          pBtn.style.pointerEvents = "auto";
+          pBtn.style.cursor = "pointer";
+        } else {
+          pBtn.style.opacity = "0.3";
+          pBtn.style.pointerEvents = "none";
+          pBtn.style.cursor = "not-allowed";
+        }
+      }
     }
     if (progressPercent >= 0) {
       const b = document.getElementById("t212-progress-bg"),
@@ -1257,513 +1621,652 @@ async function getData(
     t("log_started"),
   );
 
-  /* mark downloading and warn on unload */
-  isDownloading = true;
-  beforeUnloadHandler = (e) => {
-    if (isDownloading) {
-      const msg =
-        "Trwa pobieranie danych. Na pewno chcesz opuścić/odświeżyć stronę? Pobieranie zostanie przerwane.";
-      e.preventDefault();
-      e.returnValue = msg;
-      return msg;
-    }
-  };
-  window.addEventListener("beforeunload", beforeUnloadHandler);
-  /*
-  _________________________________________________________________________________
-  _________________________________________________________________________________
-  */
+  /* DOWNLOADER DATA FROM TRADING212 */
 
-  /***********************************************************************************
-   *
-   * SKRYPT POBIERANIA DANYCH Z TRADING212
-   *
-   ***********************************************************************************/
-
-  /*---  POZYCJE ---*/
   const fetchWithRetry = async (url, options, retries = 5) => {
     for (let i = 0; i < retries; i++) {
-      const response = await fetch(url, options);
+      await waitIfPaused();
+      if (abortController.signal.aborted) throw new Error("Aborted");
+
+      const response = await fetch(url, {
+        ...options,
+        signal: abortController.signal,
+      });
+
       if (response.status === 429) {
         const wait = Math.pow(2, i) * 1000;
-        console.warn(`Rate limit (429). Czekam ${wait}ms...`);
-        updateProgress(null, -1, `Limit zapytań (429). Czekam ${wait}ms...`);
+        console.warn(`Rate limit (429). Waiting ${wait}ms...`);
+        updateProgress(null, -1, `Rate limit (429). Waiting ${wait}ms...`);
         await new Promise((r) => setTimeout(r, wait));
         continue;
       }
       return response;
     }
-    updateProgress(null, -1, `Przekroczono limit prób dla ${url}`);
-    throw new Error(`Przekroczono limit prób dla ${url}`);
+    updateProgress(null, -1, `Retry limit exceeded for ${url}`);
+    throw new Error(`Retry limit exceeded for ${url}`);
   };
 
-  try {
-    let res = await (
-      await fetch(requestBase + "positions?page=1" + requestFilter, auth)
-    ).json();
-    const totalSize = res.totalSize || 0;
-    const pageCount = Math.ceil(totalSize / 20);
-
-    for (let i = 1; i <= pageCount; i++) {
-      const pageRes = await (
-        await fetchWithRetry(
-          requestBase + `positions?page=${i}` + requestFilter,
-          auth,
-        )
+  const fetchCFDData = async () => {
+    isDownloading = true;
+    /*--- POSITIONS ---*/
+    try {
+      let res = await (
+        await fetch(requestBase + "positions?page=1" + requestFilter, {
+          ...auth,
+          signal: abortController.signal,
+        })
       ).json();
+      const totalSize = res.totalSize || 0;
+      const pageCount = Math.ceil(totalSize / 20);
 
-      if (pageRes.data) {
-        for (let position of pageRes.data) {
+      for (let i = 1; i <= pageCount; i++) {
+        const pageRes = await (
+          await fetchWithRetry(
+            requestBase + `positions?page=${i}` + requestFilter,
+            auth,
+          )
+        ).json();
+
+        if (pageRes.data) {
+          for (let position of pageRes.data) {
+            updateProgress(
+              null,
+              -1,
+              `${t("log_position_details")}: ${position.orderNumber.name} (${position.code})`,
+            );
+            const detailsResponse = await fetchWithRetry(
+              requestBase + position.orderNumber.link,
+              auth,
+            );
+            const details = await detailsResponse.json();
+
+            if (details && details.length > 0) {
+              const openDirection = details[0].direction;
+              let currentQty = 0;
+              let currentAvgPrice = 0;
+
+              for (let j = 0; j < details.length; j++) {
+                const event = details[j];
+                const actionType = event.eventType.action;
+
+                const newTotalQty =
+                  actionType === "closed" || actionType === "liquidated"
+                    ? 0
+                    : parseFloat(event.avgQuantity || event.quantity);
+                const newAvgPrice =
+                  actionType === "closed" || actionType === "liquidated"
+                    ? 0
+                    : parseFloat(event.avgPrice || event.price);
+
+                if (
+                  actionType === "opened" ||
+                  (actionType === "modified" && newTotalQty > currentQty)
+                ) {
+                  currentQty = newTotalQty;
+                  currentAvgPrice = newAvgPrice;
+                  continue;
+                }
+
+                if (
+                  actionType === "closed" ||
+                  actionType === "liquidated" ||
+                  (actionType === "modified" && newTotalQty < currentQty)
+                ) {
+                  const closedQty = currentQty - newTotalQty;
+                  const entryPrice = currentAvgPrice;
+                  const exitPrice = parseFloat(event.price);
+
+                  const rate = await getNBPExchangeRate(
+                    position.currency,
+                    event.time,
+                  );
+                  const rateTarget = await getNBPExchangeRate(
+                    accountCurrency,
+                    event.time,
+                  );
+
+                  let pnl = (exitPrice - entryPrice) * closedQty;
+                  if (openDirection === "sell") {
+                    pnl = (entryPrice - exitPrice) * closedQty;
+                  }
+
+                  const hasFxFee = position.currency !== accountCurrency;
+                  const fxFee = hasFxFee ? Math.abs(pnl) * 0.005 : 0;
+                  const netPnL = pnl - fxFee;
+                  const netPnLPLN = netPnL * rate;
+                  const fxFeePLN = fxFee * rate;
+                  const netPnLTarget = (netPnL * rate) / rateTarget;
+                  const fxFeeTarget = (fxFee * rate) / rateTarget;
+
+                  if (pnl > 0) {
+                    summary["Profit"] += (pnl * rate) / rateTarget;
+                  } else {
+                    summary["Loss"] += (pnl * rate) / rateTarget;
+                  }
+                  summary["FX Fees"] -= fxFeeTarget;
+
+                  if (fxFee > 0) {
+                    feeDetails.push({
+                      type: "FEE_FX",
+                      time: event.time,
+                      code: position.code,
+                      currency: position.currency,
+                      interestInCurrency: -Math.abs(fxFee).toFixed(4),
+                      accountCurrency: accountCurrency,
+                      interestInAccountCurrency: -Math.abs(fxFeePLN).toFixed(4),
+                    });
+                  }
+
+                  positionDetails.push({
+                    type: "POSITION",
+                    time: event.time,
+                    openingTime: position.dateCreated,
+                    code: position.code,
+                    orderName: event.eventNumber
+                      ? event.eventNumber.name
+                      : position.orderNumber.name,
+                    currency: position.currency,
+                    quantity: closedQty,
+                    direction: openDirection,
+                    openPrice: entryPrice,
+                    closePrice: exitPrice,
+                    pnlNetPLN: netPnLPLN.toFixed(4),
+                    pnlNetChosenCurrency: netPnLTarget.toFixed(4),
+                  });
+
+                  updateProgress(
+                    null,
+                    -1,
+                    `✅ ${t("log_position_closed")} ${closedQty} ${position.code} (${t("log_position_profit_loss")}: ${pnl.toFixed(2)} ${position.currency})`,
+                  );
+
+                  currentQty = newTotalQty;
+                  currentAvgPrice = newAvgPrice;
+                }
+              }
+            }
+          }
+          const progress = Math.round((i / pageCount) * 100);
+          updateProgress(
+            `📈<b>${t("log_positions_fetching") || "Pobieranie pozycji"}:</b><br/>${t("log_page_progress").replace("{i}", i).replace("{total}", pageCount)}`,
+            progress,
+            `${t("log_positions_page")}: ${i}/${pageCount}`,
+          );
+        } else {
+          const errorMsg = `No data to download. Save the logs and attach them to a GitHub issue.`;
+          console.error(e);
+          updateProgress(null, -1, e.toString(), errorMsg, false);
+          stopDownloadingCleanup();
+          return;
+        }
+      }
+    } catch (e) {
+      if (e.message === "Aborted" || e.name === "AbortError") throw e;
+      const errorMsg = `Error in positions. Save the logs and attach them to a GitHub issue.`;
+      console.error(e);
+      updateProgress(null, -1, e.toString(), errorMsg, false);
+      stopDownloadingCleanup();
+      return;
+    }
+
+    /*--- CASH INTERESTS ---*/
+    try {
+      let cursor = maxDate.getTime();
+      cursor += 24 * 60 * 60 * 1000; // +1 day buffer
+
+      let hasNext = true;
+      const interestUrl = (requestBase + "interest/v2").replace(
+        /([^:]\/)\/+/g,
+        "$1",
+      );
+
+      while (hasNext) {
+        const fetchUrl = `${interestUrl}?limit=20&olderThan=${cursor}`;
+        updateProgress(
+          `💵 <b>Fetching interests:</b><br/>Found so far: ${interestDetails.length}`,
+          -1,
+          `Fetching interests (older than ${new Date(cursor).toISOString().split("T")[0]})`,
+        );
+
+        const response = await fetchWithRetry(fetchUrl, auth);
+
+        if (!response.ok) {
           updateProgress(
             null,
             -1,
-            `${t("log_position_details")}: ${position.orderNumber.name} (${position.code})`,
+            `Network error: ${response.status} ${response.statusText} for address: ${fetchUrl}`,
           );
-          const detailsResponse = await fetchWithRetry(
-            requestBase + position.orderNumber.link,
-            auth,
+          throw new Error(
+            `Network error: ${response.status} ${response.statusText} for address: ${fetchUrl}`,
           );
-          const details = await detailsResponse.json();
+        }
 
-          if (details && details.length > 0) {
-            const openDirection = details[0].direction;
-            let currentQty = 0;
-            let currentAvgPrice = 0;
+        const res = await response.json();
 
-            for (let j = 0; j < details.length; j++) {
-              const event = details[j];
-              const actionType = event.eventType.action;
+        if (!res) {
+          updateProgress(null, -1, `API response is empty (null/undefined).`);
+          throw new Error("API response is empty (null/undefined).");
+        }
 
-              const newTotalQty =
-                actionType === "closed" || actionType === "liquidated"
-                  ? 0
-                  : parseFloat(event.avgQuantity || event.quantity);
-              const newAvgPrice =
-                actionType === "closed" || actionType === "liquidated"
-                  ? 0
-                  : parseFloat(event.avgPrice || event.price);
+        if (!res.interests) {
+          hasNext = false;
+          break;
+        }
 
-              if (
-                actionType === "opened" ||
-                (actionType === "modified" && newTotalQty > currentQty)
-              ) {
-                currentQty = newTotalQty;
-                currentAvgPrice = newAvgPrice;
-                continue;
-              }
+        if (res.interests.length > 0) {
+          for (let item of res.interests) {
+            const itemDate = new Date(item.executionDate);
 
-              if (
-                actionType === "closed" ||
-                actionType === "liquidated" ||
-                (actionType === "modified" && newTotalQty < currentQty)
-              ) {
-                const closedQty = currentQty - newTotalQty;
-                const entryPrice = currentAvgPrice;
-                const exitPrice = parseFloat(event.price);
+            if (itemDate < minDate) {
+              hasNext = false;
+              continue;
+            }
 
-                const rate = await getNBPExchangeRate(
-                  position.currency,
-                  event.time,
-                );
-                const rateTarget = await getNBPExchangeRate(
-                  accountCurrency,
-                  event.time,
-                );
+            if (itemDate <= maxDate && itemDate >= minDate) {
+              const itemexecutionDate = item.executionDate;
+              const rate = await getNBPExchangeRate(
+                item.currency,
+                itemexecutionDate,
+              );
+              const rateTarget = await getNBPExchangeRate(
+                accountCurrency,
+                itemexecutionDate,
+              );
+              const interestAmt =
+                typeof item.interestNetAmount === "number"
+                  ? item.interestNetAmount
+                  : parseFloat(
+                      String(item.interestNetAmount).replace(",", "."),
+                    ) || 0;
+              const rateNum = Number(rate) || 1;
+              const interestInPLN = interestAmt * rateNum;
+              const interestInTarget = (interestAmt * rateNum) / rateTarget;
 
-                let pnl = (exitPrice - entryPrice) * closedQty;
-                if (openDirection === "sell") {
-                  pnl = (entryPrice - exitPrice) * closedQty;
-                }
+              summary["Cash Interests"] =
+                (Number(summary["Cash Interests"]) || 0) + interestInTarget;
 
-                const hasFxFee = position.currency !== accountCurrency;
-                const fxFee = hasFxFee ? Math.abs(pnl) * 0.005 : 0;
-                const netPnL = pnl - fxFee;
-                const netPnLPLN = netPnL * rate;
-                const fxFeePLN = fxFee * rate;
-                const netPnLTarget = (netPnL * rate) / rateTarget;
-                const fxFeeTarget = (fxFee * rate) / rateTarget;
+              interestDetails.push({
+                type: "CASH_INTEREST",
+                time: itemDate.toISOString(),
+                code: "CASH_INTEREST",
+                orderName: item.description || "Interest on cash",
+                currency: item.currency,
+                interest: item.interestNetAmount,
+                interestInPLN: interestInPLN.toFixed(4),
+                interestInChosenCurrency: interestInTarget.toFixed(4),
+                quantity: 1,
+                direction: "profit",
+              });
+              updateProgress(
+                null,
+                -1,
+                `💰 Odsetki: ${item.interestNetAmount} ${item.currency} (${formatDate(item.executionDate)})`,
+              );
+            }
+          }
 
-                if (pnl > 0) {
-                  summary["Zysk"] += (pnl * rate) / rateTarget;
-                } else {
-                  summary["Strata"] += (pnl * rate) / rateTarget;
-                }
-                summary["Opłaty FX"] -= fxFeeTarget;
+          const lastItem = res.interests[res.interests.length - 1];
+          cursor = lastItem.executionDate;
 
-                if (fxFee > 0) {
-                  feeDetails.push({
-                    type: "FEE_FX",
-                    time: event.time,
-                    code: position.code,
-                    currency: position.currency,
-                    interestInCurrency: -Math.abs(fxFee).toFixed(4),
-                    accountCurrency: accountCurrency,
-                    interestInAccountCurrency: -Math.abs(fxFeePLN).toFixed(4),
-                  });
-                }
+          if (!res.hasNext || cursor < minDate.getTime()) {
+            hasNext = false;
+          }
 
-                positionDetails.push({
-                  type: "POSITION",
-                  time: event.time,
-                  openingTime: position.dateCreated,
-                  code: position.code,
-                  orderName: event.eventNumber
-                    ? event.eventNumber.name
-                    : position.orderNumber.name,
-                  currency: position.currency,
-                  quantity: closedQty,
-                  direction: openDirection,
-                  openPrice: entryPrice,
-                  closePrice: exitPrice,
-                  pnlNetPLN: netPnLPLN.toFixed(4),
-                  pnlNetChosenCurrency: netPnLTarget.toFixed(4),
-                });
+          await new Promise((r) => setTimeout(r, 100));
+        } else {
+          hasNext = false;
+        }
+      }
+      updateProgress(null, -1, t("log_interest_fetched"));
+    } catch (e) {
+      const errorMsg = `Error in cash interests. Save the logs and attach them to a GitHub issue.`;
+      console.error(e);
+      updateProgress(null, -1, e.toString(), errorMsg, false);
+      stopDownloadingCleanup();
+      return;
+    }
 
-                updateProgress(
-                  null,
-                  -1,
-                  `✅ ${t("log_position_closed")} ${closedQty} ${position.code} (${t("log_position_profit_loss")}: ${pnl.toFixed(2)} ${position.currency})`,
-                );
+    /*--- OVERNIGHT FEES ---*/
+    try {
+      const feeUrl = `https://live.trading212.com/rest/reports/overnight-holding-fee`;
+      const res = await (
+        await fetchWithRetry(feeUrl + "?page=1" + requestFilter, auth)
+      ).json();
 
-                currentQty = newTotalQty;
-                currentAvgPrice = newAvgPrice;
-              }
+      const totalSize = res.totalSize || 0;
+      const pageCount = Math.ceil(totalSize / 20);
+
+      for (let i = 1; i <= pageCount; i++) {
+        const fetchUrl = `${feeUrl}?page=${i}` + requestFilter;
+
+        const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
+
+        if (pageRes.data) {
+          for (let overnightFee of pageRes.data) {
+            let d = new Date(overnightFee.time);
+            if (d >= minDate && d <= maxDate) {
+              const rate = await getNBPExchangeRate(
+                overnightFee.accountCurrency,
+                overnightFee.time,
+              );
+              const rateTarget = await getNBPExchangeRate(
+                accountCurrency,
+                overnightFee.time,
+              );
+              const feeInPLN = parseFloat(overnightFee.interest) * rate;
+              const feeInTarget =
+                (parseFloat(overnightFee.interest) * rate) / rateTarget;
+              summary["Overnight Interests"] += feeInTarget;
+
+              feeDetails.push({
+                type: "FEE_OVERNIGHT",
+                time: overnightFee.time,
+                code: overnightFee.code,
+                currency: overnightFee.accountCurrency,
+                interest: overnightFee.interest,
+                feeInPLN: feeInPLN.toFixed(4),
+                feeInChosenCurrency: feeInTarget.toFixed(4),
+                quantity: overnightFee.quantity,
+                direction: overnightFee.direction,
+              });
+              updateProgress(
+                null,
+                -1,
+                `🌙 Opłata overnight: ${overnightFee.interest} ${overnightFee.accountCurrency} dla ${overnightFee.code}`,
+              );
             }
           }
         }
         const progress = Math.round((i / pageCount) * 100);
         updateProgress(
-          `📈<b>${t("log_positions_fetching") || "Pobieranie pozycji"}:</b><br/>${t("log_page_progress").replace("{i}", i).replace("{total}", pageCount)}`,
+          `🌙 <b>Fetching overnight fees:</b><br/>Processing page ${i} of ${pageCount}...`,
           progress,
-          `${t("log_positions_page")}: ${i}/${pageCount}`,
+          `Fees: processed page ${i}/${pageCount}`,
         );
-      } else {
-        const errorMsg = `Brak danych do pobrania. Zapisz logi i załącz je do zgłoszenia Problemu`;
-        console.error(e);
-        updateProgress(null, -1, e.toString(), errorMsg, false);
-        stopDownloadingCleanup();
-        return;
       }
+    } catch (e) {
+      if (e.message === "Aborted" || e.name === "AbortError") throw e;
+      const errorMsg = `Error in overnight fees. Save the logs and attach them to a GitHub issue.`;
+      console.error(errorMsg);
+      updateProgress(null, -1, errorMsg, errorMsg, false);
+      stopDownloadingCleanup();
+      return;
     }
-  } catch (e) {
-    const errorMsg = `Błąd przy pozycjach. Zapisz logi i załącz je do zgłoszenia Problemu`;
-    console.error(e);
-    updateProgress(null, -1, e.toString(), errorMsg, false);
-    stopDownloadingCleanup();
-    return;
-  }
 
-  /*--- ODSETKI OD GOTÓWKI  ---*/
-  try {
-    let cursor = maxDate.getTime();
-    cursor += 24 * 60 * 60 * 1000; /* +1 dzień zapasu */
-
-    let hasNext = true;
-    const interestUrl = (requestBase + "interest/v2").replace(
-      /([^:]\/)\/+/g,
-      "$1",
-    );
-
-    while (hasNext) {
-      const fetchUrl = `${interestUrl}?limit=20&olderThan=${cursor}`;
+    transactionDetails = [];
+    try {
+      const transUrl = `https://live.trading212.com/rest/reports/transactions`;
       updateProgress(
-        `💵 <b>Pobieranie odsetek:</b><br/>Znaleziono dotychczas: ${interestDetails.length}`,
+        `💸 <b>Pobieranie historii transakcji:</b><br/>Pobieranie wpłat, wypłat i przelewów...`,
         -1,
-        `Pobieram odsetki (wcześniejsze od ${new Date(cursor).toISOString().split("T")[0]})`,
+        `Pobieram historię transakcji...`,
       );
 
-      const response = await fetchWithRetry(fetchUrl, auth);
+      const res = await (
+        await fetchWithRetry(transUrl + "?page=1" + requestFilter, auth)
+      ).json();
 
-      if (!response.ok) {
+      const totalSize = res.totalSize || 0;
+      const pageCount = Math.ceil(totalSize / 20);
+
+      for (let i = 1; i <= pageCount; i++) {
+        const fetchUrl = `${transUrl}?page=${i}` + requestFilter;
+        const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
+
+        if (pageRes.data) {
+          for (let trans of pageRes.data) {
+            let d = new Date(trans.time);
+            if (d >= minDate && d <= maxDate) {
+              let actionName = trans.type;
+              if (trans.type === "ADYEN" || trans.type === "BANK_TRANSFER") {
+                actionName =
+                  trans.direction === "positive" ? "Deposit" : "Withdrawal";
+              } else if (trans.type === "TRANSFER_BETWEEN_ACC") {
+                actionName = "Transfer";
+              }
+
+              const amount = parseFloat(trans.sum);
+              const displayAmount =
+                trans.direction === "negative" ? -amount : amount;
+
+              transactionDetails.push({
+                type: "TRANSACTION",
+                time: trans.time,
+                action: actionName,
+                code: trans.accountCurrency || accountCurrency,
+                amount: displayAmount,
+                currency: trans.accountCurrency || accountCurrency,
+                orderName: trans.notes || trans.type || "Transaction",
+                id: trans.id || trans.transactionId,
+              });
+              updateProgress(
+                null,
+                -1,
+                `💸 Transakcja: ${actionName} ${displayAmount} ${trans.accountCurrency || accountCurrency}`,
+              );
+            }
+          }
+        }
+        const progress = Math.round((i / pageCount) * 100);
         updateProgress(
-          null,
-          -1,
-          `Błąd sieci: ${response.status} ${response.statusText} dla adresu: ${fetchUrl}`,
-        );
-        throw new Error(
-          `Błąd sieci: ${response.status} ${response.statusText} dla adresu: ${fetchUrl}`,
+          `💸 <b>Pobieranie transakcji:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
+          progress,
+          `Transakcje: przetworzono stronę ${i}/${pageCount}`,
         );
       }
+    } catch (e) {
+      if (e.message === "Aborted" || e.name === "AbortError") throw e;
+      console.warn("Błąd przy pobieraniu transakcji:", e);
+    }
 
+    dividendDetails = [];
+    try {
+      const divUrl = `https://live.trading212.com/rest/reports/dividends/v2`;
+      updateProgress(
+        `🎁 <b>Pobieranie dywidend:</b><br/>Pobieranie historii dywidend...`,
+        -1,
+        `Pobieram dywidendy...`,
+      );
+
+      const res = await (
+        await fetchWithRetry(divUrl + "?page=1" + requestFilter, auth)
+      ).json();
+
+      const totalSize = res.totalSize || 0;
+      const pageCount = Math.ceil(totalSize / 20);
+
+      for (let i = 1; i <= pageCount; i++) {
+        const fetchUrl = `${divUrl}?page=${i}` + requestFilter;
+        const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
+
+        if (pageRes.data) {
+          for (let div of pageRes.data) {
+            let d = new Date(div.time);
+            if (d >= minDate && d <= maxDate) {
+              const divCurrency = div.currency || accountCurrency;
+              const rate = await getNBPExchangeRate(divCurrency, div.time);
+              const rateTarget = await getNBPExchangeRate(
+                accountCurrency,
+                div.time,
+              );
+              const amountTarget = (div.amount * rate) / rateTarget;
+
+              dividendDetails.push({
+                type: "DIVIDEND",
+                time: div.time,
+                code: div.code,
+                currency: divCurrency,
+                amount: div.amount,
+                amountPLN: (div.amount * rate).toFixed(4),
+                amountChosenCurrency: amountTarget.toFixed(4),
+                withholdingTax: div.withholdingTax || 0,
+              });
+              updateProgress(
+                null,
+                -1,
+                `🎁 Dywidenda: ${div.code} ${div.amount} ${divCurrency}`,
+              );
+            }
+          }
+        }
+        const progress = Math.round((i / pageCount) * 100);
+        updateProgress(
+          `🎁 <b>Pobieranie dywidend:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
+          progress,
+          `Dywidendy: przetworzono stronę ${i}/${pageCount}`,
+        );
+      }
+    } catch (e) {
+      if (e.message === "Aborted" || e.name === "AbortError") throw e;
+      console.warn("Błąd przy pobieraniu dywidend:", e);
+    }
+  };
+
+  const fetchCryptoData = async () => {
+    isDownloading = true;
+    updateProgress(t("log_crypto_fetching"), 0, t("log_crypto_header"));
+    let cursor = null;
+    let hasNext = true;
+
+    const isWithinRange = (dateStr) => {
+      const d = new Date(dateStr);
+      return d >= minDate && d <= maxDate;
+    };
+
+    const isBeforeStart = (dateStr) => {
+      const d = new Date(dateStr);
+      return d < minDate;
+    };
+
+    while (hasNext) {
+      let url = `https://live.services.trading212.com/rest/crypto-history/v1/search?limit=20`;
+      if (cursor) url += `&cursor=${cursor}`;
+
+      const cryptoAuth = {
+        ...auth,
+        method: "POST",
+        headers: {
+          ...auth.headers,
+        },
+        body: JSON.stringify({}),
+      };
+
+      const response = await fetchWithRetry(url, cryptoAuth);
       const res = await response.json();
 
-      if (!res) {
-        updateProgress(null, -1, `Odpowiedź API jest pusta (null/undefined).`);
-        throw new Error("Odpowiedź API jest pusta (null/undefined).");
-      }
-
-      if (!res.interests) {
+      if (!res || !res.data || res.data.length === 0) {
         hasNext = false;
         break;
       }
 
-      if (res.interests.length > 0) {
-        for (let item of res.interests) {
-          const itemDate = new Date(item.executionDate);
+      for (let record of res.data) {
+        if (isWithinRange(record.date)) {
+          updateProgress(
+            null,
+            -1,
+            `${t("log_crypto_details")} ID: ${record.id} (${record.date.split("T")[0]})`,
+          );
 
-          if (itemDate < minDate) {
-            hasNext = false;
-            continue;
-          }
-
-          if (itemDate <= maxDate && itemDate >= minDate) {
-            const itemexecutionDate = item.executionDate;
-            const rate = await getNBPExchangeRate(
-              item.currency,
-              itemexecutionDate,
+          try {
+            const detailsRes = await fetchWithRetry(
+              `https://live.services.trading212.com/rest/crypto-history/v1/records/${record.id}`,
+              auth,
             );
+            const details = await detailsRes.json();
+
+            const ticker = record.heading?.context?.tickers || "";
+            const name = record.heading?.context?.prettyName || "";
+            const quantity = record.additionalInfo?.context?.quantity || 0;
+            const amount = record.mainInfo?.context?.amount || 0;
+            const currency =
+              record.mainInfo?.context?.currency || accountCurrency;
+
+            const rate = await getNBPExchangeRate(currency, record.date);
             const rateTarget = await getNBPExchangeRate(
               accountCurrency,
-              itemexecutionDate,
+              record.date,
             );
-            const interestAmt =
-              typeof item.interestNetAmount === "number"
-                ? item.interestNetAmount
-                : parseFloat(
-                    String(item.interestNetAmount).replace(",", "."),
-                  ) || 0;
-            const rateNum = Number(rate) || 1;
-            const interestInPLN = interestAmt * rateNum;
-            const interestInTarget = (interestAmt * rateNum) / rateTarget;
+            const amountTarget = (amount * rate) / rateTarget;
 
-            summary["Odsetki od gotówki"] =
-              (Number(summary["Odsetki od gotówki"]) || 0) + interestInTarget;
+            if (record.avatar?.type === "ORDER") {
+              if (amountTarget > 0) summary["Profit"] += amountTarget;
+              else summary["Loss"] += amountTarget;
 
-            interestDetails.push({
-              type: "CASH_INTEREST",
-              time: itemDate.toISOString(),
-              code: "CASH_INTEREST",
-              orderName: item.description || "Interest on cash",
-              currency: item.currency,
-              interest: item.interestNetAmount,
-              interestInPLN: interestInPLN.toFixed(4),
-              interestInChosenCurrency: interestInTarget.toFixed(4),
-              quantity: 1,
-              direction: "profit",
-            });
+              positionDetails.push({
+                type: "CRYPTO_ORDER",
+                time: record.date,
+                code: ticker,
+                orderName: name,
+                currency: currency,
+                quantity: quantity,
+                direction: record.avatar?.status === "BUY" ? "buy" : "sell",
+                amount: amount,
+                amountChosenCurrency: amountTarget.toFixed(4),
+                id: record.id,
+                details: details,
+              });
+            } else {
+              transactionDetails.push({
+                type: "CRYPTO_TRANSACTION",
+                time: record.date,
+                action: record.heading?.key || "Crypto Transaction",
+                code: ticker || currency,
+                amount: amount,
+                currency: currency,
+                orderName: name || "Crypto History Record",
+                id: record.id,
+                details: details,
+              });
+            }
+          } catch (err) {
+            console.error("Crypto details fetch error:", err);
             updateProgress(
               null,
               -1,
-              `💰 Odsetki: ${item.interestNetAmount} ${item.currency} (${formatDate(item.executionDate)})`,
+              `Błąd pobierania detali dla ID ${record.id}: ${err.message}`,
             );
           }
         }
 
-        const lastItem = res.interests[res.interests.length - 1];
-        cursor = lastItem.executionDate;
-
-        if (!res.hasNext || cursor < minDate.getTime()) {
+        if (isBeforeStart(record.date)) {
           hasNext = false;
+          break;
         }
+      }
 
-        await new Promise((r) => setTimeout(r, 100));
+      if (hasNext && res.data.length > 0) {
+        cursor = res.data[res.data.length - 1].id;
       } else {
         hasNext = false;
       }
-    }
-    updateProgress(null, -1, t("log_interest_fetched"));
-  } catch (e) {
-    const errorMsg = `Błąd przy odsetkach od gotówki. Zapisz logi i załącz je do zgłoszenia Problemu`;
-    console.error(e);
-    updateProgress(null, -1, e.toString(), errorMsg, false);
-    stopDownloadingCleanup();
-    return;
-  }
 
-  /*--- OPŁATY (OVERNIGHT FEES) ---*/
-  try {
-    const feeUrl = `https://live.trading212.com/rest/reports/overnight-holding-fee`;
-    const res = await (
-      await fetchWithRetry(feeUrl + "?page=1" + requestFilter, auth)
-    ).json();
-
-    const totalSize = res.totalSize || 0;
-    const pageCount = Math.ceil(totalSize / 20);
-
-    for (let i = 1; i <= pageCount; i++) {
-      const fetchUrl = `${feeUrl}?page=${i}` + requestFilter;
-
-      const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
-
-      if (pageRes.data) {
-        for (let overnightFee of pageRes.data) {
-          let d = new Date(overnightFee.time);
-          if (d >= minDate && d <= maxDate) {
-            const rate = await getNBPExchangeRate(
-              overnightFee.accountCurrency,
-              overnightFee.time,
-            );
-            const rateTarget = await getNBPExchangeRate(
-              accountCurrency,
-              overnightFee.time,
-            );
-            const feeInPLN = parseFloat(overnightFee.interest) * rate;
-            const feeInTarget =
-              (parseFloat(overnightFee.interest) * rate) / rateTarget;
-            summary["Odsetki overnight"] += feeInTarget;
-
-            feeDetails.push({
-              type: "FEE_OVERNIGHT",
-              time: overnightFee.time,
-              code: overnightFee.code,
-              currency: overnightFee.accountCurrency,
-              interest: overnightFee.interest,
-              feeInPLN: feeInPLN.toFixed(4),
-              feeInChosenCurrency: feeInTarget.toFixed(4),
-              quantity: overnightFee.quantity,
-              direction: overnightFee.direction,
-            });
-            updateProgress(
-              null,
-              -1,
-              `🌙 Opłata overnight: ${overnightFee.interest} ${overnightFee.accountCurrency} dla ${overnightFee.code}`,
-            );
-          }
-        }
-      }
-      const progress = Math.round((i / pageCount) * 100);
       updateProgress(
-        `🌙 <b>Pobieranie opłat overnight:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
-        progress,
-        `Opłaty: przetworzono stronę ${i}/${pageCount}`,
+        `₿ <b>${t("log_crypto_header")}:</b><br/>${t("log_crypto_page")}: ${cursor || "N/A"}`,
+        -1,
+        `${t("log_crypto_page")} (ID: ${cursor || "N/A"})`,
       );
-    }
-  } catch (e) {
-    const errorMsg = `Błąd przy opłatach overnight. Zapisz logi i załącz je do zgłoszenia Problemu`;
-    console.error(errorMsg);
-    updateProgress(null, -1, errorMsg, errorMsg, false);
-    stopDownloadingCleanup();
-    return;
-  }
 
-  const transactionDetails = [];
+      if (cursor === null) hasNext = false;
+    }
+  };
+
   try {
-    const transUrl = `https://live.trading212.com/rest/reports/transactions`;
-    updateProgress(
-      `💸 <b>Pobieranie historii transakcji:</b><br/>Pobieranie wpłat, wypłat i przelewów...`,
-      -1,
-      `Pobieram historię transakcji...`,
-    );
-
-    const res = await (
-      await fetchWithRetry(transUrl + "?page=1" + requestFilter, auth)
-    ).json();
-
-    const totalSize = res.totalSize || 0;
-    const pageCount = Math.ceil(totalSize / 20);
-
-    for (let i = 1; i <= pageCount; i++) {
-      const fetchUrl = `${transUrl}?page=${i}` + requestFilter;
-      const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
-
-      if (pageRes.data) {
-        for (let trans of pageRes.data) {
-          let d = new Date(trans.time);
-          if (d >= minDate && d <= maxDate) {
-            let actionName = trans.type;
-            if (trans.type === "ADYEN" || trans.type === "BANK_TRANSFER") {
-              actionName =
-                trans.direction === "positive" ? "Deposit" : "Withdrawal";
-            } else if (trans.type === "TRANSFER_BETWEEN_ACC") {
-              actionName = "Transfer";
-            }
-
-            const amount = parseFloat(trans.sum);
-            const displayAmount =
-              trans.direction === "negative" ? -amount : amount;
-
-            transactionDetails.push({
-              type: "TRANSACTION",
-              time: trans.time,
-              action: actionName,
-              code: trans.accountCurrency || accountCurrency,
-              amount: displayAmount,
-              currency: trans.accountCurrency || accountCurrency,
-              orderName: trans.notes || trans.type || "Transaction",
-              id: trans.id || trans.transactionId,
-            });
-            updateProgress(
-              null,
-              -1,
-              `💸 Transakcja: ${actionName} ${displayAmount} ${trans.accountCurrency || accountCurrency}`,
-            );
-          }
-        }
-      }
-      const progress = Math.round((i / pageCount) * 100);
-      updateProgress(
-        `💸 <b>Pobieranie transakcji:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
-        progress,
-        `Transakcje: przetworzono stronę ${i}/${pageCount}`,
-      );
+    if (config.accountType === "crypto") {
+      await fetchCryptoData();
+    } else {
+      await fetchCFDData();
     }
   } catch (e) {
-    console.warn("Błąd przy pobieraniu transakcji:", e);
-  }
-
-  const dividendDetails = [];
-  try {
-    const divUrl = `https://live.trading212.com/rest/reports/dividends/v2`;
-    updateProgress(
-      `🎁 <b>Pobieranie dywidend:</b><br/>Pobieranie historii dywidend...`,
-      -1,
-      `Pobieram dywidendy...`,
-    );
-
-    const res = await (
-      await fetchWithRetry(divUrl + "?page=1" + requestFilter, auth)
-    ).json();
-
-    const totalSize = res.totalSize || 0;
-    const pageCount = Math.ceil(totalSize / 20);
-
-    for (let i = 1; i <= pageCount; i++) {
-      const fetchUrl = `${divUrl}?page=${i}` + requestFilter;
-      const pageRes = await (await fetchWithRetry(fetchUrl, auth)).json();
-
-      if (pageRes.data) {
-        for (let div of pageRes.data) {
-          let d = new Date(div.time);
-          if (d >= minDate && d <= maxDate) {
-            /* If div.currency is missing, assume account currency */
-            const divCurrency = div.currency || accountCurrency;
-            const rate = await getNBPExchangeRate(divCurrency, div.time);
-            const rateTarget = await getNBPExchangeRate(
-              accountCurrency,
-              div.time,
-            );
-            const amountTarget = (div.amount * rate) / rateTarget;
-
-            dividendDetails.push({
-              type: "DIVIDEND",
-              time: div.time,
-              code: div.code,
-              currency: divCurrency,
-              amount: div.amount,
-              amountPLN: (div.amount * rate).toFixed(4),
-              amountChosenCurrency: amountTarget.toFixed(4),
-              withholdingTax: div.withholdingTax || 0,
-            });
-            updateProgress(
-              null,
-              -1,
-              `🎁 Dywidenda: ${div.code} ${div.amount} ${divCurrency}`,
-            );
-          }
-        }
-      }
-      const progress = Math.round((i / pageCount) * 100);
-      updateProgress(
-        `🎁 <b>Pobieranie dywidend:</b><br/>Przetwarzanie strony ${i} z ${pageCount}...`,
-        progress,
-        `Dywidendy: przetworzono stronę ${i}/${pageCount}`,
-      );
+    if (e.message === "Aborted" || e.name === "AbortError") {
+      console.log("Download aborted by user.");
+      return;
     }
-  } catch (e) {
-    console.warn("Błąd przy pobieraniu dywidend:", e);
+    throw e;
   }
 
-  /*--- EKSPORT ---*/
+  isDownloading = false;
+
+  /*--- EXPORT ---*/
   updateProgress(t("prog_preparing"), 100, t("prog_preparing_log"), false);
   const combinedData = [
     ...positionDetails,
@@ -1774,27 +2277,27 @@ async function getData(
   ];
   combinedData.sort((a, b) => new Date(a.time) - new Date(b.time));
 
-  summary["Wyniki zamknięte"] = summary["Zysk"] + summary["Strata"];
-  summary["Łącznie netto"] =
-    summary["Wyniki zamknięte"] +
-    summary["Opłaty FX"] +
-    summary["Odsetki od gotówki"] +
-    summary["Odsetki overnight"];
+  summary["Closed Results"] = summary["Profit"] + summary["Loss"];
+  summary["Net Total"] =
+    summary["Closed Results"] +
+    summary["FX Fees"] +
+    summary["Cash Interests"] +
+    summary["Overnight Interests"];
 
   const summaryText = `
 ${t("export_remember")}
 
-RAPORT TRADING 212 CFD
+RAPORT TRADING 212 ${config.accountType.toUpperCase()}
 ${t("ui_period") || "Period"}: ${fromDateStr} - ${toDateStr}
 --------------------------------------
-${t("export_profit")}: ${summary["Zysk"].toFixed(2)} ${accountCurrency}
-${t("export_loss")}: ${summary["Strata"].toFixed(2)} ${accountCurrency}
-${t("export_trade_result")}: ${summary["Wyniki zamknięte"].toFixed(2)} ${accountCurrency}
-${t("export_fx_fees")}: ${summary["Opłaty FX"].toFixed(2)} ${accountCurrency}
-${t("export_interest")}: ${summary["Odsetki od gotówki"].toFixed(2)} ${accountCurrency}
-${t("export_overnight")}: ${summary["Odsetki overnight"].toFixed(2)} ${accountCurrency}
+${t("export_profit")}: ${summary["Profit"].toFixed(2)} ${accountCurrency}
+${t("export_loss")}: ${summary["Loss"].toFixed(2)} ${accountCurrency}
+${t("export_trade_result")}: ${summary["Closed Results"].toFixed(2)} ${accountCurrency}
+${t("export_fx_fees")}: ${summary["FX Fees"].toFixed(2)} ${accountCurrency}
+${t("export_interest")}: ${summary["Cash Interests"].toFixed(2)} ${accountCurrency}
+${t("export_overnight")}: ${summary["Overnight Interests"].toFixed(2)} ${accountCurrency}
 --------------------------------------
-${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}
+${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
   `;
 
   const btnSaveResults = document.getElementById("t212-save-results");
@@ -1805,7 +2308,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `T212_Summary_${fromDateStr}_${toDateStr}.txt`;
+      a.download = `T212_Summary_${config.accountType}_${fromDateStr}_${toDateStr}.txt`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 100);
     };
@@ -1821,7 +2324,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `T212_CFD_${fromDateStr}_${toDateStr}.json`;
+      a.download = `T212_${config.accountType.toUpperCase()}_${fromDateStr}_${toDateStr}.json`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 100);
     };
@@ -1835,7 +2338,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `T212_Export_${fromDateStr}_${toDateStr}.csv`;
+      a.download = `T212_${config.accountType.toUpperCase()}_${fromDateStr}_${toDateStr}.csv`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 100);
     };
@@ -1901,6 +2404,27 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
         row[12] = accountCurrency;
         row[13] = (item.quantity * item.closePrice).toFixed(4);
         row[14] = item.currency;
+      } else if (item.type === "CRYPTO_ORDER") {
+        row[0] = item.direction === "buy" ? "Market buy" : "Market sell";
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[3] = item.code;
+        row[4] = item.orderName;
+        row[6] = item.id;
+        row[7] = item.quantity;
+        row[8] = Math.abs(item.amount / item.quantity).toFixed(8);
+        row[9] = item.currency;
+        row[11] = item.amountChosenCurrency;
+        row[12] = accountCurrency;
+        row[13] = item.amount;
+        row[14] = item.currency;
+      } else if (item.type === "CRYPTO_TRANSACTION") {
+        row[0] = item.action;
+        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[3] = item.code;
+        row[4] = item.orderName;
+        row[6] = item.id;
+        row[13] = item.amount;
+        row[14] = item.currency;
       } else if (item.type === "CASH_INTEREST") {
         row[0] = "Interest on cash";
         row[1] = item.time.replace("T", " ").split(".")[0];
@@ -1961,7 +2485,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
       <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 700; color: #fff;">${t("fin_title")}</h2>
       <p style="margin: 0 0 25px 0; font-size: 15px; color: #94a3b8; line-height: 1.5;">
         ${t("fin_records")} <b>${combinedData.length}</b> ${t("fin_records2")}<br/>
-        ${t("fin_net")} <b>${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}</b>
+        ${t("fin_net")} <b>${(summary["Net Total"] || 0).toFixed(2)} ${accountCurrency}</b>
       </p>
 
       <div style="background: rgba(59, 130, 246, 0.1); border-radius: 12px; padding: 15px; margin-bottom: 30px; border: 1px dashed rgba(59, 130, 246, 0.3);">
@@ -2006,7 +2530,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
     document.getElementById("t212-dl-json").onclick = () => {
       download(
         jsonContent,
-        `T212_CFD_${fromDateStr}_${toDateStr}.json`,
+        `T212_${config.accountType.toUpperCase()}_${fromDateStr}_${toDateStr}.json`,
         "application/json",
       );
     };
@@ -2014,7 +2538,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
     document.getElementById("t212-dl-csv").onclick = () => {
       download(
         csvContent,
-        `T212_Export_${fromDateStr}_${toDateStr}.csv`,
+        `T212_${config.accountType.toUpperCase()}_${fromDateStr}_${toDateStr}.csv`,
         "text/csv",
       );
     };
@@ -2022,7 +2546,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
     document.getElementById("t212-dl-txt").onclick = () => {
       download(
         summaryText,
-        `T212_Summary_${fromDateStr}_${toDateStr}.txt`,
+        `T212_Summary_${config.accountType}_${fromDateStr}_${toDateStr}.txt`,
         "text/plain",
       );
     };
@@ -2053,7 +2577,7 @@ ${t("export_net_total")}: ${summary["Łącznie netto"].toFixed(2)} ${accountCurr
   updateProgress(
     t("prog_done"),
     100,
-    `${t("prog_done_log")} ${summary["Łącznie netto"].toFixed(2)} ${accountCurrency}`,
+    `${t("prog_done_log")} ${summary["Net Total"].toFixed(2)} ${accountCurrency}`,
     false,
   );
 

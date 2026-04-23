@@ -8,10 +8,10 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
-[![GitHub version](https://img.shields.io/badge/Wersja-1.2.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
+[![GitHub version](https://img.shields.io/badge/Wersja-1.3.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
 [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE.md)
 
-Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych z konta **Trading212 CFD** do formatu JSON oraz CSV. Projekt rozwiązuje problem braku natywnego eksportu danych CFD na platformie.
+Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych z kont **Trading212 CFD** oraz **Crypto** do formatu JSON oraz CSV. Projekt rozwiązuje problem braku natywnego eksportu danych na platformie.
 
 👉 **Oficjalna strona** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
 
@@ -25,16 +25,17 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 <br/>
 <img  class="showcase" width="420" height="450" alt="3" src="https://github.com/user-attachments/assets/160e9c51-c9d6-4902-a02f-054ee2ecf0f3" />
 
-## ✨ Kluczowe Funkcje (v1.2.0)
+## ✨ Kluczowe Funkcje (v1.3.0)
 
-- **Kompleksowy eksport:** Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`), opłatach overnight, **historii transakcji** (wpłaty, wypłaty, przelewy) oraz **rejestrach dywidend**.
-- **Wiele formatów eksportu:** Eksportuj dane do **JSON** (dla kalkulatorów podatkowych), **CSV** (format T212) oraz **TXT** (podsumowanie tekstowe).
-- **Interaktywne UI:** Nowoczesny panel z paskiem postępu i konsolą logów wyświetlany bezpośrednio na stronie Trading212.
-- **Wsparcie dwóch języków:** Pełne wsparcie dla **języka polskiego i angielskiego** z możliwością przełączania w czasie rzeczywistym.
-- **Skróty klawiszowe:** Naciśnij **Enter** aby potwierdzić, **Escape** aby anulować w oknie konfiguracji.
-- **Anti-Ban System:** Mechanizm _Retry_ chroniący przed blokadą za zbyt dużą liczbę zapytań (błąd 429).
-- **100% Prywatności:** Dane przetwarzane są wyłącznie lokalnie w Twojej przeglądarce.
-- **Wsparcie urządzeń mobilnych:** Działa na przeglądarkach mobilnych - pozostań na stronie T212 i nie wygaszaj ekranu.
+- **Uniwersalny Eksport:** Obsługa kont **CFD** oraz **Crypto**. Pobiera dane o zamkniętych pozycjach, opłatach FX, odsetkach (`CASH_INTEREST`), opłatach overnight, historii transakcji i dywidendach.
+- **Inteligentne Wykrywanie Konta:** Automatycznie sprawdza, czy jesteś na odpowiednim typie konta (CFD/Crypto) i ostrzega przed błędami.
+- **Tryb Prywatności:** Przycisk "Ukryj wyniki", który natychmiastowo rozmywa dane finansowe i zmienia kolory na neutralne.
+- **Pauza i Wznowienie:** Pełna kontrola nad procesem pobierania z możliwością wstrzymania i wznowienia w dowolnym momencie.
+- **Zaawansowane UI/UX:** Przesuwalny i minimalizowalny panel, przycisk "Wstecz" dla łatwej rekonfiguracji oraz pełne wsparcie językowe.
+- **Kursy NBP:** Zautomatyzowana integracja z kursami średnimi NBP dla wszystkich walut obsługiwanych przez Trading 212.
+- **Wiele Formatów:** Eksport do **JSON** (zoptymalizowany pod kalkulatory podatkowe), **CSV** oraz **TXT**.
+- **System Anti-Ban:** Wbudowane zabezpieczenia przed limitami zapytań (Błąd 429) i ochrona sesji.
+- **100% Prywatności:** Wszystkie obliczenia odbywają się lokalnie w przeglądarce; żadne dane nie opuszczają Twojego urządzenia.
 
 ---
 

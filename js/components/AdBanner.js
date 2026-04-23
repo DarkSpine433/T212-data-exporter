@@ -31,7 +31,6 @@ class AdBanner extends HTMLElement {
     const total = slideImages.length;
     const uid = `banner-${Math.random().toString(36).substring(2, 11)}`;
 
-    // Generate dynamic keyframes for infinite loop
     let keyframes = "";
     const step = 100 / n;
     for (let i = 0; i <= n; i++) {

@@ -28,7 +28,6 @@ class AdSidebar extends HTMLElement {
     const total = slideImages.length;
     const uid = `sidebar-${Math.random().toString(36).substring(2, 11)}`;
 
-    // Generate dynamic keyframes for infinite loop (Vertical)
     let keyframes = "";
     const step = 100 / n;
     for (let i = 0; i <= n; i++) {
