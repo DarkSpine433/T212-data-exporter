@@ -19,11 +19,9 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 
 ---
 
-<img class="showcase" width="405" height="540" alt="2" src="https://github.com/user-attachments/assets/2d117620-64b9-476e-9a7f-b17dac7efef6" />
-<br/>
-<img  class="showcase" width="407" height="569" alt="1" src="https://github.com/user-attachments/assets/da52ca0f-6aa6-4381-ab1f-59efa3e9d799" />
-<br/>
-<img  class="showcase" width="420" height="450" alt="3" src="https://github.com/user-attachments/assets/160e9c51-c9d6-4902-a02f-054ee2ecf0f3" />
+<img class="showcase"  width="406" height="633" alt="1" src="https://github.com/user-attachments/assets/f8662798-edf8-4d53-9f1e-87df18020ba8" />
+<img class="showcase"  width="406" height="666" alt="2" src="https://github.com/user-attachments/assets/888bc100-bbea-4a20-9c85-4240ab24fe61" />
+<img class="showcase"  width="406" height="600" alt="3" src="https://github.com/user-attachments/assets/ebb024c7-649f-4116-951a-e070cbb4c3fb" />
 
 ## ✨ Kluczowe Funkcje (v1.3.0)
 
