@@ -395,10 +395,27 @@ kbd {
   width: 100%;
 }
 
+.showcase {
+  border-radius: 28px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  margin: 30px auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.showcase:hover {
+  transform: translateY(-5px);
+  border-color: rgba(88, 166, 255, 0.4);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 30px rgba(88, 166, 255, 0.15);
+}
+
 @media (max-width: 500px) {
   .showcase {
-    width: 100%;
-    object-fit: contain;
+    border-radius: 16px;
   }
   #menu {
     gap: 20px;

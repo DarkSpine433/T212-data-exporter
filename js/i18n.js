@@ -39,14 +39,14 @@ const langTranslations = {
 
     site_title: "T212 CFD Data Exporter | Profesjonalne Raporty PIT-38",
     meta_desc:
-      "Darmowe narzędzie open-source do eksportu danych z Trading212 CFD do formatu JSON i CSV. Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl.",
+      "Darmowe narzędzie open-source do eksportu danych z Trading212 CFD oraz Crypto do formatu JSON i CSV. Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl.",
     og_title: "T212 CFD Data Exporter | Wygeneruj raport do PIT-38",
     og_desc:
-      "Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo.",
+      "Eksportuj dane transakcyjne z T212 CFD oraz Crypto do pliku JSON w 30 sekund. Bezpiecznie i za darmo.",
     logo_badge: "🚀 Trading212 Tool",
     title_main: "CFD Data Exporter",
     subtitle:
-      'Eksportuj transakcje CFD do formatu <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> oraz <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> w kilka sekund.<br />Bezpiecznie i za darmo.',
+      'Eksportuj transakcje CFD oraz Crypto do formatu <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> oraz <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> w kilka sekund.<br />Bezpiecznie i za darmo.',
     partner_link: "🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl",
     nav_about: "O Narzędziu",
     nav_instructions: "Instrukcje",
@@ -104,7 +104,7 @@ const langTranslations = {
       "Pasjonat programowania i inwestowania. Ten projekt powstał z myślą o ułatwieniu życia inwestorom korzystającym z Trading212 CFD.",
     footer_privacy: "Polityka Prywatności",
     meta_keywords:
-      "Trading212, CFD, Export, PIT-38, Raport Podatkowy, Giełda, JSON, CSV, Dawid Konopiaty, Kalkulator Giełdowy, zestawienie transakcji, rozliczenie podatku, giełda zagraniczna, T212, Trading 212 data, dane transakcyjne, podatki giełdowe, inwestycje, narzędzia giełdowe, trading212 export, trading 212 tool, pit38, rozliczenie trading212, skrypt trading212, dane giełdowe, finanse, automatyzacja podatków",
+      "Trading212, CFD, Crypto, kryptowaluty, Export, PIT-38, Raport Podatkowy, Giełda, JSON, CSV, Dawid Konopiaty, Kalkulator Giełdowy, zestawienie transakcji, rozliczenie podatku, giełda zagraniczna, T212, Trading 212 data, dane transakcyjne, podatki giełdowe, inwestycje, narzędzia giełdowe, trading212 export, trading 212 tool, pit38, rozliczenie trading212, skrypt trading212, dane giełdowe, finanse, automatyzacja podatków",
     ad_changenow_title: "ChangeNOW • Giełda Kryptowalut",
     ad_changenow_desc: "Prosto. Szybko. Bez limitów. Bez rejestracji.",
     ad_changenow_cta: "Wymień teraz",
@@ -152,14 +152,14 @@ const langTranslations = {
 
     site_title: "T212 CFD Data Exporter | Professional Tax Reports",
     meta_desc:
-      "Free open-source tool for exporting Trading212 CFD data to JSON and CSV format. The tool works best with kalkulatorgieldowy.pl.",
+      "Free open-source tool for exporting Trading212 CFD and Crypto data to JSON and CSV format. The tool works best with kalkulatorgieldowy.pl.",
     og_title: "T212 CFD Data Exporter | Tool by Dawid Konopiaty",
     og_desc:
-      "Export transactional data from T212 CFD to JSON file in 30 seconds. Secure and free.",
+      "Export transactional data from T212 CFD and Crypto to JSON file in 30 seconds. Secure and free.",
     logo_badge: "🚀 Trading212 Tool",
     title_main: "CFD Data Exporter",
     subtitle:
-      'Export CFD transactions to <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> and <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> format in seconds.<br />Safely and for free.',
+      'Export CFD and Crypto transactions to <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> and <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> format in seconds.<br />Safely and for free.',
     partner_link: "🤝 The tool works best with kalkulatorgieldowy.pl",
     nav_about: "About Tool",
     nav_instructions: "Instructions",
@@ -218,7 +218,7 @@ const langTranslations = {
       "Programming and investing enthusiast. This project was created to make life easier for investors using Trading212 CFD.",
     footer_privacy: "Privacy Policy",
     meta_keywords:
-      "Trading212, CFD, Export, Tax Report, Stock Market, JSON, CSV, Dawid Konopiaty, Trading tool, transaction history, tax settlement, stock trading, T212, Trading 212 data, transactional data, trading taxes, investment tools, open source trading tools, Trading212 data exporter, trading212 spreadsheet, tax automation, stock export, finance tool, trading data script",
+      "Trading212, CFD, Crypto, cryptocurrency, Export, Tax Report, Stock Market, JSON, CSV, Dawid Konopiaty, Trading tool, transaction history, tax settlement, stock trading, T212, Trading 212 data, transactional data, trading taxes, investment tools, open source trading tools, Trading212 data exporter, trading212 spreadsheet, tax automation, stock export, finance tool, trading data script",
     ad_changenow_title: "ChangeNOW • Crypto Exchange",
     ad_changenow_desc: "Simple. Fast. Limitless. No Registration Required.",
     ad_changenow_cta: "Swap Now",

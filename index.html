@@ -18,14 +18,24 @@
     <title>T212 CFD Data Exporter</title>
     <meta
       name="description"
-      content="Darmowe narzędzie open-source do eksportu danych z Trading212 CFD do formatu JSON i CSV."
+      content="Darmowe narzędzie open-source do eksportu danych z Trading212 CFD oraz Crypto do formatu JSON i CSV."
     />
     <meta
       name="keywords"
-      content="Trading212, CFD, Export, PIT-38, Raport Podatkowy, Giełda, JSON, CSV, Dawid Konopiaty, Kalkulator Giełdowy, zestawienie transakcji, rozliczenie podatku, giełda zagraniczna, T212, Trading 212 data, dane transakcyjne, podatki giełdowe, inwestycje, narzędzia giełdowe, trading212 export, trading 212 tool, pit38, rozliczenie trading212, skrypt trading212, dane giełdowe, finanse, automatyzacja podatków"
+      content="Trading212, CFD, Crypto, kryptowaluty, Export, PIT-38, Raport Podatkowy, Giełda, JSON, CSV, Dawid Konopiaty, Kalkulator Giełdowy, zestawienie transakcji, rozliczenie podatku, giełda zagraniczna, T212, Trading 212 data, dane transakcyjne, podatki giełdowe, inwestycje, narzędzia giełdowe, trading212 export, trading 212 tool, pit38, rozliczenie trading212, skrypt trading212, dane giełdowe, finanse, automatyzacja podatków"
     />
     <meta name="author" content="Dawid Konopiaty (DarkSpine433)" />
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
 
     <!-- SEO & Multilingual -->
     <link
@@ -50,6 +60,9 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="T212 CFD Data Exporter" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta
       property="og:url"
       content="https://darkspine433.github.io/T212-CFD-DATA/"
@@ -57,7 +70,7 @@
     <meta property="og:title" content="T212 CFD Data Exporter" />
     <meta
       property="og:description"
-      content="Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo."
+      content="Eksportuj dane transakcyjne z kont T212 CFD oraz Crypto do pliku JSON w 30 sekund. Bezpiecznie i za darmo."
     />
     <meta
       property="og:image"
@@ -73,7 +86,7 @@
     <meta property="twitter:title" content="T212 CFD Data Exporter" />
     <meta
       property="twitter:description"
-      content="Eksportuj dane transakcyjne z T212 CFD do pliku JSON w 30 sekund. Bezpiecznie i za darmo."
+      content="Eksportuj dane transakcyjne z kont T212 CFD oraz Crypto do pliku JSON w 30 sekund. Bezpiecznie i za darmo."
     />
     <meta
       property="twitter:image"
@@ -85,16 +98,54 @@
       content="7yX7mBJzkiLzDVGmW5jIWmQ8WzjyE4hjK2tGfnBR0S0"
     />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="shortcut icon" href="icons/favicon.ico">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="icons/favicon-16x16.png"
+    />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
+    <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./style.css" />
+
+    <!-- JSON-LD Structured Data Base -->
+    <script id="seo-schema" type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "T212 CFD Data Exporter",
+        "description": "Darmowe narzędzie open-source do eksportu danych z Trading212 CFD oraz Crypto do formatu JSON i CSV.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "url": "https://darkspine433.github.io/T212-CFD-DATA/",
+        "author": {
+          "@type": "Person",
+          "name": "Dawid Konopiaty (DarkSpine433)",
+          "url": "https://github.com/DarkSpine433"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "PLN"
+        }
+      }
+    </script>
   </head>
   <body>
     <language-switcher></language-switcher>
@@ -753,6 +804,23 @@
           console.error("Błąd kopiowania:", err);
         }
       };
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then((registration) => {
+              console.log(
+                "PWA ServiceWorker registration successful with scope: ",
+                registration.scope,
+              );
+            })
+            .catch((error) => {
+              console.error("PWA ServiceWorker registration failed: ", error);
+            });
+        });
+      }
     </script>
   </body>
 </html>
