@@ -25,4 +25,4 @@ class LanguageSwitcher extends HTMLElement {
   }
 }
 
-customElements.define('language-switcher', LanguageSwitcher);
+customElements.define("language-switcher", LanguageSwitcher);

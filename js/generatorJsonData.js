@@ -50,6 +50,8 @@ async function getData(
       cfg_err_wrong_account:
         "To nie jest konto {type}! Przełącz konto w aplikacji Trading212 na {type}, aby kontynuować.",
       cfg_ignore: "Ignoruj i kontynuuj mimo to",
+      cfg_fx_fee_label: "Opłata FX (prowizja za przewalutowanie)",
+      cfg_fx_fee_hint: "Sprawdź aktualną opłatę",
 
       export_profit: "Zysk",
       export_loss: "Strata",
@@ -186,6 +188,8 @@ async function getData(
       cfg_err_wrong_account:
         "This is not a {type} account! Please switch your account in the Trading212 app to {type} to continue.",
       cfg_ignore: "Ignore and continue anyway",
+      cfg_fx_fee_label: "FX Fee (currency conversion charge)",
+      cfg_fx_fee_hint: "Check current fee",
 
       export_profit: "Profit",
       export_loss: "Loss",
@@ -539,6 +543,8 @@ async function getData(
         const prevAccount =
           dialog.querySelector('input[name="t212-cfg-account"]:checked')
             ?.value || "cfd";
+        const prevFxFee =
+          dialog.querySelector("#t212-cfg-fx-fee")?.value ?? "0.5";
 
         dialog.innerHTML = `
           ${_langToggleHTML("t212-cfg-lang")}
@@ -576,11 +582,22 @@ async function getData(
             <input type="date" id="t212-cfg-start" value="${prevStart}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
           </div>
           
-          <div style="margin-bottom: 25px;">
+          <div style="margin-bottom: 15px;">
             <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">${t("cfg_end_label")}</label>
             <input type="date" id="t212-cfg-end" value="${prevEnd}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
           </div>
-          
+
+          <div style="margin-bottom: 25px;">
+            <label style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">
+              <span>${t("cfg_fx_fee_label")}</span>
+              <a href="https://helpcentre.trading212.com/hc/en-us/articles/11471872562461-What-are-the-fees-in-the-CFD-account" target="_blank" style="font-size: 11px; color: #3b82f6; text-decoration: none; font-weight: 500;">${t("cfg_fx_fee_hint")} →</a>
+            </label>
+            <div style="position: relative; display: flex; align-items: center;">
+              <input type="number" id="t212-cfg-fx-fee" value="${prevFxFee}" min="0" max="100" step="0.01" style="width: 100%; padding: 10px 40px 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
+              <span style="position: absolute; right: 12px; color: #64748b; font-size: 14px; pointer-events: none;">%</span>
+            </div>
+          </div>
+
           <div style="display: flex; gap: 10px; justify-content: flex-end;">
             <button id="t212-cfg-cancel" style="padding: 10px 16px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s;">${t("cfg_cancel")}</button>
             <button id="t212-cfg-submit" style="padding: 10px 20px; background: #3b82f6; border: none; color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 4px 60px -1px rgba(59, 130, 246, 0.5); transition: background 0.2s;">${t("cfg_submit")}</button>
@@ -647,6 +664,10 @@ async function getData(
           const selectedAccount = document.querySelector(
             'input[name="t212-cfg-account"]:checked',
           ).value;
+          const fxFeePercent = parseFloat(
+            document.getElementById("t212-cfg-fx-fee").value,
+          );
+          const fxFeeRate = (isNaN(fxFeePercent) ? 0.5 : fxFeePercent) / 100;
 
           if (!selectedStart || !selectedEnd) {
             alert(t("cfg_err_dates"));
@@ -664,6 +685,7 @@ async function getData(
             startDate: selectedStart,
             endDate: selectedEnd,
             accountType: selectedAccount,
+            fxFeeRate,
           });
         };
       };
@@ -754,17 +776,17 @@ async function getData(
 
           const okBtn = dialog.querySelector("#t212-err-ok");
           const ignoreBtn = dialog.querySelector("#t212-ignore");
-          
-          okBtn.onmouseenter = () => okBtn.style.background = "#2563eb";
-          okBtn.onmouseleave = () => okBtn.style.background = "#3b82f6";
+
+          okBtn.onmouseenter = () => (okBtn.style.background = "#2563eb");
+          okBtn.onmouseleave = () => (okBtn.style.background = "#3b82f6");
 
           ignoreBtn.onmouseenter = () => {
-             ignoreBtn.style.background = "rgba(255,255,255,0.12)";
-             ignoreBtn.style.color = "#fff";
+            ignoreBtn.style.background = "rgba(255,255,255,0.12)";
+            ignoreBtn.style.color = "#fff";
           };
           ignoreBtn.onmouseleave = () => {
-             ignoreBtn.style.background = "rgba(255,255,255,0.08)";
-             ignoreBtn.style.color = "#cbd5e1";
+            ignoreBtn.style.background = "rgba(255,255,255,0.08)";
+            ignoreBtn.style.color = "#cbd5e1";
           };
 
           okBtn.onclick = () => {
@@ -1731,7 +1753,7 @@ async function getData(
                   }
 
                   const hasFxFee = position.currency !== accountCurrency;
-                  const fxFee = hasFxFee ? Math.abs(pnl) * 0.005 : 0;
+                  const fxFee = hasFxFee ? Math.abs(pnl) * config.fxFeeRate : 0;
                   const netPnL = pnl - fxFee;
                   const netPnLPLN = netPnL * rate;
                   const fxFeePLN = fxFee * rate;
@@ -1754,6 +1776,8 @@ async function getData(
                       interestInCurrency: -Math.abs(fxFee).toFixed(4),
                       accountCurrency: accountCurrency,
                       interestInAccountCurrency: -Math.abs(fxFeePLN).toFixed(4),
+                      fxFeeRateInPercent: (config.fxFeeRate * 100).toFixed(4),
+                      info: `FX fee is mathematically calculated, data doesn't come from T212 API`,
                     });
                   }
 
@@ -1772,6 +1796,10 @@ async function getData(
                     closePrice: exitPrice,
                     pnlNetPLN: netPnLPLN.toFixed(4),
                     pnlNetChosenCurrency: netPnLTarget.toFixed(4),
+                    rawDataFromEndPoint: {
+                      ...event,
+                      ...position,
+                    },
                   });
 
                   updateProgress(
@@ -1896,6 +1924,7 @@ async function getData(
                 interestInChosenCurrency: interestInTarget.toFixed(4),
                 quantity: 1,
                 direction: "profit",
+                rawDataFromEndPoint: item,
               });
               updateProgress(
                 null,
@@ -1968,6 +1997,7 @@ async function getData(
                 feeInChosenCurrency: feeInTarget.toFixed(4),
                 quantity: overnightFee.quantity,
                 direction: overnightFee.direction,
+                rawDataFromEndPoint: overnightFee,
               });
               updateProgress(
                 null,
@@ -2038,6 +2068,7 @@ async function getData(
                 currency: trans.accountCurrency || accountCurrency,
                 orderName: trans.notes || trans.type || "Transaction",
                 id: trans.id || trans.transactionId,
+                rawDataFromEndPoint: trans,
               });
               updateProgress(
                 null,
@@ -2100,6 +2131,7 @@ async function getData(
                 amountPLN: (div.amount * rate).toFixed(4),
                 amountChosenCurrency: amountTarget.toFixed(4),
                 withholdingTax: div.withholdingTax || 0,
+                rawDataFromEndPoint: div,
               });
               updateProgress(
                 null,
@@ -2380,33 +2412,78 @@ ${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
     const escapeCSV = (val) => {
       if (val === null || val === undefined) return "";
       const str = String(val);
-      if (str.includes(",") || str.includes('\"') || str.includes("\n")) {
-        return `\"${str.replace(/\"/g, '\"\"')}\"`;
+      if (str.includes(",") || str.includes('"') || str.includes("\n")) {
+        return `"${str.replace(/"/g, '""')}"`; 
       }
       return str;
     };
 
+    const fmtTime = (raw) => {
+      if (!raw) return "";
+      return raw.replace("T", " ").replace(/(\.[0-9]+)?([\+\-][0-9]{2}:[0-9]{2}|Z)$/, "");
+    };
+
     const rows = [headers.join(",")];
 
-    for (let item of data) {
-      let row = new Array(headers.length).fill("");
+    for (const item of data) {
+      const row = new Array(headers.length).fill("");
 
       if (item.type === "POSITION") {
-        row[0] = item.direction === "buy" ? "Market sell" : "Market buy";
-        row[1] = item.time.replace("T", " ").split(".")[0];
-        row[3] = item.code;
-        row[4] = item.code;
-        row[6] = item.orderName || "";
-        row[7] = item.quantity;
-        row[8] = item.closePrice;
-        row[9] = item.currency;
-        row[11] = item.pnlNetChosenCurrency;
+        const raw = item.rawDataFromEndPoint || {};
+        const isCfdBuy = item.direction === "buy";
+        row[0] = isCfdBuy ? "Market buy" : "Market sell";
+        row[1] = fmtTime(item.time);
+        row[3] = item.code || "";
+        row[4] = item.code || "";
+        row[6] = item.orderName || raw.eventNumber?.name || "";
+        row[7] = item.quantity != null ? String(item.quantity) : "";
+        row[8] = item.closePrice != null ? String(item.closePrice) : "";
+        row[9] = item.currency || "";
+        row[10] = "1.00000000";
+        row[11] = item.pnlNetChosenCurrency != null ? String(item.pnlNetChosenCurrency) : "";
         row[12] = accountCurrency;
-        row[13] = (item.quantity * item.closePrice).toFixed(4);
-        row[14] = item.currency;
+        row[13] = item.quantity != null && item.closePrice != null
+          ? (parseFloat(item.quantity) * parseFloat(item.closePrice)).toFixed(4)
+          : "";
+        row[14] = item.currency || "";
+      } else if (item.type === "FEE_FX") {
+        const fromAmt = Math.abs(parseFloat(item.interestInCurrency) || 0);
+        const toAmt = Math.abs(parseFloat(item.interestInAccountCurrency) || 0);
+        row[0] = "Currency conversion";
+        row[1] = fmtTime(item.time);
+        row[3] = item.code || "";
+        row[5] = `${fromAmt.toFixed(2)} ${item.currency} -> ${toAmt.toFixed(2)} ${item.accountCurrency || accountCurrency}`;
+        row[11] = (-toAmt).toFixed(4);
+        row[12] = item.accountCurrency || accountCurrency;
+        row[21] = fromAmt.toFixed(4);
+        row[22] = item.currency || "";
+        row[23] = toAmt.toFixed(4);
+        row[24] = item.accountCurrency || accountCurrency;
+        row[25] = (-Math.abs(parseFloat(item.interestInAccountCurrency) || 0)).toFixed(4);
+        row[26] = item.accountCurrency || accountCurrency;
+      } else if (item.type === "FEE_OVERNIGHT") {
+        row[0] = "Overnight fee";
+        row[1] = fmtTime(item.time);
+        row[3] = item.code || "";
+        row[4] = item.code || "";
+        row[6] = item.rawDataFromEndPoint?.id || "";
+        row[7] = item.quantity != null ? String(item.quantity) : "";
+        row[11] = item.interest != null ? String(item.interest) : "";
+        row[12] = item.currency || accountCurrency;
+        row[13] = item.feeInChosenCurrency != null ? String(item.feeInChosenCurrency) : "";
+        row[14] = accountCurrency;
+      } else if (item.type === "CASH_INTEREST") {
+        row[0] = "Interest on cash";
+        row[1] = fmtTime(item.time);
+        row[5] = "Interest on cash";
+        row[6] = item.rawDataFromEndPoint?.id || item.rawDataFromEndPoint?.referenceId || "";
+        row[13] = item.interestInChosenCurrency != null
+          ? String(item.interestInChosenCurrency)
+          : item.interest != null ? String(item.interest) : "";
+        row[14] = item.currency || accountCurrency;
       } else if (item.type === "CRYPTO_ORDER") {
         row[0] = item.direction === "buy" ? "Market buy" : "Market sell";
-        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[1] = fmtTime(item.time);
         row[3] = item.code;
         row[4] = item.orderName;
         row[6] = item.id;
@@ -2419,34 +2496,22 @@ ${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
         row[14] = item.currency;
       } else if (item.type === "CRYPTO_TRANSACTION") {
         row[0] = item.action;
-        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[1] = fmtTime(item.time);
         row[3] = item.code;
         row[4] = item.orderName;
         row[6] = item.id;
         row[13] = item.amount;
         row[14] = item.currency;
-      } else if (item.type === "CASH_INTEREST") {
-        row[0] = "Interest on cash";
-        row[1] = item.time.replace("T", " ").split(".")[0];
-        row[5] = "Interest on cash";
-        row[13] = item.interest;
-        row[14] = item.currency;
-      } else if (item.type === "FEE_OVERNIGHT") {
-        row[0] = "Overnight fee";
-        row[1] = item.time.replace("T", " ").split(".")[0];
-        row[3] = item.code;
-        row[11] = item.interest;
-        row[12] = item.currency;
       } else if (item.type === "TRANSACTION") {
         row[0] = item.action;
-        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[1] = fmtTime(item.time);
         row[5] = item.orderName;
         row[6] = item.id || "";
         row[13] = item.amount;
         row[14] = item.currency;
       } else if (item.type === "DIVIDEND") {
         row[0] = "Dividend (Dividend)";
-        row[1] = item.time.replace("T", " ").split(".")[0];
+        row[1] = fmtTime(item.time);
         row[3] = item.code;
         row[13] = item.amount;
         row[14] = item.currency;
