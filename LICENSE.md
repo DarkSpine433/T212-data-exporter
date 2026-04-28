@@ -6,6 +6,7 @@
 
 ## JĘZYK POLSKI (Wersja wiążąca / Binding version)
 
+
 ### §1. Postanowienia Ogólne
 
 1. Niniejsza Licencja określa zasady korzystania ze skryptu komputerowego służącego do eksportu danych z platformy Trading212, zwanego dalej „Oprogramowaniem”.
@@ -14,16 +15,17 @@
 
 ### §2. Zakres i Przedmiot Licencji
 
-1. Autor udziela Użytkownikowi niewyłącznej, nieprzenoszalnej oraz nieodpłatnej licencji na korzystanie z Oprogramowania wyłącznie w zakresie:
+1. Autor udziela Użytkownikowi niewyłącznej, nieprzenoszalnej oraz nieodpłatnej licencji na korzystanie z Oprogramowania w zakresie:
    a) pobrania Oprogramowania na urządzenie końcowe,
-   b) uruchamiania Oprogramowania w celu technicznego wyeksportowania danych transakcyjnych z konta Użytkownika na platformie Trading212.
+   b) uruchamiania Oprogramowania w celu technicznego wyeksportowania danych transakcyjnych z konta Użytkownika na platformie Trading212,
+   c) dokonywania forku (rozgałęzienia) repozytorium oraz przesyłania propozycji zmian (Pull Requests) wyłącznie w celu wsparcia rozwoju Oprogramowania w ramach jego oryginalnego repozytorium wskazanym przez Autora.
 2. Licencja zostaje udzielona na czas nieoznaczony i obowiązuje od momentu pierwszej interakcji z kodem źródłowym lub plikiem wykonywalnym Oprogramowania.
 
 ### §3. Ograniczenia i Zakazy (Restrykcje)
 
-1. **Zakaz Redystrybucji:** Zabrania się kopiowania, powielania, udostępniania, przesyłania, publikowania oraz redystrybucji kodu źródłowego Oprogramowania (w całości lub w jakiejkolwiek części) na innych stronach internetowych, platformach hostingowych, repozytorium publicznych (np. GitHub, GitLab), forach dyskusyjnych oraz w aplikacjach mobilnych i desktopowych.
-2. **Wymóg Zgody:** Każda formę eksploatacji Oprogramowania wykraczająca poza zakres określony w §2 wymaga uprzedniej, wyraźnej zgody Autora wyrażonej w formie pisemnej pod rygorem nieważności.
-3. **Własność Intelektualna:** Użytkownik nie nabywa żadnych praw do modyfikacji, dekompilacji, inżynierii wstecznej (reverse engineering) ani tworzenia utworów zależnych na podstawie Oprogramowania w celu ich dalszego rozpowszechniania.
+1. **Zakaz Redystrybucji:** Z zastrzeżeniem uprawnień określonych w §2 ust. 1 pkt c, zabrania się kopiowania, powielania, udostępniania, przesyłania, publikowania oraz redystrybucji kodu źródłowego Oprogramowania (w całości lub w jakiejkolwiek części) na innych stronach internetowych, platformach hostingowych, repozytoriach publicznych, forach dyskusyjnych oraz w aplikacjach mobilnych i desktopowych.
+2. **Wymóg Zgody:** Każda forma eksploatacji Oprogramowania wykraczająca poza zakres określony w §2 wymaga uprzedniej, wyraźnej zgody Autora wyrażonej w formie pisemnej pod rygorem nieważności.
+3. **Własność Intelektualna:** Użytkownik nie nabywa żadnych praw do modyfikacji, dekompilacji ani inżynierii wstecznej (reverse engineering) Oprogramowania w celu jego dalszego rozpowszechniania poza procesem współtworzenia oryginalnego narzędzia opisanym w §2 ust. 1 pkt c. Wszelkie wkłady (contributions) przesłane w formie Pull Requestów stają się częścią Oprogramowania na zasadach niniejszej licencji.
 
 ### §4. Wyłączenie Gwarancji i Ograniczenie Odpowiedzialności
 
@@ -56,16 +58,17 @@ Oprogramowanie jest niezależnym narzędziem stworzonym przez Autora. Nie jest o
 
 ### §2. Scope and Subject of the License
 
-1. The Author grants the User a non-exclusive, non-transferable, and royalty-free license to use the Software solely for:
+1. The Author grants the User a non-exclusive, non-transferable, and royalty-free license to use the Software for:
    a) downloading the Software to an end device,
-   b) running the Software for the technical export of transaction data from the User's account on the Trading212 platform.
+   b) running the Software for the technical export of transaction data from the User's account on the Trading212 platform,
+   c) forking the repository and submitting change proposals (Pull Requests) solely for the purpose of supporting the development of the Software within its original repository designated by the Author.
 2. The license is granted for an indefinite period and is effective from the first interaction with the source code or executable file of the Software.
 
 ### §3. Restrictions and Prohibitions
 
-1. **Redistribution Prohibition:** It is forbidden to copy, reproduce, share, transmit, publish, or redistribute the source code of the Software (in whole or in part) on other websites, hosting platforms, public repositories (e.g., GitHub, GitLab), discussion forums, and in mobile or desktop applications.
+1. **Redistribution Prohibition:** Subject to the rights specified in §2 sec. 1 point c, it is forbidden to copy, reproduce, share, transmit, publish, or redistribute the source code of the Software (in whole or in part) on other websites, hosting platforms, public repositories, discussion forums, and in mobile or desktop applications.
 2. **Consent Requirement:** Any form of exploitation of the Software going beyond the scope defined in §2 requires the prior, express consent of the Author in writing under penalty of nullity.
-3. **Intellectual Property:** The User does not acquire any rights to modify, decompile, reverse engineer, or create derivative works based on the Software for further distribution.
+3. **Intellectual Property:** The User does not acquire any rights to modify, decompile, or reverse engineer the Software for further distribution outside the process of contributing to the original tool described in §2 sec. 1 point c. Any contributions submitted as Pull Requests become part of the Software under the terms of this license.
 
 ### §4. Disclaimer of Warranty and Limitation of Liability
 
