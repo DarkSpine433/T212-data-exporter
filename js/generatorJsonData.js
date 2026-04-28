@@ -664,8 +664,7 @@ async function getData(
           const selectedAccount = document.querySelector(
             'input[name="t212-cfg-account"]:checked',
           ).value;
-          
-          // FX fee only applies to CFD accounts, not crypto
+
           let fxFeeRate = 0.5 / 100; // default
           if (selectedAccount === "cfd") {
             const fxFeePercent = parseFloat(
