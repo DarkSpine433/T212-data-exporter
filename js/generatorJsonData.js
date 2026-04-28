@@ -147,7 +147,7 @@ async function getData(
 
       cfg_account_label: "Typ konta",
       cfg_account_cfd: "Konto CFD",
-      cfg_account_crypto: "Konto Crypto (Beta)",
+      cfg_account_crypto: "Konto Crypto",
       log_crypto_header: "Pobieranie historii Crypto",
       log_crypto_fetching: "Pobieram historię Crypto...",
       log_crypto_page: "Crypto: przetworzono stronę",
@@ -283,7 +283,7 @@ async function getData(
 
       cfg_account_label: "Account Type",
       cfg_account_cfd: "CFD Account",
-      cfg_account_crypto: "Crypto Account (Beta)",
+      cfg_account_crypto: "Crypto Account",
       log_crypto_header: "Fetching Crypto history",
       log_crypto_fetching: "Fetching Crypto history...",
       log_crypto_page: "Crypto: processed page",
@@ -2413,14 +2413,16 @@ ${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
       if (val === null || val === undefined) return "";
       const str = String(val);
       if (str.includes(",") || str.includes('"') || str.includes("\n")) {
-        return `"${str.replace(/"/g, '""')}"`; 
+        return `"${str.replace(/"/g, '""')}"`;
       }
       return str;
     };
 
     const fmtTime = (raw) => {
       if (!raw) return "";
-      return raw.replace("T", " ").replace(/(\.[0-9]+)?([\+\-][0-9]{2}:[0-9]{2}|Z)$/, "");
+      return raw
+        .replace("T", " ")
+        .replace(/(\.[0-9]+)?([\+\-][0-9]{2}:[0-9]{2}|Z)$/, "");
     };
 
     const rows = [headers.join(",")];
@@ -2440,11 +2442,17 @@ ${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
         row[8] = item.closePrice != null ? String(item.closePrice) : "";
         row[9] = item.currency || "";
         row[10] = "1.00000000";
-        row[11] = item.pnlNetChosenCurrency != null ? String(item.pnlNetChosenCurrency) : "";
+        row[11] =
+          item.pnlNetChosenCurrency != null
+            ? String(item.pnlNetChosenCurrency)
+            : "";
         row[12] = accountCurrency;
-        row[13] = item.quantity != null && item.closePrice != null
-          ? (parseFloat(item.quantity) * parseFloat(item.closePrice)).toFixed(4)
-          : "";
+        row[13] =
+          item.quantity != null && item.closePrice != null
+            ? (parseFloat(item.quantity) * parseFloat(item.closePrice)).toFixed(
+                4,
+              )
+            : "";
         row[14] = item.currency || "";
       } else if (item.type === "FEE_FX") {
         const fromAmt = Math.abs(parseFloat(item.interestInCurrency) || 0);
@@ -2459,7 +2467,9 @@ ${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
         row[22] = item.currency || "";
         row[23] = toAmt.toFixed(4);
         row[24] = item.accountCurrency || accountCurrency;
-        row[25] = (-Math.abs(parseFloat(item.interestInAccountCurrency) || 0)).toFixed(4);
+        row[25] = (-Math.abs(
+          parseFloat(item.interestInAccountCurrency) || 0,
+        )).toFixed(4);
         row[26] = item.accountCurrency || accountCurrency;
       } else if (item.type === "FEE_OVERNIGHT") {
         row[0] = "Overnight fee";
@@ -2470,16 +2480,25 @@ ${t("export_net_total")}: ${summary["Net Total"].toFixed(2)} ${accountCurrency}
         row[7] = item.quantity != null ? String(item.quantity) : "";
         row[11] = item.interest != null ? String(item.interest) : "";
         row[12] = item.currency || accountCurrency;
-        row[13] = item.feeInChosenCurrency != null ? String(item.feeInChosenCurrency) : "";
+        row[13] =
+          item.feeInChosenCurrency != null
+            ? String(item.feeInChosenCurrency)
+            : "";
         row[14] = accountCurrency;
       } else if (item.type === "CASH_INTEREST") {
         row[0] = "Interest on cash";
         row[1] = fmtTime(item.time);
         row[5] = "Interest on cash";
-        row[6] = item.rawDataFromEndPoint?.id || item.rawDataFromEndPoint?.referenceId || "";
-        row[13] = item.interestInChosenCurrency != null
-          ? String(item.interestInChosenCurrency)
-          : item.interest != null ? String(item.interest) : "";
+        row[6] =
+          item.rawDataFromEndPoint?.id ||
+          item.rawDataFromEndPoint?.referenceId ||
+          "";
+        row[13] =
+          item.interestInChosenCurrency != null
+            ? String(item.interestInChosenCurrency)
+            : item.interest != null
+              ? String(item.interest)
+              : "";
         row[14] = item.currency || accountCurrency;
       } else if (item.type === "CRYPTO_ORDER") {
         row[0] = item.direction === "buy" ? "Market buy" : "Market sell";
