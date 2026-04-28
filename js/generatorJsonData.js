@@ -587,7 +587,7 @@ async function getData(
             <input type="date" id="t212-cfg-end" value="${prevEnd}" style="width: 100%; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 14px; outline: none; box-sizing: border-box;" />
           </div>
 
-          <div style="margin-bottom: 25px;">
+          <div style="margin-bottom: 25px; display: ${prevAccount === "crypto" ? "none" : "block"};">
             <label style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #94a3b8; margin-bottom: 5px; font-weight: 600;">
               <span>${t("cfg_fx_fee_label")}</span>
               <a href="https://helpcentre.trading212.com/hc/en-us/articles/11471872562461-What-are-the-fees-in-the-CFD-account" target="_blank" style="font-size: 11px; color: #3b82f6; text-decoration: none; font-weight: 500;">${t("cfg_fx_fee_hint")} →</a>
@@ -664,10 +664,17 @@ async function getData(
           const selectedAccount = document.querySelector(
             'input[name="t212-cfg-account"]:checked',
           ).value;
-          const fxFeePercent = parseFloat(
-            document.getElementById("t212-cfg-fx-fee").value,
-          );
-          const fxFeeRate = (isNaN(fxFeePercent) ? 0.5 : fxFeePercent) / 100;
+          
+          // FX fee only applies to CFD accounts, not crypto
+          let fxFeeRate = 0.5 / 100; // default
+          if (selectedAccount === "cfd") {
+            const fxFeePercent = parseFloat(
+              document.getElementById("t212-cfg-fx-fee").value,
+            );
+            fxFeeRate = (isNaN(fxFeePercent) ? 0.5 : fxFeePercent) / 100;
+          } else {
+            fxFeeRate = 0; // No FX fees for crypto accounts
+          }
 
           if (!selectedStart || !selectedEnd) {
             alert(t("cfg_err_dates"));
