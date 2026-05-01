@@ -35,18 +35,19 @@ const langTranslations = {
       "<strong>A-ADS:</strong> Platforma zajmująca się anonimowymi reklamami bez naruszania prywatności użytkowników, dzięki której strona projektu opłacana i rozwijana. Reklamy A-ADS nie śledzą użytkowników.",
     pp_s5_t: "5. Zastrzeżenie odpowiedzialności (Disclaimer)",
     pp_s5_p:
-      "Narzędzie T212 CFD Data Exporter ma na celu asystowanie w pozyskaniu i transformacji danych. Projekt ani jego twórca nie bierze odpowiedzialności prawnej i finansowej za błędy wynikające z ewentualnych braków danych dostarczonych przez stronę trzecią (Trading212), ani poprawności wygenerowanego JSON'a przy późniejszym rozliczeniu z US. Wynik powinien być każdorazowo zweryfikowany przez profesjonalistę lub dedykowane, komercyjne oprogramowanie podatkowe.",
+      "Narzędzie T212 CFD & Crypto Data Exporter ma na celu asystowanie w pozyskaniu i transformacji danych. Projekt ani jego twórca nie bierze odpowiedzialności prawnej i finansowej za błędy wynikające z ewentualnych braków danych dostarczonych przez stronę trzecią (Trading212), ani poprawności wygenerowanego JSON'a przy późniejszym rozliczeniu z US. Wynik powinien być każdorazowo zweryfikowany przez profesjonalistę lub dedykowane, komercyjne oprogramowanie podatkowe.",
 
-    site_title: "T212 CFD Data Exporter | Profesjonalne Raporty PIT-38",
+    site_title:
+      "T212 CFD & Crypto Data Exporter | Profesjonalne Raporty PIT-38",
     meta_desc:
       "Darmowe narzędzie open-source do eksportu danych z Trading212 CFD oraz Crypto do formatu JSON i CSV. Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl.",
-    og_title: "T212 CFD Data Exporter | Wygeneruj raport do PIT-38",
+    og_title: "T212 CFD & Crypto Data Exporter | Wygeneruj raport do PIT-38",
     og_desc:
       "Eksportuj dane transakcyjne z T212 CFD oraz Crypto do pliku JSON w 30 sekund. Bezpiecznie i za darmo.",
-    logo_badge: "🚀 Trading212 Tool",
-    title_main: "CFD Data Exporter",
+    logo_badge: "Trading212 Tool",
+    title_main: "CFD & Crypto Data Exporter",
     subtitle:
-      'Eksportuj transakcje CFD oraz Crypto do formatu <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> oraz <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> w kilka sekund.<br />Bezpiecznie i za darmo.',
+      'Eksportuj transakcje CFD oraz Crypto do formatu <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> oraz <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong><br />Bezpiecznie i za darmo.',
     partner_link: "🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl",
     nav_about: "O Narzędziu",
     nav_instructions: "Instrukcje",
@@ -150,16 +151,16 @@ const langTranslations = {
     pp_s5_p:
       "The T212 CFD Data Exporter tool aims to assist in acquiring and transforming data. Neither the project nor its creator assumes legal or financial responsibility for errors resulting from potential data gaps provided by a third party (Trading212), nor for the accuracy of the generated JSON during subsequent tax settlements. The result should always be verified by a professional or dedicated commercial tax software.",
 
-    site_title: "T212 CFD Data Exporter | Professional Tax Reports",
+    site_title: "T212 CFD & Crypto Data Exporter | Professional Tax Reports",
     meta_desc:
       "Free open-source tool for exporting Trading212 CFD and Crypto data to JSON and CSV format. The tool works best with kalkulatorgieldowy.pl.",
-    og_title: "T212 CFD Data Exporter | Tool by Dawid Konopiaty",
+    og_title: "T212 CFD & Crypto Data Exporter | Tool by Dawid Konopiaty",
     og_desc:
       "Export transactional data from T212 CFD and Crypto to JSON file in 30 seconds. Secure and free.",
-    logo_badge: "🚀 Trading212 Tool",
-    title_main: "CFD Data Exporter",
+    logo_badge: "Trading212 Tool",
+    title_main: "CFD & Crypto Data Exporter",
     subtitle:
-      'Export CFD and Crypto transactions to <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> and <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> format in seconds.<br />Safely and for free.',
+      'Export CFD and Crypto transactions to <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> and <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> <br />Safely and for free.',
     partner_link: "🤝 The tool works best with kalkulatorgieldowy.pl",
     nav_about: "About Tool",
     nav_instructions: "Instructions",
