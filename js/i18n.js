@@ -47,7 +47,7 @@ const langTranslations = {
     logo_badge: "Trading212 Tool",
     title_main: "CFD & Crypto Data Exporter",
     subtitle:
-      'Eksportuj transakcje CFD oraz Crypto do formatu <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> oraz <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong><br />Bezpiecznie i za darmo.',
+      'Eksportuj transakcje CFD oraz Crypto do formatu <strong><kbd>JSON</kbd></strong> oraz <strong><kbd>CSV</kbd></strong><br />Bezpiecznie i za darmo.',
     partner_link: "🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl",
     nav_about: "O Narzędziu",
     nav_instructions: "Instrukcje",
@@ -160,7 +160,7 @@ const langTranslations = {
     logo_badge: "Trading212 Tool",
     title_main: "CFD & Crypto Data Exporter",
     subtitle:
-      'Export CFD and Crypto transactions to <strong style="color: var(--warning); font-weight: 600"><kbd>JSON</kbd></strong> and <strong style="color: var(--warning); font-weight: 600"><kbd>CSV</kbd></strong> <br />Safely and for free.',
+      'Export CFD and Crypto transactions to <strong><kbd>JSON</kbd></strong> and <strong><kbd>CSV</kbd></strong> <br />Safely and for free.',
     partner_link: "🤝 The tool works best with kalkulatorgieldowy.pl",
     nav_about: "About Tool",
     nav_instructions: "Instructions",
