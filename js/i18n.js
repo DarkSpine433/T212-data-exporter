@@ -53,7 +53,7 @@ const langTranslations = {
     nav_instructions: "Instrukcje",
     instructions_header: "Instrukcje",
     info_date:
-      "ℹ️ <b>INFO:</b> Jeśli Twoja zapisana zakładka jest starsza niż 17.04.2026 r., usuń ją i dodaj ponownie. Możesz również skopiować aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w pole adresu istniejącej zakładki, aby cieszyć się najnowszymi poprawkami. i już od tego momentu nie będziesz musiał za każdym razem zmieniać zakładki ponieważ kod będzie ciągle aktualny",
+      "ℹ️ <b>INFO:</b> Jeśli Twoja zapisana zakładka jest starsza niż 01.05.2026 r., usuń ją i dodaj ponownie. Możesz również skopiować aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w pole adresu istniejącej zakładki, aby cieszyć się najnowszymi poprawkami. i już od tego momentu nie będziesz musiał za każdym razem zmieniać zakładki ponieważ kod będzie ciągle aktualny",
     warning_account: "⚠️ <b>WAŻNE:</b> Uruchamiaj skrypt będąc na koncie CFD.",
     warning_spam:
       "⚠️ <b>WAŻNE:</b> Nie uruchamiaj skryptu kilkukrotnie w ciągu kilku minut! Może to skutkować blokadą dostępu do Trading212 na około 5 minut.",
