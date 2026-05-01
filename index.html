@@ -270,7 +270,7 @@
             >
               Opcja 1: Zakładka Bookmarklet (PC)
             </h3>
-            <div class="step-box">
+            <div class="step-box" style="text-align: center">
               <h3 data-i18n="step1_title">Krok 1: Dodawanie zakładki</h3>
               <p style="margin-bottom: 20px" data-i18n="step1_desc">
                 Przeciągnij przycisk na pasek zakładek.
@@ -468,14 +468,115 @@
                   >📱 Pełna Instrukcja dla urządzeń mobilnych</span
                 >
               </h3>
-              <div class="warning-box">
-                <span data-i18n="mobile_warning"
-                  >⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt wspiera
-                  obecnie tylko przeglądarkę Firefox. Funkcjonalność nie jest
-                  dostępna w Chrome, a pozostałe przeglądarki nie były
-                  testowane.</span
+
+              <button
+                onclick="openBrowsersDialog()"
+                class="copy-btn"
+                style="
+                  margin-top: 10px;
+                  background: var(--accent);
+                  color: white;
+                "
+                data-i18n="supported_browsers_btn"
+              >
+                Lista wspieranych przeglądarek
+              </button>
+
+              <style>
+                #browsers-dialog::backdrop {
+                  background: rgba(0, 0, 0, 0.6);
+                  backdrop-filter: blur(4px);
+                }
+                #browsers-dialog {
+                  border: 1px solid var(--border);
+                  border-radius: var(--radius);
+                  background: var(--card-bg);
+                  color: var(--text-main);
+                  box-shadow: var(--shadow-lg);
+                }
+              </style>
+
+              <dialog
+                id="browsers-dialog"
+                class="tool-card"
+                style="max-width: 500px; margin: auto; padding: 30px"
+              >
+                <h3
+                  data-i18n="browsers_dialog_title"
+                  style="margin-top: 0; margin-bottom: 15px"
                 >
-              </div>
+                  Wspierane przeglądarki mobilne
+                </h3>
+                <p
+                  data-i18n="browsers_dialog_desc"
+                  style="
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin-bottom: 20px;
+                    color: var(--text-muted);
+                    text-align: left;
+                  "
+                >
+                  Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce
+                  mobilnej, prosimy o zgłoszenie tego w sekcji "Issues" na
+                  GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę
+                  przeglądarki oraz dołącz screenshot potwierdzający działanie –
+                  pomoże nam to w aktualizacji listy wspieranych środowisk!
+                </p>
+                <ul
+                  style="
+                    text-align: left;
+                    margin-bottom: 20px;
+                    color: var(--text-main);
+                    font-size: 0.95rem;
+                    list-style-type: none;
+                    padding-left: 0;
+                  "
+                >
+                  <li style="margin-bottom: 8px">✅ Firefox</li>
+                  <li style="margin-bottom: 8px">✅ Chrome</li>
+                </ul>
+                <div style="text-align: right">
+                  <button
+                    onclick="closeBrowsersDialog()"
+                    class="copy-btn"
+                    style="
+                      background: rgba(255, 255, 255, 0.1);
+                      color: var(--text-main);
+                    "
+                    data-i18n="close_btn"
+                  >
+                    Zamknij
+                  </button>
+                </div>
+              </dialog>
+
+              <script>
+                const browsersDialog =
+                  document.getElementById("browsers-dialog");
+
+                function openBrowsersDialog() {
+                  browsersDialog.showModal();
+                  history.pushState({ dialogOpen: true }, "");
+                }
+
+                function closeBrowsersDialog() {
+                  if (browsersDialog.open) {
+                    history.back();
+                  }
+                }
+
+                window.addEventListener("popstate", () => {
+                  if (browsersDialog.open) {
+                    browsersDialog.close();
+                  }
+                });
+
+                browsersDialog.addEventListener("cancel", (e) => {
+                  e.preventDefault();
+                  closeBrowsersDialog();
+                });
+              </script>
               <div class="code-wrapper">
                 <pre
                   id="bookmarklet-code-input"

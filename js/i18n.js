@@ -47,7 +47,7 @@ const langTranslations = {
     logo_badge: "Trading212 Tool",
     title_main: "CFD & Crypto Data Exporter",
     subtitle:
-      'Eksportuj transakcje CFD oraz Crypto do formatu <strong><kbd>JSON</kbd></strong> oraz <strong><kbd>CSV</kbd></strong><br />Bezpiecznie i za darmo.',
+      "Eksportuj transakcje CFD oraz Crypto do formatu <strong><kbd>JSON</kbd></strong> oraz <strong><kbd>CSV</kbd></strong><br />Bezpiecznie i za darmo.",
     partner_link: "🤝 Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl",
     nav_about: "O Narzędziu",
     nav_instructions: "Instrukcje",
@@ -79,8 +79,13 @@ const langTranslations = {
     fi_4: "Przejdź do zakładki <b>Console</b> (Konsola).",
     fi_5: 'Wklej skopiowany wcześniej kod skryptu i naciśnij <kbd>Enter</kbd>. <br /><small style="color: var(--text-muted)">* Jeśli przeglądarka blokuje wklejanie, wpisz ręcznie <code>allow pasting</code> i naciśnij Enter, a następnie spróbuj ponownie.</small>',
     mobile_inst_title: "📱 Pełna Instrukcja dla urządzeń mobilnych",
-    mobile_warning:
-      '⚠️ <b>WAŻNE:</b> Na urządzeniach mobilnych skrypt był testowany na przeglądarkach Chrome i Firefox. Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej niż Chrome lub Firefox, prosimy o zgłoszenie tego w sekcji "Issues" na GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę przeglądarki oraz dołącz screenshot potwierdzający działanie – pomoże nam to w aktualizacji listy wspieranych środowisk!',
+    mobile_warning_short:
+      "⚠️ <b>WAŻNE:</b> Uruchamianie skryptów na urządzeniach mobilnych może być zablokowane przez przeglądarkę.",
+    supported_browsers_btn: "Lista wspieranych przeglądarek",
+    browsers_dialog_title: "Wspierane przeglądarki mobilne",
+    browsers_dialog_desc:
+      'Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej, prosimy o zgłoszenie tego w sekcji "Issues" na GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę przeglądarki oraz dołącz screenshot potwierdzający działanie – pomoże nam to w aktualizacji listy wspieranych środowisk!',
+    close_btn: "Zamknij",
     mi_3: "W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki lub menu udostępniania).",
     mi_4: "Przejdź do edycji tej zakładki. Zmień jej nazwę na: <kbd>🚀 T212 Export</kbd>.",
     mi_5: "W polu <b>Adres URL</b> usuń aktualny link i wklej skopiowany kod. Zapisz zmiany.",
@@ -160,7 +165,7 @@ const langTranslations = {
     logo_badge: "Trading212 Tool",
     title_main: "CFD & Crypto Data Exporter",
     subtitle:
-      'Export CFD and Crypto transactions to <strong><kbd>JSON</kbd></strong> and <strong><kbd>CSV</kbd></strong> <br />Safely and for free.',
+      "Export CFD and Crypto transactions to <strong><kbd>JSON</kbd></strong> and <strong><kbd>CSV</kbd></strong> <br />Safely and for free.",
     partner_link: "🤝 The tool works best with kalkulatorgieldowy.pl",
     nav_about: "About Tool",
     nav_instructions: "Instructions",
@@ -193,8 +198,13 @@ const langTranslations = {
     fi_4: "Go to the <b>Console</b> tab.",
     fi_5: 'Paste the previously copied script code and press <kbd>Enter</kbd>. <br /><small style="color: var(--text-muted)">* If the browser blocks pasting, type <code>allow pasting</code> manually and press Enter, then try again.</small>',
     mobile_inst_title: "📱 Full instructions for mobile devices",
-    mobile_warning:
-      '⚠️ <b>IMPORTANT:</b> On mobile devices, the script has been tested on Chrome and Firefox. If you managed to run the script on a mobile browser other than Chrome or Firefox, please report it in the "Issues" section on GitHub or via email. In your report, include the browser name and attach a screenshot confirming it works – this will help us update the list of supported environments!',
+    mobile_warning_short:
+      "⚠️ <b>IMPORTANT:</b> Running scripts on mobile devices may be blocked by the browser.",
+    supported_browsers_btn: "List of supported browsers",
+    browsers_dialog_title: "Supported mobile browsers",
+    browsers_dialog_desc:
+      'If you managed to run the script on a mobile browser other than Chrome or Firefox, please report it in the "Issues" section on GitHub or via email. In your report, include the browser name and attach a screenshot confirming it works – this will help us update the list of supported environments!',
+    close_btn: "Close",
     mi_3: "In the browser, add it to <b>Bookmarks</b> (star icon or share menu).",
     mi_4: "Go to edit this bookmark. Change its name to: <kbd>🚀 T212 Export</kbd>.",
     mi_5: "In the <b>URL</b> field, remove the current link and paste the copied code. Save changes.",

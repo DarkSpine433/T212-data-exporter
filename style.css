@@ -161,7 +161,7 @@ kbd {
 .app-container {
   width: 100%;
   max-width: 900px;
-  padding: 0 10px;
+  padding: 0 5px;
   margin: 0 auto;
 }
 
@@ -282,7 +282,6 @@ header {
   border-radius: var(--radius);
   padding: 2.5rem;
   margin-bottom: 2rem;
-  text-align: center;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
