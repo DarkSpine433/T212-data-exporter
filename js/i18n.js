@@ -43,7 +43,7 @@ const langTranslations = {
       "Darmowe narzędzie open-source do eksportu danych z Trading212 CFD oraz Crypto do formatu JSON i CSV. Narzędzie najlepiej współpracuje z kalkulatorgieldowy.pl.",
     og_title: "T212 CFD & Crypto Data Exporter | Wygeneruj raport do PIT-38",
     og_desc:
-      "Eksportuj dane transakcyjne z T212 CFD oraz Crypto do pliku JSON w 30 sekund. Bezpiecznie i za darmo.",
+      "Eksportuj dane transakcyjne z T212 CFD oraz Crypto do pliku JSON . Bezpiecznie i za darmo.",
     logo_badge: "Trading212 Tool",
     title_main: "CFD & Crypto Data Exporter",
     subtitle:
@@ -156,7 +156,7 @@ const langTranslations = {
       "Free open-source tool for exporting Trading212 CFD and Crypto data to JSON and CSV format. The tool works best with kalkulatorgieldowy.pl.",
     og_title: "T212 CFD & Crypto Data Exporter | Tool by Dawid Konopiaty",
     og_desc:
-      "Export transactional data from T212 CFD and Crypto to JSON file in 30 seconds. Secure and free.",
+      "Export transactional data from T212 CFD and Crypto to JSON file in. Secure and free.",
     logo_badge: "Trading212 Tool",
     title_main: "CFD & Crypto Data Exporter",
     subtitle:
