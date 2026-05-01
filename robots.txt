@@ -1,4 +1,4 @@
-# robots.txt for T212-CFD-DATA
+# robots.txt for T212-data-exporter
 # Prevent crawlers from indexing test and data folders that expose API endpoints or internal scripts
 User-agent: *
 Disallow: /test/
@@ -9,4 +9,4 @@ Disallow: /js/tests/
 # Allow main site
 Allow: /
 
-Sitemap: https://darkspine433.github.io/T212-CFD-DATA/sitemap.xml
+Sitemap: https://darkspine433.github.io/T212-data-exporter/sitemap.xml

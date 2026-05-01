@@ -291,7 +291,8 @@ function updatePageTranslations() {
   }
 
   // Ensure image tags are also set if needed (using current site base path)
-  const ogImage = "https://darkspine433.github.io/T212-CFD-DATA/og-image.png";
+  const ogImage =
+    "https://darkspine433.github.io/T212-data-exporter/og-image.png";
   document
     .querySelector('meta[property="og:image"]')
     ?.setAttribute("content", ogImage);
