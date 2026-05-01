@@ -35,7 +35,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background-position: center bottom;
-  padding-bottom: 280px;
+  padding-bottom: 300px;
 }
 @media (max-width: 600px) {
   body {
@@ -410,7 +410,9 @@ kbd {
 .showcase:hover {
   transform: translateY(-5px);
   border-color: rgba(88, 166, 255, 0.4);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 30px rgba(88, 166, 255, 0.15);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(88, 166, 255, 0.15);
 }
 
 @media (max-width: 500px) {
