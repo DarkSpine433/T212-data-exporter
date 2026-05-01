@@ -4,16 +4,16 @@
 
 ### Jeżeli uważasz to narzędzie za przydatne, zostaw gwiazdkę na GitHubie! 🌟
 
-##### link do repozytorium epxortera danych -> <a href="https://github.com/DarkSpine433/T212-CFD-DATA/" target="_blank">https://github.com/DarkSpine433/T212-CFD-DATA/</a>
+##### link do repozytorium epxortera danych -> <a href="https://github.com/DarkSpine433/T212-data-exporter/" target="_blank">https://github.com/DarkSpine433/T212-data-exporter/</a>
 
-[![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-CFD-DATA/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-CFD-DATA?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-CFD-DATA/issues)
-[![GitHub version](https://img.shields.io/badge/Wersja-1.3.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-CFD-DATA/releases)
+[![GitHub stars](https://img.shields.io/github/stars/DarkSpine433/T212-data-exporter?style=for-the-badge&color=fac814)](https://github.com/DarkSpine433/T212-data-exporter/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/DarkSpine433/T212-data-exporter?style=for-the-badge&color=blue)](https://github.com/DarkSpine433/T212-data-exporter/issues)
+[![GitHub version](https://img.shields.io/badge/Wersja-1.3.0-blue?style=for-the-badge)](https://github.com/DarkSpine433/T212-data-exporter/releases)
 [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE.md)
 
 Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych z kont **Trading212 CFD** oraz **Crypto** do formatu JSON oraz CSV. Projekt rozwiązuje problem braku natywnego eksportu danych na platformie.
 
-👉 **Oficjalna strona** [darkspine433.github.io/T212-CFD-DATA/](https://darkspine433.github.io/T212-CFD-DATA/)
+👉 **Oficjalna strona** [darkspine433.github.io/T212-data-exporter/](https://darkspine433.github.io/T212-data-exporter/)
 
 🤝 **Współpraca:** Narzędzie najlepiej współpracuje z [kalkulatorgieldowy.pl](https://kalkulatorgieldowy.pl/) i zostało wykonane z ich współpracą.
 
@@ -42,7 +42,7 @@ Darmowe narzędzie umożliwiające eksport szczegółowych danych transakcyjnych
 Jeśli skrypt napotka problem:
 
 1. Kliknij przycisk **"Zapisz Logi"** w panelu narzędzia, aby pobrać plik `T212_Logs.txt`.
-2. Otwórz zgłoszenie w zakładce [Issues](https://github.com/DarkSpine433/T212-CFD-DATA/issues).
+2. Otwórz zgłoszenie w zakładce [Issues](https://github.com/DarkSpine433/T212-data-exporter/issues).
 3. Opisz sytuację i załącz pobrany plik z logami.
 
 ---
