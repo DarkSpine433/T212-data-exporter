@@ -95,7 +95,7 @@
 
     <div class="fix-container">
       <img
-        src="../src/assets/logo.png"
+        src="./src/assets/logo.png"
         alt="T212 Exporter Logo"
         class="fix-logo"
       />
@@ -115,6 +115,8 @@
           zakładki lub pobierane z zewnętrznych serwerów.
         </p>
       </div>
+
+      <!-- Metoda 1: Konsola -->
       <h2
         data-i18n="fix_pc_title"
         style="
@@ -149,7 +151,7 @@
         </div>
       </div>
 
-      <div class="code-box">
+      <div class="code-box" style="margin-bottom: 40px">
         <div class="copy-overlay">
           <button class="copy-btn" id="copy-fix-btn" data-i18n="fix_copy">
             Kopiuj Kod
@@ -157,117 +159,9 @@
         </div>
         <pre id="fix-code-display">Ładowanie kodu...</pre>
       </div>
-      <h2
-        data-i18n="fix_mobile_title"
-        style="
-          text-align: left;
-          margin-top: 50px;
-          margin-bottom: 20px;
-          font-size: 1.4rem;
-          color: var(--accent);
-        "
-      >
-        Procedura dla przeglądarek mobilnych (Bookmarklet)
-      </h2>
-      <div class="steps-wrapper">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div data-i18n="fix_b1">
-            Skopiuj poniższy kod bookmarklet przyciskiem
-            <strong>"Kopiuj Kod"</strong>.
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div data-i18n="fix_b2">
-            Dodaj tę stronę (lub dowolną inną) do zakładek w swojej przeglądarce
-            mobilnej.
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div data-i18n="fix_b3">
-            Edytuj nowo stworzoną zakładkę i wklej skopiowany kod w pole
-            <strong>Adres URL</strong>.
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div data-i18n="fix_b4">
-            Przejdź do karty z <strong>Trading212</strong> i kliknij swoją
-            zakładkę (lub wpisz jej nazwę w pasku adresu i wybierz ją).
-          </div>
-        </div>
-      </div>
-      <h3
-        data-i18n="fix_full_bookmarklet"
-        style="
-          text-align: left;
-          margin-bottom: 10px;
-          font-size: 1.1rem;
-          opacity: 0.9;
-        "
-      >
-        Pełny Kod Bookmarklet
-      </h3>
-      <div class="code-box" style="margin-bottom: 30px; opacity: 0.8">
-        <div class="copy-overlay">
-          <button
-            class="copy-btn"
-            id="copy-bookmarklet-btn"
-            data-i18n="fix_copy"
-          >
-            Kopiuj Kod
-          </button>
-        </div>
-        <pre id="bookmarklet-code-display" style="max-height: 100px">
-Generowanie...</pre
-        >
-      </div>
-      <div
-        id="bookmarklet-warning"
-        style="
-          display: none;
-          background: rgba(255, 107, 107, 0.1);
-          border: 1px solid var(--warning);
-          padding: 10px;
-          border-radius: 8px;
-          margin-bottom: 20px;
-          font-size: 0.85rem;
-          color: var(--warning);
-        "
-      >
-        <strong>⚠️ Kod jest zbyt długi!</strong> Większość przeglądarek (np.
-        Chrome) ogranicza długość zakładek do ok. 30kB. Ten skrypt ma ponad
-        100kB. W takim przypadku
-        <strong>musisz użyć metody Konsoli (Metoda 1)</strong>.
-      </div>
-      <p
-        data-i18n="fix_change_link"
-        style="text-align: left; font-size: 0.8rem; color: var(--accent)"
-      >
-        Zmień adres swojej zakładki na powyższy kod, aby mieć szybki dostęp do
-        tej instrukcji.
-      </p>
-      <div style="margin-top: 0px; text-align: left">
-        <button
-          onclick="openBrowsersDialog()"
-          class="copy-btn"
-          style="background: var(--accent); color: white"
-          data-i18n="supported_browsers_btn"
-        >
-          Lista wspieranych przeglądarek
-        </button>
-      </div>
-      <a
-        href="/"
-        class="partnership-badge"
-        style="display: inline-block; margin-top: 40px"
-        data-i18n="pp_back"
-        >⬅ Wróć do instrukcji głównej</a
-      >
 
-      <div
+      <!-- Metoda 2: Bookmarklet -->
+      <!-- <div
         style="
           margin-top: 60px;
           padding: 30px;
@@ -277,53 +171,106 @@ Generowanie...</pre
         "
       >
         <h2 style="color: var(--accent); margin-top: 0; font-size: 1.3rem">
-          🚀 Metoda 2: Mobile Magic (Dla Chrome Mobile)
+          🚀 Metoda 2: Bookmarklet Uniwersalny (Działa wszędzie)
         </h2>
         <p style="font-size: 0.9rem; margin-bottom: 20px">
-          Jeżeli powyższa metoda nie działa lub kod jest zbyt długi, użyj tego
-          obejścia. Pozwala ono przesłać cały skrypt bezpośrednio do Trading212
-          bez limitów długości.
+          Najprostsza i <strong>najbardziej niezawodna metoda</strong>.
+          Działająca na <strong>wszystkich przeglądarach</strong> i
+          urządzeniach. Skopiuj kod bookmarklet raz, dodaj do paska zakładek i
+          używaj wielokrotnie! <br />
+          <span style="color: var(--warning); font-size: 0.8rem"
+            >⚠️ Wymagana aktualizacja zakładki (Wersja 04.05.2026 - v3).</span
+          >
         </p>
 
         <div class="steps-wrapper">
           <div class="step">
             <div class="step-num">1</div>
             <div>
-              Kliknij przycisk <strong>"Przygotuj i Przejdź do T212"</strong>.
-              Strona przeładuje się na Trading212.
+              <strong>Skopiuj kod bookmarklet</strong> przyciskiem poniżej.
             </div>
           </div>
           <div class="step">
             <div class="step-num">2</div>
             <div>
-              Stwórz zakładkę o nazwie <code>T212 Run</code> z adresem URL:
-              <code id="mobile-magic-url" style="color: var(--accent)"
-                >javascript:eval(window.name)</code
-              >
+              <strong>Stwórz/Edytuj zakładkę</strong> o nazwie
+              <code>T212 Run</code> i wklej skopiowany kod jako jej adres URL.
             </div>
           </div>
           <div class="step">
             <div class="step-num">3</div>
-            <div>Będąc na Trading212, kliknij tę nową zakładkę.</div>
+            <div>
+              <strong>Kliknij "Otwórz Trading212"</strong> aby przygotować kod
+              eksportu.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div>
+              Będąc na stronie T212, <strong>kliknij swoją zakładkę</strong> z
+              paska zakładek.
+            </div>
           </div>
         </div>
 
+        <h3
+          style="
+            font-size: 0.95rem;
+            margin: 20px 0 10px 0;
+            color: var(--accent);
+          "
+        >
+          📋 Kod Zakładki (Uniwersalny Loader)
+        </h3>
+        <div class="code-box">
+          <div class="copy-overlay">
+            <button class="copy-btn" id="copy-mobile-magic-btn">
+              Kopiuj Zakładkę
+            </button>
+          </div>
+          <pre
+            id="mobile-magic-code-display"
+            style="max-height: 150px; overflow-y: auto; font-size: 0.75rem"
+          >
+Generowanie...</pre
+          >
+        </div>
+
         <button
-          id="mobile-magic-btn"
+          id="open-trading212-btn"
           class="copy-btn"
           style="
             width: 100%;
             margin-top: 20px;
-            background: var(--accent);
-            color: white;
-            padding: 15px;
+            background: rgba(147, 197, 253, 0.2);
+            color: var(--accent);
+            padding: 12px;
             font-weight: bold;
             border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border: 1px solid var(--accent);
           "
         >
-          Przygotuj i Przejdź do Trading212 ➔
+          🔗 Otwórz Trading212 & Prześlij Kod
         </button>
-      </div>
+
+        <p
+          style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px"
+        >
+          💡 <strong>Jak to działa?</strong> Kod jest przesyłany w bezpiecznym,
+          zakodowanym formacie przez adres URL. Zakładka odczytuje go i
+          uruchamia skrypt bez ingerencji w zabezpieczenia strony.
+        </p>
+      </div> -->
+
+      <a
+        href="/"
+        class="partnership-badge"
+        style="display: inline-block; margin-top: 40px"
+        data-i18n="pp_back"
+        >⬅ Wróć do instrukcji głównej</a
+      >
 
       <hr style="margin: 40px 0; opacity: 0.1" />
 
@@ -341,37 +288,16 @@ Generowanie...</pre
           box-shadow: var(--shadow-lg);
         "
       >
-        <h3
-          data-i18n="browsers_dialog_title"
-          style="margin-top: 0; margin-bottom: 15px"
-        >
-          Wspierane przeglądarki mobilne
+        <h3 style="margin-top: 0; margin-bottom: 15px">
+          Wspierane przeglądarki
         </h3>
-        <p
-          data-i18n="browsers_dialog_desc"
-          style="
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: var(--text-muted);
-            text-align: left;
-          "
-        >
-          Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej,
-          prosimy o zgłoszenie tego...
-        </p>
-        <ul
-          style="
-            text-align: left;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            list-style-type: none;
-            padding-left: 0;
-          "
-        >
-          <li style="margin-bottom: 8px">✅ Firefox</li>
-          <li style="margin-bottom: 8px">❌ Chrome</li>
+        <ul style="text-align: left; list-style-type: none; padding-left: 0">
+          <li style="margin-bottom: 8px">
+            ✅ Firefox, Chrome, Safari, Edge, Opera
+          </li>
+          <li style="margin-bottom: 8px">
+            ✅ Wszystkie systemy (Windows, macOS, iOS, Android)
+          </li>
         </ul>
         <div style="text-align: right">
           <button
@@ -381,7 +307,6 @@ Generowanie...</pre
               background: rgba(255, 255, 255, 0.1);
               color: var(--text-main);
             "
-            data-i18n="close_btn"
           >
             Zamknij
           </button>
@@ -392,30 +317,14 @@ Generowanie...</pre
     <script type="module">
       async function loadCode() {
         const display = document.getElementById("fix-code-display");
-        const bookmarkletDisplay = document.getElementById(
-          "bookmarklet-code-display",
+        const mobileMagicDisplay = document.getElementById(
+          "mobile-magic-code-display",
         );
-        const bookmarkletWarning = document.getElementById(
-          "bookmarklet-warning",
-        );
-        const currencyEl = document.getElementById("available-currencies");
-        const altDisplay = document.getElementById("alt-code-display");
 
         try {
           const { getData, getInstruction } =
-            await import("/src/core/get-t212-data.js");
-
-          if (currencyEl) {
-            const currencies = await getData(true);
-            currencyEl.innerHTML = currencies
-              .map(
-                (curr) =>
-                  `<kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin: 0 2px; font-size: 0.8rem;">${curr}</kbd>`,
-              )
-              .join(" ");
-          }
-
-          const response = await fetch("/src/core/get-t212-data.js");
+            await import("./src/core/get-t212-data.js");
+          const response = await fetch("./src/core/get-t212-data.js");
           if (!response.ok) throw new Error("Failed to fetch script");
           let rawCode = await response.text();
 
@@ -425,9 +334,7 @@ Generowanie...</pre
           );
           const fullCode = `/*${getInstruction()}*/\n\n${rawCode}\n\ngetData();`;
 
-          if (display) {
-            display.textContent = fullCode;
-          }
+          if (display) display.textContent = fullCode;
 
           const minify = (code) =>
             code
@@ -436,63 +343,64 @@ Generowanie...</pre
               .replace(/\s+/g, " ")
               .trim();
 
-          const fullBookmarklet = `javascript:(function(){${encodeURIComponent(minify(rawCode) + " getData();")}})();`;
+          const minifiedLite = minify(rawCode) + " getData();";
 
-          let liteCode = rawCode;
-          try {
-            const currentLang = document.documentElement.lang || "pl";
-            const langToRemove = currentLang === "pl" ? "en" : "pl";
-            const transRegex = new RegExp(
-              `${langToRemove}:\\s*\\{[\\s\\S]*?\\},\\s*`,
-              "g",
-            );
-            liteCode = liteCode.replace(transRegex, "");
-          } catch (e) {}
-
-          const minifiedLite = minify(liteCode) + " getData();";
-          const liteBookmarklet = `javascript:(function(){${encodeURIComponent(minifiedLite)}})();`;
-
-          if (bookmarkletDisplay) {
-            const isFullTooLong = fullBookmarklet.length > 30000;
-            bookmarkletDisplay.textContent = isFullTooLong
-              ? liteBookmarklet
-              : fullBookmarklet;
-
-            if (isFullTooLong) {
-              if (bookmarkletWarning)
-                bookmarkletWarning.style.display = "block";
-              bookmarkletDisplay.style.borderColor = "var(--warning)";
-            }
+          // Generate Universal Bookmarklet (Loader)
+          if (mobileMagicDisplay) {
+            // Version 3 - Uses JSON.parse + atob for 100% reliable character handling
+            const universalBookmark = `javascript:(function(){try{var u=window.location.href,m=u.match(/[?&#]t212b=([^&#]+)/);if(m){var c=JSON.parse(atob(m[1]));(new Function(c))();}else{alert('Error: Please click \"Open Trading212\" again on instructions page.');}}catch(e){alert('Error:\\n'+e.message);}})();`;
+            mobileMagicDisplay.textContent = universalBookmark;
           }
 
+          // Button handler: Open T212 and pass code
           document
-            .getElementById("mobile-magic-btn")
+            .getElementById("open-trading212-btn")
             ?.addEventListener("click", () => {
-              window.name = minifiedLite;
-              window.location.href = "https://live.trading212.com/beta";
+              // Step 1: Escape Unicode characters to literal \u{...} to keep the code ASCII-safe
+              // We use double backslash so it stays a literal escape sequence in the final code
+              let asciiSafe = "";
+              for (const char of minifiedLite) {
+                const cp = char.codePointAt(0);
+                asciiSafe += cp > 127 ? "\\\\u{" + cp.toString(16) + "}" : char;
+              }
+
+              // Step 2: Wrap in JSON.stringify to handle existing quotes/backslashes
+              // then Base64 encode for URL safety.
+              const base64Code = btoa(JSON.stringify(asciiSafe));
+              const targetUrl = `https://app.trading212.com/#t212b=${base64Code}`;
+
+              if (window.opener && !window.opener.closed) {
+                try {
+                  window.opener.location.href = targetUrl;
+                  alert(
+                    "✅ Kod został przesłany! Wróć do karty Trading212 i kliknij zakładkę.",
+                  );
+                  return;
+                } catch (e) {}
+              }
+              window.location.href = targetUrl;
             });
 
+          // Copy button handlers
           document
             .getElementById("copy-fix-btn")
             ?.addEventListener("click", async (e) => {
               await navigator.clipboard.writeText(fullCode);
-              const btn = e.target;
-              const originalText = btn.textContent;
-              btn.textContent = "Skopiowano! ✅";
-              setTimeout(() => (btn.textContent = originalText), 2000);
+              e.target.textContent = "Skopiowano! ✅";
+              setTimeout(() => (e.target.textContent = "Kopiuj Kod"), 2000);
             });
 
           document
-            .getElementById("copy-bookmarklet-btn")
+            .getElementById("copy-mobile-magic-btn")
             ?.addEventListener("click", async (e) => {
-              const bCode = document.getElementById(
-                "bookmarklet-code-display",
-              ).textContent;
-              await navigator.clipboard.writeText(bCode);
-              const btn = e.target;
-              const originalText = btn.textContent;
-              btn.textContent = "Skopiowano! ✅";
-              setTimeout(() => (btn.textContent = originalText), 2000);
+              await navigator.clipboard.writeText(
+                mobileMagicDisplay.textContent,
+              );
+              e.target.textContent = "Skopiowano! ✅";
+              setTimeout(
+                () => (e.target.textContent = "Kopiuj Zakładkę"),
+                2000,
+              );
             });
         } catch (err) {
           console.error("Failed to load export code:", err);
@@ -500,7 +408,6 @@ Generowanie...</pre
       }
 
       loadCode();
-
       window.openBrowsersDialog = () =>
         document.getElementById("browsers-dialog").showModal();
       window.closeBrowsersDialog = () =>
