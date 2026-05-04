@@ -748,7 +748,7 @@
       async function getMarkdownData() {
         try {
           const langSuffix = currentLang === "en" ? "en" : "pl";
-          const response = await fetch(`/docs/README.${langSuffix}.md`);
+          const response = await fetch(`./docs/README.${langSuffix}.md`);
           const text = await response.text();
           return text;
         } catch (error) {

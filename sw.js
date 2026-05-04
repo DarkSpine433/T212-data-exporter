@@ -1,4 +1,4 @@
-const CACHE_NAME = "t212-exporter-v1.3.0";
+const CACHE_NAME = "t212-exporter-v1.3.1";
 
 self.addEventListener("install", (e) => {
   e.waitUntil(
