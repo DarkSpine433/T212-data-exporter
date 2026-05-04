@@ -788,7 +788,9 @@
       const scriptUrl =
         currentUrl.replace("index.html", "") + "./src/core/get-t212-data.js";
 
-      const fixUrl = window.location.origin + "/bookmark-blockage-fix.html";
+      const fixUrl =
+        window.location.origin +
+        "/T212-data-exporter/bookmark-blockage-fix.html";
 
       const bookmarkletCode = `javascript:(function(){
         const url = '${scriptUrl}';
