@@ -1,6 +1,6 @@
 # 🚀 Trading212 CFD & CRYPTO Data Exporter
 
-🌍 **Language / Język:** [🇬🇧 English](README.en.md) | [🇵🇱 Polski](README.pl.md)
+🌍 **Language / Język:** [🇬🇧 English](docs/README.en.md) | [🇵🇱 Polski](docs/README.pl.md)
 
 ## If you find this tool useful, please leave a star on GitHub! 🌟
 

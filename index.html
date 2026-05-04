@@ -748,7 +748,7 @@
       async function getMarkdownData() {
         try {
           const langSuffix = currentLang === "en" ? "en" : "pl";
-          const response = await fetch(`README.${langSuffix}.md`);
+          const response = await fetch(`/docs/README.${langSuffix}.md`);
           const text = await response.text();
           return text;
         } catch (error) {
@@ -788,8 +788,7 @@
       const scriptUrl =
         currentUrl.replace("index.html", "") + "./src/core/get-t212-data.js";
 
-      const fixUrl =
-        currentUrl.replace("index.html", "") + "bookmark-blockage-fix/";
+      const fixUrl = window.location.origin + "/bookmark-blockage-fix.html";
 
       const bookmarkletCode = `javascript:(function(){
         const url = '${scriptUrl}';
