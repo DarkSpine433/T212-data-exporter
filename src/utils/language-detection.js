@@ -8,7 +8,6 @@ export function getSystemLanguage() {
   return "en";
 }
 
-// Also make it available globally for non-module scripts
 if (typeof window !== "undefined") {
   window.getSystemLanguage = getSystemLanguage;
 }

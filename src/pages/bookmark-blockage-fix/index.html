@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="fix_title">
+      Naprawa Blokady Bookmarklet | T212 Exporter
+    </title>
+
+    <meta
+      name="description"
+      data-i18n="fix_p"
+      content="Wykryto blokadę Content Security Policy (CSP). Dowiedz się, jak ręcznie uruchomić narzędzie T212 Exporter."
+    />
+    <meta
+      name="keywords"
+      data-i18n="meta_keywords"
+      content="CSP block, T212 export fix, bookmarklet error, require-trusted-types-for, Trading212 tool fix"
+    />
+    <meta name="author" content="Dawid Konopiaty (DarkSpine433)" />
+    <link
+      rel="canonical"
+      href="https://darkspine433.github.io/T212-data-exporter/bookmark-blockage-fix/"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://darkspine433.github.io/T212-data-exporter/bookmark-blockage-fix/"
+    />
+    <meta
+      property="og:title"
+      data-i18n="fix_title"
+      content="Naprawa Blokady Bookmarklet | T212 Exporter"
+    />
+    <meta
+      property="og:description"
+      data-i18n="fix_p"
+      content="Wykryto blokadę Content Security Policy (CSP). Dowiedz się, jak ręcznie uruchomić narzędzie T212 Exporter."
+    />
+    <meta
+      property="og:image"
+      content="https://darkspine433.github.io/T212-data-exporter/src/assets/og-image.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://darkspine433.github.io/T212-data-exporter/bookmark-blockage-fix/"
+    />
+    <meta
+      property="twitter:title"
+      data-i18n="fix_title"
+      content="Naprawa Blokady Bookmarklet | T212 Exporter"
+    />
+    <meta
+      property="twitter:description"
+      data-i18n="fix_p"
+      content="Wykryto blokadę Content Security Policy (CSP). Dowiedz się, jak ręcznie uruchomić narzędzie T212 Exporter."
+    />
+    <meta
+      property="twitter:image"
+      content="https://darkspine433.github.io/T212-data-exporter/src/assets/og-image.png"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "T212 Bookmarklet CSP Fix",
+        "description": "Instructions to bypass Content Security Policy blockage for T212 Data Exporter.",
+        "url": "https://darkspine433.github.io/T212-data-exporter/bookmark-blockage-fix",
+        "publisher": {
+          "@type": "Organization",
+          "name": "T212 Tool"
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link rel="stylesheet" href="./styles_bookmark.css" />
+    <script src="/src/core/i18n.js"></script>
+    <script src="/src/components/LanguageSwitcher.js"></script>
+  </head>
+  <body>
+    <language-switcher></language-switcher>
+    <div class="bg-canvas">
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+      <div class="grid-pattern"></div>
+    </div>
+
+    <div class="fix-container">
+      <img
+        src="../src/assets/logo.png"
+        alt="T212 Exporter Logo"
+        class="fix-logo"
+      />
+      <h1 data-i18n="fix_h1">Rozwiązywanie problemów z uruchomieniem</h1>
+      <p data-i18n="fix_p">
+        Twoja przeglądarka lub ustawienia strony Trading212 zablokowały
+        automatyczne uruchomienie skryptu (Błąd:
+        <code>require-trusted-types-for 'script'</code>). Nie martw się, możesz
+        uruchomić narzędzie ręcznie w kilku prostych krokach.
+      </p>
+
+      <div class="alert-info">
+        <strong data-i18n="fix_why_t">Dlaczego to widzę?</strong>
+        <p data-i18n="fix_why_p" style="margin-bottom: 10px">
+          Nowoczesne zabezpieczenia stron (Content Security Policy oraz Same
+          Origin Policy / CORS) czasem blokują skrypty "wstrzykiwane" przez
+          zakładki lub pobierane z zewnętrznych serwerów.
+        </p>
+      </div>
+      <h2
+        data-i18n="fix_pc_title"
+        style="
+          text-align: left;
+          margin-top: 40px;
+          margin-bottom: 20px;
+          font-size: 1.4rem;
+          color: var(--accent);
+        "
+      >
+        Procedura dla przeglądarek stacjonarnych (Console)
+      </h2>
+      <div class="steps-wrapper">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div data-i18n="fix_s1">
+            Skopiuj poniższy kod przyciskiem <strong>"Kopiuj Kod"</strong>.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div data-i18n="fix_s2">
+            Przejdź do karty z otwartym <strong>Trading212</strong> i naciśnij
+            <kbd>F12</kbd> (lub Prawy Przycisk -> Zbadaj -> Konsola).
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div data-i18n="fix_s3">
+            Wklej kod w konsoli i naciśnij <kbd>Enter</kbd>.
+          </div>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <div class="copy-overlay">
+          <button class="copy-btn" id="copy-fix-btn" data-i18n="fix_copy">
+            Kopiuj Kod
+          </button>
+        </div>
+        <pre id="fix-code-display">Ładowanie kodu...</pre>
+      </div>
+      <h2
+        data-i18n="fix_mobile_title"
+        style="
+          text-align: left;
+          margin-top: 50px;
+          margin-bottom: 20px;
+          font-size: 1.4rem;
+          color: var(--accent);
+        "
+      >
+        Procedura dla przeglądarek mobilnych (Bookmarklet)
+      </h2>
+      <div class="steps-wrapper">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div data-i18n="fix_b1">
+            Skopiuj poniższy kod bookmarklet przyciskiem
+            <strong>"Kopiuj Kod"</strong>.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div data-i18n="fix_b2">
+            Dodaj tę stronę (lub dowolną inną) do zakładek w swojej przeglądarce
+            mobilnej.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div data-i18n="fix_b3">
+            Edytuj nowo stworzoną zakładkę i wklej skopiowany kod w pole
+            <strong>Adres URL</strong>.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div data-i18n="fix_b4">
+            Przejdź do karty z <strong>Trading212</strong> i kliknij swoją
+            zakładkę (lub wpisz jej nazwę w pasku adresu i wybierz ją).
+          </div>
+        </div>
+      </div>
+      <h3
+        data-i18n="fix_full_bookmarklet"
+        style="
+          text-align: left;
+          margin-bottom: 10px;
+          font-size: 1.1rem;
+          opacity: 0.9;
+        "
+      >
+        Pełny Kod Bookmarklet
+      </h3>
+      <div class="code-box" style="margin-bottom: 30px; opacity: 0.8">
+        <div class="copy-overlay">
+          <button
+            class="copy-btn"
+            id="copy-bookmarklet-btn"
+            data-i18n="fix_copy"
+          >
+            Kopiuj Kod
+          </button>
+        </div>
+        <pre id="bookmarklet-code-display" style="max-height: 100px">
+Generowanie...</pre
+        >
+      </div>
+      <div
+        id="bookmarklet-warning"
+        style="
+          display: none;
+          background: rgba(255, 107, 107, 0.1);
+          border: 1px solid var(--warning);
+          padding: 10px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          font-size: 0.85rem;
+          color: var(--warning);
+        "
+      >
+        <strong>⚠️ Kod jest zbyt długi!</strong> Większość przeglądarek (np.
+        Chrome) ogranicza długość zakładek do ok. 30kB. Ten skrypt ma ponad
+        100kB. W takim przypadku
+        <strong>musisz użyć metody Konsoli (Metoda 1)</strong>.
+      </div>
+      <p
+        data-i18n="fix_change_link"
+        style="text-align: left; font-size: 0.8rem; color: var(--accent)"
+      >
+        Zmień adres swojej zakładki na powyższy kod, aby mieć szybki dostęp do
+        tej instrukcji.
+      </p>
+      <div style="margin-top: 0px; text-align: left">
+        <button
+          onclick="openBrowsersDialog()"
+          class="copy-btn"
+          style="background: var(--accent); color: white"
+          data-i18n="supported_browsers_btn"
+        >
+          Lista wspieranych przeglądarek
+        </button>
+      </div>
+      <a
+        href="/"
+        class="partnership-badge"
+        style="display: inline-block; margin-top: 40px"
+        data-i18n="pp_back"
+        >⬅ Wróć do instrukcji głównej</a
+      >
+
+      <div
+        style="
+          margin-top: 60px;
+          padding: 30px;
+          background: rgba(147, 197, 253, 0.05);
+          border: 1px dashed var(--accent);
+          border-radius: 12px;
+        "
+      >
+        <h2 style="color: var(--accent); margin-top: 0; font-size: 1.3rem">
+          🚀 Metoda 2: Mobile Magic (Dla Chrome Mobile)
+        </h2>
+        <p style="font-size: 0.9rem; margin-bottom: 20px">
+          Jeżeli powyższa metoda nie działa lub kod jest zbyt długi, użyj tego
+          obejścia. Pozwala ono przesłać cały skrypt bezpośrednio do Trading212
+          bez limitów długości.
+        </p>
+
+        <div class="steps-wrapper">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              Kliknij przycisk <strong>"Przygotuj i Przejdź do T212"</strong>.
+              Strona przeładuje się na Trading212.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              Stwórz zakładkę o nazwie <code>T212 Run</code> z adresem URL:
+              <code id="mobile-magic-url" style="color: var(--accent)"
+                >javascript:eval(window.name)</code
+              >
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>Będąc na Trading212, kliknij tę nową zakładkę.</div>
+          </div>
+        </div>
+
+        <button
+          id="mobile-magic-btn"
+          class="copy-btn"
+          style="
+            width: 100%;
+            margin-top: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+          "
+        >
+          Przygotuj i Przejdź do Trading212 ➔
+        </button>
+      </div>
+
+      <hr style="margin: 40px 0; opacity: 0.1" />
+
+      <dialog
+        id="browsers-dialog"
+        class="tool-card"
+        style="
+          max-width: 500px;
+          margin: auto;
+          padding: 30px;
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          background: var(--card-bg);
+          color: var(--text-main);
+          box-shadow: var(--shadow-lg);
+        "
+      >
+        <h3
+          data-i18n="browsers_dialog_title"
+          style="margin-top: 0; margin-bottom: 15px"
+        >
+          Wspierane przeglądarki mobilne
+        </h3>
+        <p
+          data-i18n="browsers_dialog_desc"
+          style="
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            text-align: left;
+          "
+        >
+          Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce mobilnej,
+          prosimy o zgłoszenie tego...
+        </p>
+        <ul
+          style="
+            text-align: left;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            list-style-type: none;
+            padding-left: 0;
+          "
+        >
+          <li style="margin-bottom: 8px">✅ Firefox</li>
+          <li style="margin-bottom: 8px">❌ Chrome</li>
+        </ul>
+        <div style="text-align: right">
+          <button
+            onclick="closeBrowsersDialog()"
+            class="copy-btn"
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              color: var(--text-main);
+            "
+            data-i18n="close_btn"
+          >
+            Zamknij
+          </button>
+        </div>
+      </dialog>
+    </div>
+
+    <script type="module">
+      async function loadCode() {
+        const display = document.getElementById("fix-code-display");
+        const bookmarkletDisplay = document.getElementById(
+          "bookmarklet-code-display",
+        );
+        const bookmarkletWarning = document.getElementById(
+          "bookmarklet-warning",
+        );
+        const currencyEl = document.getElementById("available-currencies");
+        const altDisplay = document.getElementById("alt-code-display");
+
+        try {
+          const { getData, getInstruction } =
+            await import("/src/core/get-t212-data.js");
+
+          if (currencyEl) {
+            const currencies = await getData(true);
+            currencyEl.innerHTML = currencies
+              .map(
+                (curr) =>
+                  `<kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin: 0 2px; font-size: 0.8rem;">${curr}</kbd>`,
+              )
+              .join(" ");
+          }
+
+          const response = await fetch("/src/core/get-t212-data.js");
+          if (!response.ok) throw new Error("Failed to fetch script");
+          let rawCode = await response.text();
+
+          rawCode = rawCode.replace(
+            /export\s+\{\s*getData,\s*getInstruction\s*\};/g,
+            "",
+          );
+          const fullCode = `/*${getInstruction()}*/\n\n${rawCode}\n\ngetData();`;
+
+          if (display) {
+            display.textContent = fullCode;
+          }
+
+          const minify = (code) =>
+            code
+              .replace(/\/\*[\s\S]*?\*\//g, "")
+              .replace(/\/\/.*$/gm, "")
+              .replace(/\s+/g, " ")
+              .trim();
+
+          const fullBookmarklet = `javascript:(function(){${encodeURIComponent(minify(rawCode) + " getData();")}})();`;
+
+          let liteCode = rawCode;
+          try {
+            const currentLang = document.documentElement.lang || "pl";
+            const langToRemove = currentLang === "pl" ? "en" : "pl";
+            const transRegex = new RegExp(
+              `${langToRemove}:\\s*\\{[\\s\\S]*?\\},\\s*`,
+              "g",
+            );
+            liteCode = liteCode.replace(transRegex, "");
+          } catch (e) {}
+
+          const minifiedLite = minify(liteCode) + " getData();";
+          const liteBookmarklet = `javascript:(function(){${encodeURIComponent(minifiedLite)}})();`;
+
+          if (bookmarkletDisplay) {
+            const isFullTooLong = fullBookmarklet.length > 30000;
+            bookmarkletDisplay.textContent = isFullTooLong
+              ? liteBookmarklet
+              : fullBookmarklet;
+
+            if (isFullTooLong) {
+              if (bookmarkletWarning)
+                bookmarkletWarning.style.display = "block";
+              bookmarkletDisplay.style.borderColor = "var(--warning)";
+            }
+          }
+
+          document
+            .getElementById("mobile-magic-btn")
+            ?.addEventListener("click", () => {
+              window.name = minifiedLite;
+              window.location.href = "https://live.trading212.com/beta";
+            });
+
+          document
+            .getElementById("copy-fix-btn")
+            ?.addEventListener("click", async (e) => {
+              await navigator.clipboard.writeText(fullCode);
+              const btn = e.target;
+              const originalText = btn.textContent;
+              btn.textContent = "Skopiowano! ✅";
+              setTimeout(() => (btn.textContent = originalText), 2000);
+            });
+
+          document
+            .getElementById("copy-bookmarklet-btn")
+            ?.addEventListener("click", async (e) => {
+              const bCode = document.getElementById(
+                "bookmarklet-code-display",
+              ).textContent;
+              await navigator.clipboard.writeText(bCode);
+              const btn = e.target;
+              const originalText = btn.textContent;
+              btn.textContent = "Skopiowano! ✅";
+              setTimeout(() => (btn.textContent = originalText), 2000);
+            });
+        } catch (err) {
+          console.error("Failed to load export code:", err);
+        }
+      }
+
+      loadCode();
+
+      window.openBrowsersDialog = () =>
+        document.getElementById("browsers-dialog").showModal();
+      window.closeBrowsersDialog = () =>
+        document.getElementById("browsers-dialog").close();
+    </script>
+  </body>
+</html>

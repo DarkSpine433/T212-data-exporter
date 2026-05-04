@@ -1,0 +1,110 @@
+:root {
+  --accent-glow: rgba(59, 130, 246, 0.5);
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--card-bg);
+}
+.fix-logo {
+  height: 60px;
+  width: auto;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.3));
+  transition: transform 0.3s ease;
+}
+
+.fix-logo:hover {
+  transform: scale(1.05);
+}
+
+.fix-container {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.icon-warning {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+.code-box {
+  background: #0f172a;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left;
+  position: relative;
+  margin-bottom: 30px;
+}
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  max-height: 300px;
+  overflow-y: auto;
+  color: #e2e8f0;
+}
+.copy-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  text-align: left;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 8px;
+}
+.step-num {
+  background: var(--accent);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.alert-info {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid var(--accent);
+  padding: 15px;
+  text-align: left;
+  margin-bottom: 30px;
+  border-radius: 0 8px 8px 0;
+}

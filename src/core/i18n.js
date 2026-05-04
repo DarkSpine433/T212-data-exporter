@@ -117,6 +117,43 @@ const langTranslations = {
     ad_binance_title: "Binance • Największa Giełda",
     ad_binance_desc: "Kupuj i handluj krypto bezpiecznie. Bonus na start!",
     ad_binance_cta: "Zarejestruj się",
+
+    fix_title: "Naprawa Blokady Bookmarklet | T212 Exporter",
+    fix_h1: "Rozwiązywanie problemów z uruchomieniem",
+    fix_pc_title: "Procedura dla przeglądarek stacjonarnych (Console)",
+    fix_mobile_title: "Procedura dla przeglądarek mobilnych (Bookmarklet)",
+    fix_p:
+      "Twoja przeglądarka lub ustawienia strony Trading212 zablokowały automatyczne uruchomienie skryptu (Błąd: <code>require-trusted-types-for 'script'</code>). Nie martw się, możesz uruchomić narzędzie ręcznie w 3 prostych krokach.",
+    fix_why_t: "Dlaczego to widzę?",
+    fix_why_p:
+      'Nowoczesne zabezpieczenia stron (Content Security Policy oraz Same Origin Policy / CORS) czasem blokują skrypty "wstrzykiwane" przez zakładki lub pobierane z zewnętrznych serwerów. Ręczne wklejenie kodu do konsoli całkowicie omija te restrykcje, ponieważ kod jest uruchamiany bezpośrednio w kontekście strony.',
+    fix_cors_t: "Błąd CORS / SOP",
+    fix_cors_p: "Gdy przeglądarka blokuje połączenie z serwerem zewnętrznym (np. GitHub), zobaczysz błąd Same Origin Policy. Konsola jest jedynym sposobem na bezpieczne uruchomienie skryptu w takiej sytuacji.",
+    fix_s1: 'Skopiuj poniższy kod przyciskiem <strong>"Kopiuj Kod"</strong>.',
+    fix_s2:
+      "Przejdź do karty z otwartym <strong>Trading212</strong> i naciśnij <kbd>F12</kbd> (lub Prawy Przycisk -> Zbadaj -> Konsola).",
+    fix_s3: "Wklej kod w konsoli i naciśnij <kbd>Enter</kbd>.",
+    fix_b1:
+      'Skopiuj poniższy kod bookmarklet przyciskiem <strong>"Kopiuj Kod"</strong>.',
+    fix_b2:
+      "Dodaj tę stronę (lub dowolną inną) do zakładek w swojej przeglądarce mobilnej.",
+    fix_b3:
+      "Edytuj nowo stworzoną zakładkę i wklej skopiowany kod w pole <strong>Adres URL</strong>.",
+    fix_b4:
+      "Przejdź do karty z <strong>Trading212</strong> i kliknij swoją zakładkę (lub wpisz jej nazwę w pasku adresu i wybierz ją).",
+    fix_s4:
+      "<strong>Mobilnie:</strong> Jeśli skrypt nie działa, dodaj tę stronę do zakładek i zmień jej adres na kod z sekcji poniżej.",
+    fix_copy: "Kopiuj Kod",
+    fix_loading: "Ładowanie kodu...",
+    fix_error:
+      "⚠️ Błąd ładowania kodu. Upewnij się, że masz połączenie z internetem lub spróbuj odświeżyć stronę.",
+    fix_currencies: "Wspierane waluty:",
+    fix_full_bookmarklet: "Pełny Kod Bookmarklet",
+    fix_alt_title: "Opcja alternatywna: Stały Bookmarklet",
+    fix_alt_desc:
+      "Jeśli główny przycisk często zawodzi na Twojej przeglądarce, użyj poniższego kodu jako adresu swojej zakładki. Zawsze otworzy on tę stronę pomocy w nowej karcie.",
+    fix_change_link:
+      "Zmień adres swojej zakładki na powyższy kod, aby mieć szybki dostęp do tej instrukcji.",
   },
   en: {
     pp_title: "Privacy Policy | T212 CFD Data Exporter",
@@ -233,9 +270,44 @@ const langTranslations = {
     ad_changenow_title: "ChangeNOW • Crypto Exchange",
     ad_changenow_desc: "Simple. Fast. Limitless. No Registration Required.",
     ad_changenow_cta: "Swap Now",
-    ad_binance_title: "Binance • Leading Exchange",
     ad_binance_desc: "Buy and trade crypto securely. Start with a bonus!",
     ad_binance_cta: "Sign Up Now",
+
+    fix_title: "Execution Troubleshooting | T212 Exporter",
+    fix_h1: "Script Execution Troubleshooting",
+    fix_pc_title: "Desktop Browser Procedure (Console)",
+    fix_mobile_title: "Mobile Browser Procedure (Bookmarklet)",
+    fix_p:
+      "Your browser or Trading212 settings blocked the automatic script execution (Error: <code>require-trusted-types-for 'script'</code>). Don't worry, you can run the tool manually in 3 simple steps.",
+    fix_why_t: "Why am I seeing this?",
+    fix_why_p:
+      'Modern security features (Content Security Policy and Same Origin Policy / CORS) sometimes block scripts "injected" via bookmarks or downloaded from external servers. Manually pasting the code into the console completely bypasses these restrictions because the code runs directly in the page context.',
+    fix_cors_t: "CORS / SOP Error",
+    fix_cors_p: "When the browser blocks a connection to an external server (like GitHub), you will see a Same Origin Policy error. The console is the only way to safely execute the script in this situation.",
+    fix_s1: 'Copy the code below using the <strong>"Copy Code"</strong> button.',
+    fix_s2:
+      "Go to the tab with <strong>Trading212</strong> open and press <kbd>F12</kbd> (or Right Click -> Inspect -> Console).",
+    fix_s3: "Paste the code into the console and press <kbd>Enter</kbd>.",
+    fix_b1:
+      'Copy the bookmarklet code below using the <strong>"Copy Code"</strong> button.',
+    fix_b2: "Add this page (or any other) to your mobile browser's bookmarks.",
+    fix_b3:
+      "Edit the newly created bookmark and paste the copied code into the <strong>URL address</strong> field.",
+    fix_b4:
+      "Go to the <strong>Trading212</strong> tab and click your bookmark (or type its name in the address bar and select it).",
+    fix_s4:
+      "<strong>Mobile:</strong> If the script fails, bookmark this page and change its URL to the code from the section below.",
+    fix_copy: "Copy Code",
+    fix_loading: "Loading code...",
+    fix_error:
+      "⚠️ Error loading code. Please check your internet connection or try refreshing the page.",
+    fix_currencies: "Supported currencies:",
+    fix_full_bookmarklet: "Full Bookmarklet Code ",
+    fix_alt_title: "Alternative Option: Permanent Bookmarklet",
+    fix_alt_desc:
+      "If the main button often fails on your browser, use the code below as your bookmark address. It will always open this help page in a new tab.",
+    fix_change_link:
+      "Change your bookmark URL to the code above for quick access to this instruction.",
   },
 };
 
@@ -273,20 +345,39 @@ function updatePageTranslations() {
     }
   });
 
-  if (dict["site_title"]) {
+  // Update document title
+  const titleEl = document.querySelector("title[data-i18n]");
+  const titleKey = titleEl?.getAttribute("data-i18n");
+  if (titleKey && dict[titleKey]) {
+    document.title = dict[titleKey];
+  } else if (dict["site_title"]) {
     document.title = dict["site_title"];
-    document
-      .querySelector('meta[property="og:title"]')
-      ?.setAttribute("content", dict["og_title"] || dict["site_title"]);
-    document
-      .querySelector('meta[property="twitter:title"]')
-      ?.setAttribute("content", dict["og_title"] || dict["site_title"]);
   }
 
+  // Update OG/Twitter titles based on final document.title
+  const currentTitle = document.title;
+  document
+    .querySelector('meta[property="og:title"]')
+    ?.setAttribute("content", currentTitle);
+  document
+    .querySelector('meta[property="twitter:title"]')
+    ?.setAttribute("content", currentTitle);
+
+  // Update meta tags with data-i18n
+  document.querySelectorAll("meta[data-i18n]").forEach((meta) => {
+    const key = meta.getAttribute("data-i18n");
+    if (dict[key]) {
+      meta.setAttribute("content", dict[key]);
+    }
+  });
+
   if (dict["meta_desc"]) {
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute("content", dict["meta_desc"]);
+    // If description not already updated by data-i18n loop
+    const descMeta = document.querySelector('meta[name="description"]');
+    if (descMeta && !descMeta.hasAttribute("data-i18n")) {
+      descMeta.setAttribute("content", dict["meta_desc"]);
+    }
+
     document
       .querySelector('meta[property="og:description"]')
       ?.setAttribute("content", dict["og_desc"] || dict["meta_desc"]);

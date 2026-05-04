@@ -1,8 +1,8 @@
 .vscode
 
-testData/*
-!testData/output.json
-!testData/validOutput.json
+tests/data/*
+!tests/data/output.json
+!tests/data/validOutput.json
 
 example.html
 test.html
