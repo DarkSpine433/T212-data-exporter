@@ -6,8 +6,16 @@ self.addEventListener("install", (e) => {
       return cache.addAll([
         "./",
         "./index.html",
-        "./src/styles/style.css",
+        "./src/styles/styles.css",
         "./src/core/i18n.js",
+        "./bookmark-blockage-fix.html",
+        "./privacy-policy.html",
+        "./src/styles/bookmark.css",
+        "./src/assets/icons/favicon.ico",
+        "./src/assets/logo.png",
+        "./src/assets/og-image.png",
+        "./src/assets/icons/favicon-16x16.png",
+        "./src/assets/icons/favicon-32x32.png",
         "./src/assets/icons/android-chrome-192x192.png",
         "./src/assets/icons/android-chrome-512x512.png",
       ]);

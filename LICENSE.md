@@ -6,7 +6,6 @@
 
 ## JĘZYK POLSKI (Wersja wiążąca / Binding version)
 
-
 ### §1. Postanowienia Ogólne
 
 1. Niniejsza Licencja określa zasady korzystania ze skryptu komputerowego służącego do eksportu danych z platformy Trading212, zwanego dalej „Oprogramowaniem”.
