@@ -715,7 +715,7 @@ async function getData(
 
   const minDate = new Date(fromDateStr);
   const maxDate = new Date(toDateStr);
-  const requestBase = `https://live.trading212.com/rest/reports/`;
+  const requestBase = `https://live.services.trading212.com/rest/reports/`;
   const requestFilter = `&perPage=20&from=${fromDateStr}&to=${toDateStr}`;
 
   if (typeof maxDate === "undefined")
@@ -725,29 +725,72 @@ async function getData(
   if (typeof requestBase === "undefined")
     throw new Error("Variable 'requestBase' does not exist.");
 
-  /*--- Authorization mechanism ---*/
-  const getCookie = (name) => {
+  /*--- Authorization mechanism ---
+   * T212 API requires three custom headers on EVERY request (in addition to session cookies):
+   *   X-Trader-Client:      application=WC4,version=8.31.0,dUUID={uuid},accountId={id}
+   *   X-Trader-Device-Model: {browser name}
+   *   X-Trader-Target-Type:  CFD | CRYPTO
+   *
+   * The dUUID is stored in cookie "5d60904a5b52802c63d8b5b97bf8a1ea" (not HttpOnly, readable).
+   * The accountId is bootstrapped from the accounts API using accountId=0 first.
+   * Session cookies are sent automatically via credentials: "include".
+   ---*/
+  const _getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(";").shift();
   };
-  const session =
-    getCookie("TRADING212_SESSION_LIVE") || getCookie("CUSTOMER_SESSION");
 
-  const auth = {
+  // Read the device UUID T212 stores in a hashed cookie name.
+  // The cookie value may be URL-encoded (%22 = ") and/or JSON-encoded ("uuid"),
+  // so we decode both layers and strip any residual quote characters.
+  const _rawDuuid = _getCookie("5d60904a5b52802c63d8b5b97bf8a1ea");
+  const _dUUID = (() => {
+    if (!_rawDuuid) {
+      return typeof crypto !== "undefined" && crypto.randomUUID
+        ? crypto.randomUUID()
+        : "00000000-0000-0000-0000-000000000000";
+    }
+    try {
+      const decoded = decodeURIComponent(_rawDuuid);          // handle %22 → "
+      const parsed = JSON.parse(decoded);                      // handle "uuid" → uuid
+      return String(parsed).replace(/"/g, "");                 // strip any residual quotes
+    } catch {
+      return String(_rawDuuid).replace(/"/g, "");              // fallback: strip quotes only
+    }
+  })();
+
+  const _getBrowserName = () => {
+    const ua = navigator.userAgent;
+    if (ua.includes("Firefox")) return "Firefox";
+    if (ua.includes("Edg/")) return "Edge";
+    if (ua.includes("Chrome")) return "Chrome";
+    if (ua.includes("Safari")) return "Safari";
+    return "Browser";
+  };
+
+  const _traderTargetType =
+    config.accountType && config.accountType.toUpperCase() === "CRYPTO"
+      ? "CRYPTO"
+      : "CFD";
+
+  const _buildAuth = (accountId = 0) => ({
     method: "GET",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
-      "X-Trading212-Session": session,
+      "X-Trader-Client": `application=WC4,version=8.31.0,dUUID=${_dUUID},accountId=${accountId}`,
+      "X-Trader-Device-Model": _getBrowserName(),
+      "X-Trader-Target-Type": _traderTargetType,
     },
     credentials: "include",
-  };
+  });
 
+  // Step 1: bootstrap — fetch accounts with accountId=0 to get real accountId
+  let _accountId = 0;
   try {
     const accountResponse = await fetch(
-      "https://live.trading212.com/rest/v1/accounts",
-      auth,
+      "https://live.services.trading212.com/rest/v1/accounts",
+      _buildAuth(0),
     );
     const data = await accountResponse.json();
     const allAccounts = [
@@ -760,6 +803,9 @@ async function getData(
     )[0];
 
     if (activeAccount) {
+      // Extract accountId (T212 may use .id or .accountId)
+      _accountId = activeAccount.id || activeAccount.accountId || 0;
+
       const currentType = activeAccount.tradingType.toUpperCase();
       const expectedType = config.accountType.toUpperCase();
 
@@ -818,6 +864,9 @@ async function getData(
   } catch (e) {
     console.warn("Account type detection failed, proceeding anyway:", e);
   }
+
+  // Step 2: build final auth with real accountId
+  const auth = _buildAuth(_accountId);
 
   console.log(`%c Starting download: ${fromDateStr} - ${toDateStr}`);
   let logsHtml = "";
@@ -1963,7 +2012,7 @@ async function getData(
 
     /*--- OVERNIGHT FEES ---*/
     try {
-      const feeUrl = `https://live.trading212.com/rest/reports/overnight-holding-fee`;
+      const feeUrl = `https://live.services.trading212.com/rest/reports/overnight-holding-fee`;
       const res = await (
         await fetchWithRetry(feeUrl + "?page=1" + requestFilter, auth)
       ).json();
@@ -2031,7 +2080,7 @@ async function getData(
 
     transactionDetails = [];
     try {
-      const transUrl = `https://live.trading212.com/rest/reports/transactions`;
+      const transUrl = `https://live.services.trading212.com/rest/reports/transactions`;
       updateProgress(
         `💸 <b>Pobieranie historii transakcji:</b><br/>Pobieranie wpłat, wypłat i przelewów...`,
         -1,
@@ -2098,7 +2147,7 @@ async function getData(
 
     dividendDetails = [];
     try {
-      const divUrl = `https://live.trading212.com/rest/reports/dividends/v2`;
+      const divUrl = `https://live.services.trading212.com/rest/reports/dividends/v2`;
       updateProgress(
         `🎁 <b>Pobieranie dywidend:</b><br/>Pobieranie historii dywidend...`,
         -1,
@@ -2185,6 +2234,7 @@ async function getData(
         method: "POST",
         headers: {
           ...auth.headers,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({}),
       };
