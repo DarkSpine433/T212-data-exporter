@@ -106,6 +106,7 @@ async function getData(
 
       ui_title: "T212 Exporter",
       ui_minimize: "Minimalizuj",
+      ui_auto_fit: "Dopasuj do zawartości",
       ui_close: "Zamknij",
       ui_star: "Zostaw gwiazdkę 🌟",
       ui_mobile_warn:
@@ -241,6 +242,7 @@ async function getData(
 
       ui_title: "T212 Exporter",
       ui_minimize: "Minimize",
+      ui_auto_fit: "Auto Fit",
       ui_close: "Close",
       ui_star: "Leave a star 🌟",
       ui_mobile_warn:
@@ -985,12 +987,12 @@ async function getData(
         .t212-resize-handle-tr { top: 0; right: 0; width: 20px; height: 20px; cursor: ne-resize; }
         .t212-resize-handle-bl { bottom: 0; left: 0; width: 20px; height: 20px; cursor: sw-resize; }
         .t212-resize-handle-br { bottom: 0; right: 0; width: 20px; height: 20px; cursor: se-resize; }
-        .t212-resize-handle-tl::before, .t212-resize-handle-tr::before, .t212-resize-handle-bl::before, .t212-resize-handle-br::before { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 2px; background: rgba(59, 130, 246, 0.4); transition: background 0.2s; }
+        .t212-resize-handle-tl::before, .t212-resize-handle-tr::before, .t212-resize-handle-bl::before, .t212-resize-handle-br::before { content: ''; position: absolute; width: 22px; height: 22px; background: rgba(59, 130, 246, 0.4); transition: background 0.2s; }
         .t212-resize-handle:hover::before, .t212-resize-handle.active::before { background: rgba(59, 130, 246, 0.8); }
-        .t212-resize-handle-tl::before { top: 0px; left: 0px; }
-        .t212-resize-handle-tr::before { top: 0px; right: 0px; }
-        .t212-resize-handle-bl::before { bottom: 0px; left: 0px; }
-        .t212-resize-handle-br::before { bottom: 0px; right: 0px; }
+        .t212-resize-handle-tl::before { top: 0px; left: 0px;  border-radius: 0px 0px 500px 0px }
+        .t212-resize-handle-tr::before { top: 0px; right: 0px; border-radius: 0px 0px 0px 500px  }
+        .t212-resize-handle-bl::before { bottom: 0px; left: 0px; border-radius: 0px 500px 0px 0px  }
+        .t212-resize-handle-br::before { bottom: 0px; right: 0px; border-radius: 500px 0px 0px 0px  }
         .t212-minimized .t212-resize-handle { display: none !important; }
       
       `;
@@ -1002,6 +1004,7 @@ async function getData(
       const minIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 3 13 11 21 11"/><polyline points="11 21 11 13 3 13"/></svg>`;
       const saveIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>`;
       const successIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#16a34a"/><path d="M6.5 12.5l3 3 7-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      const autoFitIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="m21 3-7 7"/><path d="M3 21l7-7"/></svg>`;
       const downIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>`;
       const maximizeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2-icon lucide-maximize-2"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>`;
 
@@ -1029,6 +1032,7 @@ async function getData(
                 <svg id="t212-pause-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
               </button>
               <div class="t212-btn-icon" id="t212-btn-min" title="${t("ui_minimize")}">${minIcon}</div>
+              <div class="t212-btn-icon" id="t212-btn-auto-fit" title="${t("ui_auto_fit")}" style="color:#10b981;">${autoFitIcon}</div>
               <div class="t212-btn-icon" id="t212-btn-close" title="${t("ui_close")}" style="color:#ef4444;">${closeIcon}</div>
             </div>
           </div>
@@ -1352,6 +1356,68 @@ async function getData(
           r.left + r.width / 2 > window.innerWidth / 2 ? "right" : "left";
         minimizeUI(side);
       });
+
+      /* Auto Fit button: adjust window to fit content */
+      const autoFitBtn = document.getElementById("t212-btn-auto-fit");
+      if (autoFitBtn) {
+        autoFitBtn.onclick = () => {
+          if (isMinimized) return;
+
+          const contentEl = ui.querySelector(".t212-content");
+          if (!contentEl) return;
+
+          const scrollHeight = contentEl.scrollHeight;
+          const currentPadding = 40;
+          const footerHeight = 50;
+          const calculatedHeight = scrollHeight + currentPadding + footerHeight;
+
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+
+          const isMobile = vw < 768;
+          const mobileMinWidth = 320;
+          const maxWidth = isMobile ? vw - 16 : Math.min(vw - 32, 600);
+          const maxHeight = isMobile ? vh - 32 : Math.min(vh - 32, 800);
+
+          const targetWidth = Math.max(mobileMinWidth, Math.min(maxWidth, 380));
+          const targetHeight = Math.max(
+            MIN_HEIGHT,
+            Math.min(maxHeight, calculatedHeight),
+          );
+
+          ui.style.transition = "all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)";
+          ui.style.width = targetWidth + "px";
+          ui.style.height = targetHeight + "px";
+          ui.style.left = "0px";
+
+          if (isMobile) {
+            ui.style.top = "0px";
+          } else {
+            const currentLeft = ui.offsetLeft;
+            const centeredLeft = Math.max(
+              0,
+              Math.min(vw - targetWidth, currentLeft),
+            );
+            ui.style.left = centeredLeft + "px";
+          }
+
+          saveUIState({
+            minimized: false,
+            width: ui.style.width,
+            height: ui.style.height,
+            left: ui.style.left,
+            top: ui.style.top,
+          });
+
+          updateProgress(
+            null,
+            -1,
+            isMobile
+              ? "📱 Dopasowano do ekranu mobilnego."
+              : "📐 Dopasowano okno do zawartości.",
+          );
+        };
+      }
 
       /* restore handle: support click to restore and drag when minimized */
       const restoreHandleEl = document.getElementById("t212-restore-handle");
