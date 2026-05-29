@@ -752,11 +752,11 @@ async function getData(
         : "00000000-0000-0000-0000-000000000000";
     }
     try {
-      const decoded = decodeURIComponent(_rawDuuid);          // handle %22 → "
-      const parsed = JSON.parse(decoded);                      // handle "uuid" → uuid
-      return String(parsed).replace(/"/g, "");                 // strip any residual quotes
+      const decoded = decodeURIComponent(_rawDuuid); // handle %22 → "
+      const parsed = JSON.parse(decoded); // handle "uuid" → uuid
+      return String(parsed).replace(/"/g, ""); // strip any residual quotes
     } catch {
-      return String(_rawDuuid).replace(/"/g, "");              // fallback: strip quotes only
+      return String(_rawDuuid).replace(/"/g, ""); // fallback: strip quotes only
     }
   })();
 
@@ -1322,6 +1322,17 @@ async function getData(
           r.left + r.width / 2 > window.innerWidth / 2 ? "right" : "left";
         minimizeUI(side);
       };
+
+      /* double-click on container to minimize — identical to collapse button */
+      ui.addEventListener("dblclick", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (isMinimized) return;
+        const r = ui.getBoundingClientRect();
+        const side =
+          r.left + r.width / 2 > window.innerWidth / 2 ? "right" : "left";
+        minimizeUI(side);
+      });
 
       /* restore handle: support click to restore and drag when minimized */
       const restoreHandleEl = document.getElementById("t212-restore-handle");
