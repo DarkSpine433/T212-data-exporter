@@ -980,6 +980,18 @@ async function getData(
         .t212-error-close { cursor: pointer; color: #64748b; margin-left: 8px; font-weight: bold; }
         .t212-report-btn { font-size: 9px; padding: 4px 8px; background: #ef4444; color: white; border-radius: 6px; text-decoration: none; }
         .t212-blur { filter: blur(6px); }
+        .t212-resize-handle { position: absolute; z-index: 20; touch-action: none; user-select: none; }
+        .t212-resize-handle-tl { top: 0; left: 0; width: 20px; height: 20px; cursor: nw-resize; }
+        .t212-resize-handle-tr { top: 0; right: 0; width: 20px; height: 20px; cursor: ne-resize; }
+        .t212-resize-handle-bl { bottom: 0; left: 0; width: 20px; height: 20px; cursor: sw-resize; }
+        .t212-resize-handle-br { bottom: 0; right: 0; width: 20px; height: 20px; cursor: se-resize; }
+        .t212-resize-handle-tl::before, .t212-resize-handle-tr::before, .t212-resize-handle-bl::before, .t212-resize-handle-br::before { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 2px; background: rgba(59, 130, 246, 0.4); transition: background 0.2s; }
+        .t212-resize-handle:hover::before, .t212-resize-handle.active::before { background: rgba(59, 130, 246, 0.8); }
+        .t212-resize-handle-tl::before { top: 0px; left: 0px; }
+        .t212-resize-handle-tr::before { top: 0px; right: 0px; }
+        .t212-resize-handle-bl::before { bottom: 0px; left: 0px; }
+        .t212-resize-handle-br::before { bottom: 0px; right: 0px; }
+        .t212-minimized .t212-resize-handle { display: none !important; }
       
       `;
       document.head.appendChild(style);
@@ -995,6 +1007,11 @@ async function getData(
 
       ui.innerHTML = `
         <div  class="t212-minimize-handle" id="t212-restore-handle"><span style="margin-bottom:5px; margin-top:20px;">T212 Exporter</span><span style="margin-bottom:10px; margin-top:5px;">${maximizeIcon}</span></div>
+        <!-- Resize handles -->
+        <div class="t212-resize-handle t212-resize-handle-tl" id="t212-resize-tl"></div>
+        <div class="t212-resize-handle t212-resize-handle-tr" id="t212-resize-tr"></div>
+        <div class="t212-resize-handle t212-resize-handle-bl" id="t212-resize-bl"></div>
+        <div class="t212-resize-handle t212-resize-handle-br" id="t212-resize-br"></div>
         <div class="t212-header" style="display:flex; flex-direction:column; gap:12px; padding: 16px 20px 12px 20px;">
           <!-- Top Row: Navigation & Controls -->
           <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
@@ -1413,6 +1430,138 @@ async function getData(
           });
         }
       };
+
+      /*--- RESIZE HANDLES ---*/
+      const MIN_WIDTH = 380;
+      const MIN_HEIGHT = 200;
+      let resizeData = {
+        active: false,
+        handle: "",
+        startX: 0,
+        startY: 0,
+        startWidth: 0,
+        startHeight: 0,
+        startLeft: 0,
+        startTop: 0,
+      };
+
+      const getResizeHandle = (clientX, clientY) => {
+        const r = ui.getBoundingClientRect();
+        const handleSize = 20;
+        const threshold = 15;
+
+        const onTop = clientY >= r.top && clientY <= r.top + threshold;
+        const onBottom = clientY >= r.bottom - threshold && clientY <= r.bottom;
+        const onLeft = clientX >= r.left && clientX <= r.left + threshold;
+        const onRight = clientX >= r.right - threshold && clientX <= r.right;
+
+        if (onTop && onLeft) return "tl";
+        if (onTop && onRight) return "tr";
+        if (onBottom && onLeft) return "bl";
+        if (onBottom && onRight) return "br";
+        return null;
+      };
+
+      const applyResize = (newWidth, newHeight, newLeft, newTop) => {
+        const clampedWidth = Math.max(MIN_WIDTH, newWidth);
+        const clampedHeight = Math.max(MIN_HEIGHT, newHeight);
+
+        const clampedLeft = Math.max(
+          0,
+          Math.min(window.innerWidth - clampedWidth, newLeft),
+        );
+        const clampedTop = Math.max(
+          0,
+          Math.min(window.innerHeight - clampedHeight, newTop),
+        );
+
+        ui.style.width = clampedWidth + "px";
+        ui.style.height = clampedHeight + "px";
+        ui.style.left = clampedLeft + "px";
+        ui.style.top = clampedTop + "px";
+        ui.style.right = "auto";
+      };
+
+      const initResizeHandle = (handleId, direction) => {
+        const handleEl = document.getElementById(handleId);
+        if (!handleEl) return;
+
+        handleEl.onpointerdown = (ev) => {
+          if (isMinimized) return;
+          ev.preventDefault();
+          resizeData.active = true;
+          resizeData.handle = direction;
+          resizeData.startX = ev.clientX;
+          resizeData.startY = ev.clientY;
+          resizeData.startWidth = ui.offsetWidth;
+          resizeData.startHeight = ui.offsetHeight;
+          resizeData.startLeft = ui.offsetLeft;
+          resizeData.startTop = ui.offsetTop;
+          handleEl.setPointerCapture?.(ev.pointerId);
+          handleEl.classList.add("active");
+          ui.style.transition = "none";
+          ui.style.userSelect = "none";
+        };
+
+        handleEl.onpointermove = (ev) => {
+          if (!resizeData.active) return;
+          const dx = ev.clientX - resizeData.startX;
+          const dy = ev.clientY - resizeData.startY;
+          let newWidth = resizeData.startWidth;
+          let newHeight = resizeData.startHeight;
+          let newLeft = resizeData.startLeft;
+          let newTop = resizeData.startTop;
+
+          switch (resizeData.handle) {
+            case "br":
+              newWidth = resizeData.startWidth + dx;
+              newHeight = resizeData.startHeight + dy;
+              break;
+            case "bl":
+              newWidth = resizeData.startWidth - dx;
+              newHeight = resizeData.startHeight + dy;
+              newLeft = resizeData.startLeft + dx;
+              break;
+            case "tr":
+              newWidth = resizeData.startWidth + dx;
+              newHeight = resizeData.startHeight - dy;
+              newTop = resizeData.startTop + dy;
+              break;
+            case "tl":
+              newWidth = resizeData.startWidth - dx;
+              newHeight = resizeData.startHeight - dy;
+              newLeft = resizeData.startLeft + dx;
+              newTop = resizeData.startTop + dy;
+              break;
+          }
+
+          applyResize(newWidth, newHeight, newLeft, newTop);
+        };
+
+        handleEl.onpointerup = (ev) => {
+          if (!resizeData.active) return;
+          resizeData.active = false;
+          handleEl.releasePointerCapture?.(ev.pointerId);
+          handleEl.classList.remove("active");
+          ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+          ui.style.userSelect = "";
+          saveUIState({
+            minimized: false,
+            width: ui.style.width,
+            height: ui.style.height,
+            left: ui.style.left,
+            top: ui.style.top,
+          });
+        };
+      };
+
+      initResizeHandle("t212-resize-tl", "tl");
+      initResizeHandle("t212-resize-tr", "tr");
+      initResizeHandle("t212-resize-bl", "bl");
+      initResizeHandle("t212-resize-br", "br");
+
+      /* Prevent resize from interfering with minimize/restore */
+      ui.ondragstart = () => false;
 
       const bBtn = document.getElementById("t212-btn-back");
       if (bBtn) bBtn.style.display = "flex";
