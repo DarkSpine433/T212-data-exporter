@@ -1252,12 +1252,44 @@ async function getData(
       const saveUIState = (state) => {
         try {
           sessionStorage.setItem("t212_ui_state", JSON.stringify(state));
+          // Persist window dimensions to localStorage for cross-session recall
+          const sizeState = {
+            width: state.width,
+            height: state.height,
+            left: state.left,
+            top: state.top,
+          };
+          localStorage.setItem("t212_window_size", JSON.stringify(sizeState));
         } catch (e) {}
       };
       const loadUIState = () => {
         try {
           const s = sessionStorage.getItem("t212_ui_state");
           return s ? JSON.parse(s) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      // Load persisted window dimensions from localStorage
+      const loadWindowSize = () => {
+        try {
+          const s = localStorage.getItem("t212_window_size");
+          if (!s) return null;
+          const size = JSON.parse(s);
+          // Validate that stored dimensions are reasonable
+          const w = parseFloat(size.width);
+          const h = parseFloat(size.height);
+          if (
+            size.width &&
+            size.height &&
+            !isNaN(w) &&
+            !isNaN(h) &&
+            w >= MIN_WIDTH &&
+            h >= MIN_HEIGHT
+          ) {
+            return { ...size, _parsedWidth: w, _parsedHeight: h };
+          }
+          return null;
         } catch (e) {
           return null;
         }
@@ -1284,13 +1316,24 @@ async function getData(
         ui.style.top =
           Math.max(0, Math.min(window.innerHeight - 120, r.top)) + "px";
 
-        saveUIState({ minimized: true, side: side, top: ui.style.top });
+        saveUIState({
+          minimized: true,
+          side: side,
+          top: ui.style.top,
+          width: r.width + "px",
+          height: r.height + "px",
+        });
       };
 
       const restoreUI = () => {
         if (!ui) return;
         const r = ui.getBoundingClientRect();
         const side = ui.classList.contains("on-right") ? "right" : "left";
+
+        // Load previously saved window dimensions for restore
+        const savedSize = loadWindowSize();
+        const restoredWidth = savedSize?.width || "380px";
+        const restoredHeight = savedSize?.height;
 
         ui.style.transition = "none";
         ui.classList.remove(
@@ -1300,7 +1343,7 @@ async function getData(
           "dragging",
         );
 
-        ui.style.width = "380px";
+        ui.style.width = restoredWidth;
         ui.style.height = "auto";
         const targetHeight = ui.getBoundingClientRect().height;
 
@@ -1317,7 +1360,12 @@ async function getData(
         ui.style.transition = "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
 
         const targetLeft =
-          side === "right" ? Math.max(6, window.innerWidth - 380 - 6) : 6;
+          side === "right"
+            ? Math.max(
+                6,
+                window.innerWidth - (savedSize?._parsedWidth || 380) - 6,
+              )
+            : 6;
         const targetTop = Math.max(
           6,
           Math.min(window.innerHeight - targetHeight - 6, r.top),
@@ -1325,11 +1373,15 @@ async function getData(
 
         ui.style.left = targetLeft + "px";
         ui.style.top = targetTop + "px";
-        ui.style.width = "380px";
+        ui.style.width = restoredWidth;
         ui.style.height = targetHeight + "px";
 
         ui.style.right = "auto";
-        saveUIState({ minimized: false });
+        saveUIState({
+          minimized: false,
+          width: restoredWidth,
+          height: targetHeight + "px",
+        });
 
         setTimeout(() => {
           if (!isMinimized && ui) {
@@ -1832,6 +1884,34 @@ async function getData(
             minimizeUI(side);
             if (st.top) ui.style.top = st.top;
           }, 50);
+        } else if (st && !st.minimized) {
+          // Restore saved window dimensions when UI is shown (not minimized)
+          const savedSize = loadWindowSize();
+          if (savedSize?.width && savedSize?.height) {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const isMobile = vw < 768;
+            const maxWidth = isMobile ? vw - 16 : Math.min(vw - 32, 600);
+            const maxHeight = isMobile ? vh - 32 : Math.min(vh - 32, 800);
+            const clampedWidth = Math.max(
+              MIN_WIDTH,
+              Math.min(maxWidth, parseFloat(savedSize.width)),
+            );
+            const clampedHeight = Math.max(
+              MIN_HEIGHT,
+              Math.min(maxHeight, parseFloat(savedSize.height)),
+            );
+
+            ui.style.width = clampedWidth + "px";
+            ui.style.height = clampedHeight + "px";
+
+            if (savedSize.left) {
+              ui.style.left = savedSize.left;
+            }
+            if (savedSize.top) {
+              ui.style.top = savedSize.top;
+            }
+          }
         }
       } catch (e) {}
     }
