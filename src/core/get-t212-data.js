@@ -1103,7 +1103,9 @@ async function getData(
             <button id="t212-toggle-logs" class="t212-btn-icon" style="flex:1; font-size:13px; gap:8px;">${eyeIcon} ${isLogsVisible ? t("ui_hide_logs") : t("ui_show_logs")}</button>
           </div>
           <div class="t212-error-box" id="t212-error-box">
-            <div class="t212-error-header"><span>${t("ui_errors")}</span><a href="https://github.com/DarkSpine433/T212-data-exporter/issues" target="_blank" class="t212-report-btn">${t("ui_report_bug")}</a></div>
+            <div class="t212-error-header"><span>${t("ui_errors")}</span><a href="https://github.com/DarkSpine433/T212-data-exporter/issues" target="_blank" 
+            style="color:#fff; font-size:10px; font-weight:600; text-decoration:none;"
+            class="t212-report-btn">${t("ui_report_bug")}</a></div>
             <div id="t212-error-list"></div>
           </div>
           <div class="t212-logs-wrapper" id="t212-logs-wrapper">
