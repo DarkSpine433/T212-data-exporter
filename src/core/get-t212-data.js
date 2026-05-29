@@ -1346,11 +1346,18 @@ async function getData(
         minimizeUI(side);
       };
 
-      /* double-click on container to minimize — identical to collapse button */
-      ui.addEventListener("dblclick", (e) => {
+      /* double-click on header to minimize —*/
+      headerEl.addEventListener("dblclick", (e) => {
+        if (isMinimized) return;
+        if (
+          e.target.closest(".t212-btn-icon") ||
+          e.target.closest("a") ||
+          e.target.closest("input") ||
+          e.target.closest("button")
+        )
+          return;
         e.preventDefault();
         e.stopPropagation();
-        if (isMinimized) return;
         const r = ui.getBoundingClientRect();
         const side =
           r.left + r.width / 2 > window.innerWidth / 2 ? "right" : "left";
