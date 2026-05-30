@@ -9,6 +9,9 @@
     <script src="./src/utils/ad-manager.js"></script>
     <script src="./src/components/AdSidebar.js"></script>
     <script src="./src/components/AdBanner.js"></script>
+    <!-- Terser CDN — minifies the exported bookmarklet/console code client-side -->
+    <script src="https://cdn.jsdelivr.net/npm/source-map@0.7.3/dist/source-map.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/terser/dist/bundle.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -772,6 +775,7 @@
     </script>
     <script type="module">
       import { getData, getInstruction } from "./src/core/get-t212-data.js";
+      import { getCompressedCodeofGetData } from "./src/core/compressed-code-of-get-t212-data.js";
       document
         .querySelectorAll(".date")
         .forEach((el) => (el.textContent = "03.03.2026"));
@@ -783,7 +787,8 @@
           .join(", ");
       });
 
-      const rawCode = getData.toString();
+      const rawCode = await getCompressedCodeofGetData();
+      console.log("Raw code length:", rawCode);
       const currentUrl = window.location.origin + window.location.pathname;
       const scriptUrl =
         currentUrl.replace("index.html", "") + "./src/core/get-t212-data.js";
@@ -812,7 +817,7 @@
       document.getElementById("t212-bookmarklet").href = bookmarkletCode;
 
       document.getElementById("raw-code-input").textContent =
-        `/*${getInstruction()}*/\n\n${rawCode}\n getData()`;
+        `/*${getInstruction()}*/\n\n${rawCode}\n t()`;
 
       document.getElementById("bookmarklet-code-input").textContent =
         bookmarkletCode;
