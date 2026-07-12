@@ -54,7 +54,8 @@ const langTranslations = {
     instructions_header: "Instrukcje",
     info_date:
       "ℹ️ <b>INFO:</b> Jeśli Twoja zapisana zakładka jest starsza niż 01.05.2026 r., usuń ją i dodaj ponownie. Możesz również skopiować aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w pole adresu istniejącej zakładki, aby cieszyć się najnowszymi poprawkami. i już od tego momentu nie będziesz musiał za każdym razem zmieniać zakładki ponieważ kod będzie ciągle aktualny",
-    warning_account: "⚠️ <b>WAŻNE:</b> Uruchamiaj skrypt będąc na koncie CFD.",
+    warning_account:
+      "⚠️ <b>WAŻNE:</b> Uruchamiaj skrypt będąc na koncie Crypto. Dla kont CFD dostępny jest już natywny eksport w aplikacji Trading 212.",
     warning_spam:
       "⚠️ <b>WAŻNE:</b> Nie uruchamiaj skryptu kilkukrotnie w ciągu kilku minut! Może to skutkować blokadą dostępu do Trading212 na około 5 minut.",
     opt1_title: "Opcja 1: Zakładka Bookmarklet (PC)",
@@ -128,7 +129,8 @@ const langTranslations = {
     fix_why_p:
       'Nowoczesne zabezpieczenia stron (Content Security Policy oraz Same Origin Policy / CORS) czasem blokują skrypty "wstrzykiwane" przez zakładki lub pobierane z zewnętrznych serwerów. Ręczne wklejenie kodu do konsoli całkowicie omija te restrykcje, ponieważ kod jest uruchamiany bezpośrednio w kontekście strony.',
     fix_cors_t: "Błąd CORS / SOP",
-    fix_cors_p: "Gdy przeglądarka blokuje połączenie z serwerem zewnętrznym (np. GitHub), zobaczysz błąd Same Origin Policy. Konsola jest jedynym sposobem na bezpieczne uruchomienie skryptu w takiej sytuacji.",
+    fix_cors_p:
+      "Gdy przeglądarka blokuje połączenie z serwerem zewnętrznym (np. GitHub), zobaczysz błąd Same Origin Policy. Konsola jest jedynym sposobem na bezpieczne uruchomienie skryptu w takiej sytuacji.",
     fix_s1: 'Skopiuj poniższy kod przyciskiem <strong>"Kopiuj Kod"</strong>.',
     fix_s2:
       "Przejdź do karty z otwartym <strong>Trading212</strong> i naciśnij <kbd>F12</kbd> (lub Prawy Przycisk -> Zbadaj -> Konsola).",
@@ -154,6 +156,20 @@ const langTranslations = {
       "Jeśli główny przycisk często zawodzi na Twojej przeglądarce, użyj poniższego kodu jako adresu swojej zakładki. Zawsze otworzy on tę stronę pomocy w nowej karcie.",
     fix_change_link:
       "Zmień adres swojej zakładki na powyższy kod, aby mieć szybki dostęp do tej instrukcji.",
+
+    // CFD Instruction translations
+    cfg_cfd_submit: "Zobacz instrukcję",
+    cfd_inst_title: "Instrukcja dla kont CFD",
+    cfd_inst_desc:
+      "Dla kont CFD zalecamy korzystanie z natywnej funkcji eksportu w aplikacji Trading212 (CSV). To najszybsza i najpewniejsza metoda.",
+    cfd_inst_step1: "Menu → Historia",
+    cfd_inst_step2: "Tapnij ikonę eksportu → wybierz zakres dat",
+    cfd_inst_step3: "Pobierz CSV i załaduj do kalkulatora",
+    cfd_inst_back: "← Wróć do konfiguracji",
+    cfd_inst_native_cta:
+      '🚀 Natywny eksport: Użyj funkcji eksportu w aplikacji Trading212. Pobierz CSV i załaduj do <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.',
+    cfd_inst_warning:
+      "ℹ️ <b>Dla kont CFD zalecamy korzystanie z natywnego eksportu.</b>",
   },
   en: {
     pp_title: "Privacy Policy | T212 CFD Data Exporter",
@@ -210,7 +226,7 @@ const langTranslations = {
     info_date:
       "ℹ️ <b>INFO:</b> If your saved bookmark is older than April 17, 2026, please delete it and add it again. Alternatively, you can copy the current code from the mobile instructions and paste it into the URL field of your existing bookmark to enjoy the latest fixes. From this point on, you won't need to change your bookmark every time, as the code will remain constantly up to date.",
     warning_account:
-      "⚠️ <b>IMPORTANT:</b> Run the script while on your CFD account.",
+      "⚠️ <b>IMPORTANT:</b> Run the script while on your Crypto account. For CFD accounts, native export is now available in the Trading 212 app.",
     warning_spam:
       "⚠️ <b>IMPORTANT:</b> Do not run the script multiple times within a few minutes! This may result in blocking access to Trading212 for about 5 minutes.",
     opt1_title: "Option 1: Bookmarklet (PC)",
@@ -283,8 +299,10 @@ const langTranslations = {
     fix_why_p:
       'Modern security features (Content Security Policy and Same Origin Policy / CORS) sometimes block scripts "injected" via bookmarks or downloaded from external servers. Manually pasting the code into the console completely bypasses these restrictions because the code runs directly in the page context.',
     fix_cors_t: "CORS / SOP Error",
-    fix_cors_p: "When the browser blocks a connection to an external server (like GitHub), you will see a Same Origin Policy error. The console is the only way to safely execute the script in this situation.",
-    fix_s1: 'Copy the code below using the <strong>"Copy Code"</strong> button.',
+    fix_cors_p:
+      "When the browser blocks a connection to an external server (like GitHub), you will see a Same Origin Policy error. The console is the only way to safely execute the script in this situation.",
+    fix_s1:
+      'Copy the code below using the <strong>"Copy Code"</strong> button.',
     fix_s2:
       "Go to the tab with <strong>Trading212</strong> open and press <kbd>F12</kbd> (or Right Click -> Inspect -> Console).",
     fix_s3: "Paste the code into the console and press <kbd>Enter</kbd>.",
@@ -308,6 +326,20 @@ const langTranslations = {
       "If the main button often fails on your browser, use the code below as your bookmark address. It will always open this help page in a new tab.",
     fix_change_link:
       "Change your bookmark URL to the code above for quick access to this instruction.",
+
+    // CFD Instruction translations
+    cfg_cfd_submit: "View Instructions",
+    cfd_inst_title: "Instructions for CFD Accounts",
+    cfd_inst_desc:
+      "For CFD accounts, we recommend using the native export function in the Trading212 app (CSV). This is the fastest and most reliable method.",
+    cfd_inst_step1: "Menu → History",
+    cfd_inst_step2: "Tap export icon → select date range",
+    cfd_inst_step3: "Download CSV and upload to calculator",
+    cfd_inst_back: "← Back to Configuration",
+    cfd_inst_native_cta:
+      '🚀 Native Export: Use the export function in the Trading212 app. Download CSV and upload to <b><a href="https://kalkulatorgieldowy.pl" target="_blank" style="color:#3b82f6;">Kalkulatorgieldowy.pl</a></b>.',
+    cfd_inst_warning:
+      "ℹ️ <strong>For CFD accounts, we recommend using native export.</strong>",
   },
 };
 

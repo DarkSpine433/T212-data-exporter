@@ -199,8 +199,137 @@
     </script>
   </head>
   <body>
+    <style>
+      :root {
+        --radius: 12px;
+        --transition: all 0.2s ease-in-out;
+      }
+
+      /* Reset i ogólny układ */
+      .app-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .content-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      /* Sekcje instrukcji jako nowoczesne karty */
+      .instruction-section {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .instruction-section h2,
+      .instruction-section h3 {
+        margin-top: 0;
+      }
+
+      /* Listy kroków */
+      ol {
+        padding-left: 20px;
+        margin: 12px 0;
+      }
+      ol li {
+        margin-bottom: 8px;
+      }
+
+      /* Blok kodu */
+      .code-wrapper {
+        position: relative;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        margin: 16px 0;
+      }
+
+      pre {
+        text-align: left;
+        white-space: pre-wrap;
+        word-break: break-all;
+        padding: 14px;
+        margin: 0;
+      }
+
+      .copy-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 14px;
+        border-top: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      /* Separatory */
+      .section-divider {
+        border: 0;
+        height: 1px;
+        background: var(--border);
+        margin: 32px 0;
+      }
+
+      /* --- MINIMALISTYCZNA WERSJA MOBILNA --- */
+      @media (max-width: 768px) {
+        .app-container {
+          padding: 8px !important; /* Maksymalnie ściśnięty kontener główny */
+        }
+
+        header {
+          padding: 12px 4px !important;
+          text-align: center;
+        }
+
+        header h1 {
+          font-size: 1.6rem !important;
+        }
+
+        .tool-card,
+        .instruction-section,
+        .step-box {
+          padding: 12px !important; /* Minimalistyczne paddingi wewnątrz kart */
+          margin-bottom: 12px !important;
+          border-radius: 8px !important;
+        }
+
+        ol {
+          padding-left: 16px !important;
+        }
+
+        pre {
+          padding: 10px !important;
+          font-size: 0.8rem !important;
+        }
+
+        .copy-bar {
+          padding: 6px 10px !important;
+        }
+
+        .section-divider {
+          margin: 20px 0 !important; /* Mniejsze przerwy między sekcjami */
+        }
+
+        #browsers-dialog {
+          padding: 16px !important;
+          width: 95% !important;
+        }
+
+        .gif-instruction {
+          width: 100% !important;
+          max-width: 240px;
+        }
+      }
+    </style>
+
     <language-switcher></language-switcher>
     <buy-me-coffee></buy-me-coffee>
+
     <div class="bg-canvas">
       <div class="glow-orb orb-1"></div>
       <div class="glow-orb orb-2"></div>
@@ -212,81 +341,131 @@
       <ad-sidebar position="left"></ad-sidebar>
       <ad-sidebar position="right"></ad-sidebar>
 
-      <div class="app-container">
-        <header class="p-4 transition-all">
-          <div class="logo-badge">
-            <img src="src/assets/icons/android-chrome-192x192.png" alt="Logo" />
-            <span>Trading212 Tool</span>
+      <header class="p-4 transition-all">
+        <div class="logo-badge">
+          <img src="src/assets/icons/android-chrome-192x192.png" alt="Logo" />
+          <span>Trading212 Tool</span>
+        </div>
+
+        <h1 class="text-gradient" data-i18n="title_main">
+          CFD & Crypto Data Exporter
+        </h1>
+
+        <p class="subtitle" data-i18n="subtitle">
+          Eksportuj transakcje CFD oraz Crypto do formatu
+          <strong><kbd>JSON</kbd></strong> oraz <strong><kbd>CSV</kbd></strong>
+          <br />Bezpiecznie i za darmo.
+        </p>
+
+        <a
+          data-i18n="partner_link"
+          href="https://kalkulatorgieldowy.pl/"
+          target="_blank"
+          class="partnership-badge"
+        >
+          🤝 Narzędzie współpracuje z kalkulatorgieldowy.pl
+        </a>
+      </header>
+
+      <div class="content-wrapper">
+        <nav id="menu">
+          <a href="#markdown-content" data-i18n="nav_about">O Narzędziu</a>
+          <a href="#instructions-header" data-i18n="nav_instructions"
+            >Instrukcje</a
+          >
+        </nav>
+
+        <main class="tool-card">
+          <ad-banner></ad-banner>
+          <div id="markdown-content">Loading github markdown...</div>
+
+          <hr class="section-divider" />
+          <ad-banner></ad-banner>
+          <hr class="section-divider" />
+
+          <h2
+            id="instructions-header"
+            data-i18n="instructions_header"
+            style="margin-bottom: 20px"
+          >
+            Instrukcje
+          </h2>
+
+          <div class="instruction-section">
+            <h2>Instrukcja dla kont CFD</h2>
+            <p
+              style="
+                color: var(--text-muted);
+                font-size: 0.95rem;
+                margin: 8px 0;
+              "
+            >
+              Kont CFD: użyj natywnej funkcji eksportu w aplikacji Trading212
+              (CSV). To najszybsza i najpewniejsza metoda.
+            </p>
+            <ol>
+              <li>Menu → Historia</li>
+              <li>Tapnij ikonę eksportu → wybierz zakres dat</li>
+              <li>Pobierz CSV i załaduj do kalkulatora</li>
+            </ol>
+            <div style="text-align: center; margin-top: 12px">
+              <img
+                class="gif-instruction"
+                src="https://raw.githubusercontent.com/DarkSpine433/T212-data-exporter/main/src/assets/export-instrucion.gif"
+                alt="Instrukcja eksportu CFD"
+                width="260"
+                style="
+                  border-radius: 10px;
+                  border: 1px solid rgba(255, 255, 255, 0.06);
+                "
+              />
+            </div>
           </div>
 
-          <h1 class="text-gradient" data-i18n="title_main">
-            CFD & Crypto Data Exporter
-          </h1>
+          <div class="info-box" style="margin: 20px 0">
+            <span data-i18n="info_date">
+              ℹ️ <b>INFO:</b> Jeśli Twoja zapisana zakładka jest starsza niż
+              04.05.2026 r., usuń ją i dodaj ponownie. Możesz również skopiować
+              aktualny kod z instrukcji dla urządzeń mobilnych i wkleić go w
+              pole adresu istniejącej zakładki, aby cieszyć się najnowszymi
+              poprawkami. Od tego momentu kod będzie aktualizował się
+              automatycznie.
+            </span>
+          </div>
 
-          <p class="subtitle" data-i18n="subtitle">
-            Eksportuj transakcje CFD oraz Crypto do formatu
-            <strong><kbd>JSON</kbd></strong> oraz
-            <strong><kbd>CSV</kbd></strong> <br />Bezpiecznie i za darmo.
-          </p>
-          <a
-            data-i18n="partner_link"
-            href="https://kalkulatorgieldowy.pl/"
-            target="_blank"
-            class="partnership-badge"
-            >🤝 Narzędzie współpracuje z kalkulatorgieldowy.pl</a
-          >
-        </header>
+          <h2 data-i18n="crypto_title" style="margin-top: 30px">
+            Instrukcja dla kont Crypto
+          </h2>
 
-        <div class="content-wrapper">
-          <nav id="menu">
-            <a href="#markdown-content" data-i18n="nav_about">O Narzędziu</a>
-            <a href="#instructions-header" data-i18n="nav_instructions"
-              >Instrukcje</a
+          <div class="instruction-section">
+            <h3 data-i18n="opt1_title">Opcja 1: Zakładka Bookmarklet (PC)</h3>
+            <div
+              class="step-box"
+              style="
+                text-align: center;
+                background: rgba(0, 0, 0, 0.1);
+                padding: 16px;
+                border-radius: 8px;
+              "
             >
-          </nav>
-          <main class="tool-card">
-            <ad-banner></ad-banner>
-            <div id="markdown-content">Loading github markdown...</div>
-            <hr style="margin-top: 40px; margin-bottom: 40px" />
-            <ad-banner></ad-banner>
-            <hr style="margin-top: 40px" />
-            <h2 id="instructions-header" data-i18n="instructions_header">
-              Instrukcje
-            </h2>
-
-            <div class="info-box">
-              <span data-i18n="info_date">
-                ℹ️ <b>INFO:</b> Jeśli Twoja zapisana zakładka jest starsza niż
-                04.05.2026 r., usuń ją i dodaj ponownie. Możesz również
-                skopiować aktualny kod z instrukcji dla urządzeń mobilnych i
-                wkleić go w pole adresu istniejącej zakładki, aby cieszyć się
-                najnowszymi poprawkami. i już od tego momentu nie będziesz
-                musiał za każdym razem zmieniać zakładki ponieważ kod będzie
-                ciągle aktualny
-              </span>
-            </div>
-
-            <hr style="margin: 40px 0 20px 0" />
-            <h3
-              style="text-align: left; margin-top: 20px"
-              data-i18n="opt1_title"
-            >
-              Opcja 1: Zakładka Bookmarklet (PC)
-            </h3>
-            <div class="step-box" style="text-align: center">
-              <h3 data-i18n="step1_title">Krok 1: Dodawanie zakładki</h3>
-              <p style="margin-bottom: 20px" data-i18n="step1_desc">
+              <h3 data-i18n="step1_title" style="font-size: 1.1rem">
+                Krok 1: Dodawanie zakładki
+              </h3>
+              <p
+                style="margin-bottom: 16px; font-size: 0.9rem"
+                data-i18n="step1_desc"
+              >
                 Przeciągnij przycisk na pasek zakładek.
               </p>
               <a
                 id="t212-bookmarklet"
                 href="javascript:void(0)"
                 class="bookmark-btn"
-                >🚀 T212 Export Tool
-              </a>
+                >🚀 T212 Export Tool</a
+              >
               <p
                 style="
-                  margin-top: 20px;
+                  margin-top: 16px;
                   font-size: 0.85rem;
                   color: var(--text-muted);
                 "
@@ -298,12 +477,11 @@
               </p>
             </div>
 
-            <div>
+            <div style="margin-top: 24px">
               <h3
                 style="
                   border-bottom: 1px solid var(--border);
-                  padding-bottom: 10px;
-                  text-align: left;
+                  padding-bottom: 8px;
                 "
               >
                 <span data-i18n="quick_inst_title"
@@ -329,8 +507,8 @@
                 <li>
                   <span data-i18n="qi_3"
                     >W oknie które się pojawi wybierz z listy
-                    <b>walutę swojego konta</b> i wybierz daty <b>OD</b> oraz
-                    <b>DO</b>. Transakcji które mają zostać pobrane</span
+                    <b>walutę swojego konta</b> oraz daty <b>OD</b> i
+                    <b>DO</b>.</span
                   >
                 </li>
                 <li>
@@ -344,54 +522,50 @@
                     >Wczytaj plik na platformie
                     <a href="https://kalkulatorgieldowy.pl/" target="_blank"
                       ><b>kalkulatorgieldowy.pl</b></a
-                    >, z którą narzędzie zostało wykonane we współpracy.</span
+                    >.</span
                   >
                 </li>
               </ol>
             </div>
-            <hr style="margin: 40px 0 20px 0" />
-            <hr style="margin: 40px 0 20px 0" />
-            <div class="copy-section">
-              <h3 data-i18n="opt2_title">Opcja 2: Konsola DevTools</h3>
-              <p style="font-size: 0.9rem; color: var(--text-muted)">
-                <span data-i18n="opt2_desc"
-                  >Skopiuj kod i wklej go w zakładce <b>Console</b> (F12) na
-                  stronie Trading212.</span
-                >
-              </p>
+          </div>
 
-              <div class="code-wrapper">
-                <pre
-                  id="raw-code-input"
-                  style="
-                    text-align: left;
-                    white-space: wrap;
-                    word-break: break-all;
-                    max-height: 400px;
-                    overflow-y: auto;
-                  "
-                >
+          <hr class="section-divider" />
+
+          <div class="instruction-section copy-section">
+            <h3 data-i18n="opt2_title">Opcja 2: Konsola DevTools</h3>
+            <p
+              style="font-size: 0.9rem; color: var(--text-muted); margin: 4px 0"
+            >
+              <span data-i18n="opt2_desc"
+                >Skopiuj kod i wklej go w zakładce <b>Console</b> (F12) na
+                stronie Trading212.</span
+              >
+            </p>
+
+            <div class="code-wrapper">
+              <pre
+                id="raw-code-input"
+                style="max-height: 300px; overflow-y: auto"
+              >
 Ładowanie kodu...</pre
+              >
+              <div class="copy-bar">
+                <span
+                  id="copy-status"
+                  style="color: var(--success); font-size: 0.8rem; opacity: 0"
+                  ><span data-i18n="copy_status">Skopiowano!</span></span
                 >
-                <div class="copy-bar">
-                  <span
-                    id="copy-status"
-                    style="color: var(--success); font-size: 0.8rem; opacity: 0"
-                    ><span data-i18n="copy_status">Skopiowano!</span></span
-                  >
-                  <button class="copy-btn" onclick="copyRawCode()">
-                    <span data-i18n="copy_btn">Kopiuj kod skryptu</span>
-                  </button>
-                </div>
+                <button class="copy-btn" onclick="copyRawCode()">
+                  <span data-i18n="copy_btn">Kopiuj kod skryptu</span>
+                </button>
               </div>
             </div>
-            <div style="margin-top: 30px">
+
+            <div style="margin-top: 24px">
               <h3
                 style="
                   border-bottom: 1px solid var(--border);
-                  padding-bottom: 10px;
-                  text-align: left;
-                  padding-left: 10px;
+                  padding-bottom: 8px;
                 "
               >
                 <span data-i18n="full_inst_f12_title"
@@ -400,21 +574,14 @@
               </h3>
               <ol>
                 <li data-i18n="fi_1">
-                  Skopiuj kod przyciskiem <b>"Kopiuj kod skryptu"</b> (sekcja
-                  powyżej).
+                  Skopiuj kod przyciskiem <b>"Kopiuj kod skryptu"</b> powyżej.
                 </li>
                 <li>
-                  <span data-i18n="qi_1"
-                    >Otwórz stronę <b>Trading212</b> (<a
-                      target="_blank"
-                      href="https://app.trading212.com"
-                      >app.trading212.com</a
-                    >).</span
-                  >
+                  <span data-i18n="qi_1">Otwórz stronę <b>Trading212</b>.</span>
                 </li>
                 <li>
                   <span data-i18n="fi_3"
-                    >Otwórz narzędzia deweloperskie: naciśnij klawisz
+                    >Otwórz narzędzia deweloperskie klawiszem
                     <kbd>F12</kbd>.</span
                   >
                 </li>
@@ -425,26 +592,23 @@
                 </li>
                 <li>
                   <span data-i18n="fi_5"
-                    >Wklej skopiowany wcześniej kod skryptu i naciśnij
-                    <kbd>Enter</kbd>. <br /><small
-                      style="color: var(--text-muted)"
+                    >Wklej skopiowany kod skryptu i naciśnij
+                    <kbd>Enter</kbd>.<br />
+                    <small style="color: var(--text-muted)"
                       >* Jeśli przeglądarka blokuje wklejanie, wpisz ręcznie
-                      <code>allow pasting</code> i naciśnij Enter, a następnie
-                      spróbuj ponownie.</small
+                      <code>allow pasting</code>, kliknij Enter i spróbuj
+                      ponownie.</small
                     ></span
                   >
                 </li>
                 <li>
                   <span data-i18n="qi_3"
-                    >W oknie które się pojawi wybierz z listy
-                    <b>walutę swojego konta</b> i wybierz daty <b>OD</b> oraz
-                    <b>DO</b>. Transakcji które mają zostać pobrane</span
+                    >Wybierz walutę oraz zakres dat transakcji.</span
                   >
                 </li>
                 <li>
                   <span data-i18n="qi_4"
-                    >Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
-                    <b>.json</b>.</span
+                    >Poczekaj na pobranie pliku <b>.json</b>.</span
                   >
                 </li>
                 <li>
@@ -452,283 +616,251 @@
                     >Wczytaj plik na platformie
                     <a href="https://kalkulatorgieldowy.pl/" target="_blank"
                       ><b>kalkulatorgieldowy.pl</b></a
-                    >, z którą narzędzie zostało wykonane we współpracy.</span
+                    >.</span
                   >
                 </li>
               </ol>
             </div>
-            <hr style="margin: 60px 0 0px 0" />
-            <div style="margin-top: 70px">
+          </div>
+
+          <hr class="section-divider" />
+
+          <div class="instruction-section">
+            <h3
+              style="
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 8px;
+              "
+            >
+              <span data-i18n="mobile_inst_title"
+                >📱 Pełna Instrukcja dla urządzeń mobilnych</span
+              >
+            </h3>
+
+            <button
+              onclick="openBrowsersDialog()"
+              class="copy-btn"
+              style="margin: 12px 0; background: var(--accent); color: white"
+              data-i18n="supported_browsers_btn"
+            >
+              Lista wspieranych przeglądarek
+            </button>
+
+            <style>
+              #browsers-dialog::backdrop {
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(4px);
+              }
+              #browsers-dialog {
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                background: var(--card-bg);
+                color: var(--text-main);
+                box-shadow: var(--shadow-lg);
+              }
+            </style>
+
+            <dialog
+              id="browsers-dialog"
+              class="tool-card"
+              style="max-width: 500px; margin: auto; padding: 24px"
+            >
               <h3
-                style="
-                  border-bottom: 1px solid var(--border);
-                  padding-bottom: 10px;
-                  text-align: left;
-                  padding-left: 10px;
-                "
+                data-i18n="browsers_dialog_title"
+                style="margin-top: 0; margin-bottom: 12px"
               >
-                <span data-i18n="mobile_inst_title"
-                  >📱 Pełna Instrukcja dla urządzeń mobilnych</span
-                >
+                Wspierane przeglądarki mobilne
               </h3>
-
-              <button
-                onclick="openBrowsersDialog()"
-                class="copy-btn"
-                style="
-                  margin-top: 10px;
-                  background: var(--accent);
-                  color: white;
-                "
-                data-i18n="supported_browsers_btn"
-              >
-                Lista wspieranych przeglądarek
-              </button>
-
-              <style>
-                #browsers-dialog::backdrop {
-                  background: rgba(0, 0, 0, 0.6);
-                  backdrop-filter: blur(4px);
-                }
-                #browsers-dialog {
-                  border: 1px solid var(--border);
-                  border-radius: var(--radius);
-                  background: var(--card-bg);
-                  color: var(--text-main);
-                  box-shadow: var(--shadow-lg);
-                }
-              </style>
-
-              <dialog
-                id="browsers-dialog"
-                class="tool-card"
-                style="max-width: 500px; margin: auto; padding: 30px"
-              >
-                <h3
-                  data-i18n="browsers_dialog_title"
-                  style="margin-top: 0; margin-bottom: 15px"
-                >
-                  Wspierane przeglądarki mobilne
-                </h3>
-                <p
-                  data-i18n="browsers_dialog_desc"
-                  style="
-                    font-size: 0.9rem;
-                    line-height: 1.6;
-                    margin-bottom: 20px;
-                    color: var(--text-muted);
-                    text-align: left;
-                  "
-                >
-                  Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce
-                  mobilnej, prosimy o zgłoszenie tego w sekcji "Issues" na
-                  GitHubie lub drogą mailową. W zgłoszeniu uwzględnij nazwę
-                  przeglądarki oraz dołącz screenshot potwierdzający działanie –
-                  pomoże nam to w aktualizacji listy wspieranych środowisk!
-                </p>
-                <ul
-                  style="
-                    text-align: left;
-                    margin-bottom: 20px;
-                    color: var(--text-main);
-                    font-size: 0.95rem;
-                    list-style-type: none;
-                    padding-left: 0;
-                  "
-                >
-                  <li style="margin-bottom: 8px">✅ Firefox</li>
-                  <li style="margin-bottom: 8px">✅ Chrome</li>
-                </ul>
-                <div style="text-align: right">
-                  <button
-                    onclick="closeBrowsersDialog()"
-                    class="copy-btn"
-                    style="
-                      background: rgba(255, 255, 255, 0.1);
-                      color: var(--text-main);
-                    "
-                    data-i18n="close_btn"
-                  >
-                    Zamknij
-                  </button>
-                </div>
-              </dialog>
-
-              <script>
-                const browsersDialog =
-                  document.getElementById("browsers-dialog");
-
-                function openBrowsersDialog() {
-                  browsersDialog.showModal();
-                  history.pushState({ dialogOpen: true }, "");
-                }
-
-                function closeBrowsersDialog() {
-                  if (browsersDialog.open) {
-                    history.back();
-                  }
-                }
-
-                window.addEventListener("popstate", () => {
-                  if (browsersDialog.open) {
-                    browsersDialog.close();
-                  }
-                });
-
-                browsersDialog.addEventListener("cancel", (e) => {
-                  e.preventDefault();
-                  closeBrowsersDialog();
-                });
-              </script>
-              <div class="code-wrapper">
-                <pre
-                  id="bookmarklet-code-input"
-                  style="
-                    text-align: left;
-                    white-space: wrap;
-                    word-break: break-all;
-                    max-height: 100px;
-                    overflow-y: auto;
-                  "
-                >
-Ładowanie kodu...</pre
-                >
-                <div class="copy-bar">
-                  <span
-                    id="copy-status-2"
-                    style="color: var(--success); font-size: 0.8rem; opacity: 0"
-                    ><span data-i18n="copy_status">Skopiowano!</span></span
-                  >
-                  <button class="copy-btn" onclick="copyBookmarkletCode()">
-                    <span data-i18n="copy_btn">Kopiuj kod skryptu</span>
-                  </button>
-                </div>
-              </div>
-              <ol>
-                <li data-i18n="fi_1">
-                  Skopiuj kod przyciskiem <b>"Kopiuj kod skryptu"</b> (sekcja
-                  powyżej).
-                </li>
-                <li>
-                  <span data-i18n="qi_1"
-                    >Otwórz stronę <b>Trading212</b> (<a
-                      target="_blank"
-                      href="https://app.trading212.com"
-                      >app.trading212.com</a
-                    >).</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="mi_3"
-                    >W przeglądarce, dodaj ją do <b>Zakładek</b> (ikona gwiazdki
-                    lub menu udostępniania).</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="mi_4"
-                    >Przejdź do edycji tej zakładki. Zmień jej nazwę na:
-                    <kbd>🚀 T212 Export</kbd>.</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="mi_5"
-                    >W polu <b>Adres URL</b> usuń aktualny link i wklej
-                    skopiowany kod. Zapisz zmiany.</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="mi_6"
-                    ><b>Uruchomienie:</b> Będąc na zalogowanym koncie T212,
-                    kliknij w pasek adresu przeglądarki i wpisz:
-                    <kbd>T212 Export</kbd>.</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="mi_7"
-                    >Z listy podpowiedzi wybierz element z
-                    <b>ikoną gwiazdki</b> (Twoją zakładkę). Skrypt uruchomi się
-                    na stronie.</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="qi_3"
-                    >W oknie które się pojawi wybierz z listy
-                    <b>walutę swojego konta</b> i wybierz daty <b>OD</b> oraz
-                    <b>DO</b>. Transakcji które mają zostać pobrane</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="qi_4"
-                    >Zatwierdź komunikat końcowy i poczekaj na pobranie pliku
-                    <b>.json</b>.</span
-                  >
-                </li>
-                <li>
-                  <span data-i18n="qi_5"
-                    >Wczytaj plik na platformie
-                    <a href="https://kalkulatorgieldowy.pl/" target="_blank"
-                      ><b>kalkulatorgieldowy.pl</b></a
-                    >, z którą narzędzie zostało wykonane we współpracy.</span
-                  >
-                </li>
-              </ol>
               <p
+                data-i18n="browsers_dialog_desc"
                 style="
-                  font-size: 0.85rem;
-                  color: var(--warning);
-                  padding-left: 10px;
-                  margin-top: 10px;
-                  line-height: 1.4;
-                "
-              >
-                <span data-i18n="mobile_note"
-                  >⚠️ Przeglądarki mobilne blokują skrypty uruchamiane
-                  bezpośrednio z menu zakładek. Musisz wpisać nazwę zakładki w
-                  pasku adresu i wybrać ją z podpowiedzi – to jedyny sposób na
-                  start narzędzia.</span
-                >
-              </p>
-            </div>
-            <ad-banner></ad-banner>
-          </main>
-
-          <section class="attribution-card">
-            <div class="avatar" style="display: block">
-              <img
-                class="avatar-img"
-                src="https://github.com/DarkSpine433.png"
-              />
-            </div>
-            <div class="info">
-              <h4 data-i18n="dev_by">Developed by Dawid Konopiaty</h4>
-              <p
-                style="
-                  margin: 5px 0;
-                  margin-bottom: 10px;
                   font-size: 0.9rem;
+                  line-height: 1.5;
+                  margin-bottom: 16px;
                   color: var(--text-muted);
+                  text-align: left;
                 "
-                data-i18n="dev_desc"
               >
-                Pasjonat programowania i inwestowania. Ten projekt powstał z
-                myślą o ułatwieniu życia inwestorom korzystającym z Trading212
-                CFD.
+                Jeżeli udało Ci się odtworzyć skrypt na innej przeglądarce
+                mobilnej, zgłoś to w sekcji "Issues" na GitHubie lub mailowo.
               </p>
-              <div class="social-links">
-                <a href="https://github.com/DarkSpine433" target="_blank"
-                  >🔗 GitHub Profile</a
+              <ul
+                style="
+                  text-align: left;
+                  margin-bottom: 20px;
+                  color: var(--text-main);
+                  font-size: 0.95rem;
+                  list-style: none;
+                  padding-left: 0;
+                "
+              >
+                <li style="margin-bottom: 6px">✅ Firefox</li>
+                <li style="margin-bottom: 6px">✅ Chrome</li>
+              </ul>
+              <div style="text-align: right">
+                <button
+                  onclick="closeBrowsersDialog()"
+                  class="copy-btn"
+                  style="
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-main);
+                  "
+                  data-i18n="close_btn"
                 >
+                  Zamknij
+                </button>
+              </div>
+            </dialog>
+
+            <script>
+              const browsersDialog = document.getElementById("browsers-dialog");
+              function openBrowsersDialog() {
+                browsersDialog.showModal();
+                history.pushState({ dialogOpen: true }, "");
+              }
+              function closeBrowsersDialog() {
+                if (browsersDialog.open) {
+                  history.back();
+                }
+              }
+              window.addEventListener("popstate", () => {
+                if (browsersDialog.open) {
+                  browsersDialog.close();
+                }
+              });
+              browsersDialog.addEventListener("cancel", (e) => {
+                e.preventDefault();
+                closeBrowsersDialog();
+              });
+            </script>
+
+            <div class="code-wrapper">
+              <pre
+                id="bookmarklet-code-input"
+                style="max-height: 100px; overflow-y: auto"
+              >
+Ładowanie kodu...</pre
+              >
+              <div class="copy-bar">
+                <span
+                  id="copy-status-2"
+                  style="color: var(--success); font-size: 0.8rem; opacity: 0"
+                  ><span data-i18n="copy_status">Skopiowano!</span></span
+                >
+                <button class="copy-btn" onclick="copyBookmarkletCode()">
+                  <span data-i18n="copy_btn">Kopiuj kod skryptu</span>
+                </button>
               </div>
             </div>
-          </section>
-        </div>
+
+            <ol>
+              <li data-i18n="fi_1">Skopiuj kod przyciskiem powyżej.</li>
+              <li>
+                <span data-i18n="qi_1">Otwórz stronę <b>Trading212</b>.</span>
+              </li>
+              <li>
+                <span data-i18n="mi_3"
+                  >W przeglądarce dodaj stronę do <b>Zakładek</b> (ikona
+                  gwiazdki).</span
+                >
+              </li>
+              <li>
+                <span data-i18n="mi_4"
+                  >Przejdź do edycji tej zakładki. Zmień nazwę na:
+                  <kbd>🚀 T212 Export</kbd>.</span
+                >
+              </li>
+              <li>
+                <span data-i18n="mi_5"
+                  >W polu <b>Adres URL</b> usuń link i wklej skopiowany kod.
+                  Zapisz.</span
+                >
+              </li>
+              <li>
+                <span data-i18n="mi_6"
+                  ><b>Uruchomienie:</b> Będąc na zalogowanym koncie T212,
+                  kliknij pasek adresu przeglądarki i wpisz:
+                  <kbd>T212 Export</kbd>.</span
+                >
+              </li>
+              <li>
+                <span data-i18n="mi_7"
+                  >Z listy podpowiedzi wybierz element z
+                  <b>ikoną gwiazdki</b> (Twoją zakładkę).</span
+                >
+              </li>
+              <li>
+                <span data-i18n="qi_3">Wybierz walutę oraz zakres dat.</span>
+              </li>
+              <li>
+                <span data-i18n="qi_4"
+                  >Poczekaj na pobranie pliku <b>.json</b>.</span
+                >
+              </li>
+              <li>
+                <span data-i18n="qi_5"
+                  >Wczytaj plik na platformie
+                  <a href="https://kalkulatorgieldowy.pl/" target="_blank"
+                    ><b>kalkulatorgieldowy.pl</b></a
+                  >.</span
+                >
+              </li>
+            </ol>
+
+            <p
+              style="
+                font-size: 0.85rem;
+                color: var(--warning);
+                padding: 4px 0;
+                margin-top: 12px;
+                line-height: 1.4;
+              "
+            >
+              <span data-i18n="mobile_note"
+                >⚠️ Przeglądarki mobilne blokują skrypty uruchamiane
+                bezpośrednio z menu zakładek. Musisz wpisać nazwę zakładki w
+                pasku adresu i wybrać ją z podpowiedzi – to jedyny sposób.</span
+              >
+            </p>
+          </div>
+
+          <ad-banner></ad-banner>
+        </main>
+
+        <section class="attribution-card" style="margin-top: 24px">
+          <div class="avatar" style="display: block">
+            <img
+              class="avatar-img"
+              src="https://github.com/DarkSpine433.png"
+              alt="Avatar"
+            />
+          </div>
+          <div class="info">
+            <h4 data-i18n="dev_by">Developed by Dawid Konopiaty</h4>
+            <p
+              style="
+                margin: 6px 0 12px 0;
+                font-size: 0.9rem;
+                color: var(--text-muted);
+              "
+              data-i18n="dev_desc"
+            >
+              Pasjonat programowania i inwestowania. Ten projekt powstał z myślą
+              o ułatwieniu życia inwestorom korzystającym z Trading212 CFD.
+            </p>
+            <div class="social-links">
+              <a href="https://github.com/DarkSpine433" target="_blank"
+                >🔗 Profile na GitHubie</a
+              >
+            </div>
+          </div>
+        </section>
       </div>
     </div>
 
     <footer
       style="
-        margin-top: 40px;
-        margin-bottom: 20px;
+        margin: 32px 0 16px 0;
         color: var(--text-muted);
         font-size: 0.8rem;
         text-align: center;
@@ -746,6 +878,7 @@
         >Polityka Prywatności</a
       >
     </footer>
+
     <script type="module">
       import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
       async function getMarkdownData() {
@@ -766,16 +899,17 @@
       };
       await loadReadMe();
 
-      // Reload README on language change
       document
         .getElementById("lang-switcher")
         ?.addEventListener("change", () => {
           loadReadMe();
         });
     </script>
+
     <script type="module">
       import { getData, getInstruction } from "./src/core/get-t212-data.js";
       import { getCompressedCodeofGetData } from "./src/core/compressed-code-of-get-t212-data.js";
+
       document
         .querySelectorAll(".date")
         .forEach((el) => (el.textContent = "03.03.2026"));
@@ -788,37 +922,33 @@
       });
 
       const rawCode = await getCompressedCodeofGetData();
-      console.log("Raw code length:", rawCode);
       const currentUrl = window.location.origin + window.location.pathname;
       const scriptUrl =
         currentUrl.replace("index.html", "") + "./src/core/get-t212-data.js";
-
       const fixUrl =
         window.location.origin +
         "/T212-data-exporter/bookmark-blockage-fix.html";
 
       const bookmarkletCode = `javascript:(function(){
-        const url = '${scriptUrl}';
-        const fix = '${fixUrl}';
-        try {
-          const s = document.createElement('script');
-          s.src = url;
-          s.type = 'module';
-          s.onload = () => { import(url).then(m => m.getData()); };
-          s.onerror = () => { window.open(fix, '_blank'); };
-          document.head.appendChild(s);
-        } catch (e) {
-          window.open(fix, '_blank');
-        }
-      })();`
+      const url = '${scriptUrl}';
+      const fix = '${fixUrl}';
+      try {
+        const s = document.createElement('script');
+        s.src = url;
+        s.type = 'module';
+        s.onload = () => { import(url).then(m => m.getData()); };
+        s.onerror = () => { window.open(fix, '_blank'); };
+        document.head.appendChild(s);
+      } catch (e) {
+        window.open(fix, '_blank');
+      }
+    })();`
         .replace(/\n/g, "")
         .replace(/\s\s+/g, " ");
 
       document.getElementById("t212-bookmarklet").href = bookmarkletCode;
-
       document.getElementById("raw-code-input").textContent =
-        `/*${getInstruction()}*/\n\n${rawCode}\n t()`;
-
+        `/*${getInstruction()}*/\n\n${rawCode}\n e()`;
       document.getElementById("bookmarklet-code-input").textContent =
         bookmarkletCode;
 
@@ -835,6 +965,7 @@
           console.error("Błąd kopiowania:", err);
         }
       };
+
       window.copyBookmarkletCode = async function () {
         const codeText = document.getElementById(
           "bookmarklet-code-input",
@@ -851,19 +982,17 @@
         }
       };
     </script>
+
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
             .register("./sw.js")
-            .then((registration) => {
-              console.log(
-                "PWA ServiceWorker registration successful with scope: ",
-                registration.scope,
-              );
+            .then((reg) => {
+              console.log("PWA ServiceWorker registered: ", reg.scope);
             })
-            .catch((error) => {
-              console.error("PWA ServiceWorker registration failed: ", error);
+            .catch((err) => {
+              console.error("PWA ServiceWorker failed: ", err);
             });
         });
       }
